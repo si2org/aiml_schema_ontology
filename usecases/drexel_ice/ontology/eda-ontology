@@ -1,0 +1,679 @@
+// Ontology Class Diagram
+digraph {
+	EDAProcess [label="EDAProcess
+ convergenceCriteria : string
+ requiresMemory : float
+ estimatedRuntime : float" fillcolor=lightblue shape=box style=filled]
+	DesignArtifact [label=DesignArtifact fillcolor=lightblue shape=box style=filled]
+	Tool [label=Tool fillcolor=lightblue shape=box style=filled]
+	Metric [label=Metric fillcolor=lightblue shape=box style=filled]
+	Verification [label=Verification fillcolor=lightblue shape=box style=filled]
+	LogicalSynthesis [label=LogicalSynthesis fillcolor=lightblue shape=box style=filled]
+	LogicalDesign [label=LogicalDesign fillcolor=lightblue shape=box style=filled]
+	PhysicalDesign [label=PhysicalDesign fillcolor=lightblue shape=box style=filled]
+	OPC [label=OPC fillcolor=lightblue shape=box style=filled]
+	ConcurrentPhysicalOptimization [label=ConcurrentPhysicalOptimization fillcolor=lightblue shape=box style=filled]
+	Flow [label="Flow
+ timestamp : dateTime
+ runtime : float
+ toolName : string" fillcolor=lightyellow shape=box style=filled]
+	Stage [label="Stage
+ stageName : string" fillcolor=lightyellow shape=box style=filled]
+	AnalysisView [label=AnalysisView fillcolor=lightblue shape=box style=filled]
+	Corner [label=Corner fillcolor=lightblue shape=box style=filled]
+	Mode [label=Mode fillcolor=lightblue shape=box style=filled]
+	RCCorner [label="RCCorner
+ rcx_file : anyURI" fillcolor=lightblue shape=box style=filled]
+	LibCorner [label="LibCorner
+ library_files : anyURI" fillcolor=lightblue shape=box style=filled]
+	ProcessCorner [label=ProcessCorner fillcolor=lightblue shape=box style=filled]
+	VoltageCorner [label=VoltageCorner fillcolor=lightblue shape=box style=filled]
+	TemperatureCorner [label=TemperatureCorner fillcolor=lightblue shape=box style=filled]
+	Analyses [label=Analyses fillcolor=lightblue shape=box style=filled]
+	TimingAnalysis [label="TimingAnalysis
+ totalNegativeSlack : float
+ worstNegativeSlack : float
+ worstSlack : float
+ arrivalTimeOfCriticalPath : float
+ requiredTimeOfCriticalPath : float
+ worstEndpoint : string
+ violatingEndpointCount : int
+ ws : float
+ wns : float
+ tns : float" fillcolor=lightblue shape=box style=filled]
+	SetupTimingAnalysis [label=SetupTimingAnalysis fillcolor=lightblue shape=box style=filled]
+	HoldTimingAnalysis [label=HoldTimingAnalysis fillcolor=lightblue shape=box style=filled]
+	PowerAnalysis [label="PowerAnalysis
+ macroPower : float
+ totalPower : float" fillcolor=lightblue shape=box style=filled]
+	AreaAnalysis [label="AreaAnalysis
+ coreArea : float
+ dieArea : float
+ instsArea : float
+ macroArea : float
+ utilization : float
+ bufferArea : float
+ combinationalArea : float
+ sequentialArea : float
+ inverterArea : float
+ fillerArea : float
+ totalArea : float" fillcolor=lightblue shape=box style=filled]
+	ViolationAnalysis [label="ViolationAnalysis
+ drcViolationCount : int
+ antennaViolationCount : int
+ maxCapViolationCount : int
+ maxSlewViolationCount : int
+ maxFanoutViolationCount : int
+ shortsViolationCount : int
+ unconnectedNetsCount : int
+ staticIrViolationCount : int
+ dynamicIrViolationCount : int
+ emViolationCount : int" fillcolor=lightblue shape=box style=filled]
+	TimingMetrics [label="TimingMetrics
+ startpoint : string
+ endpoint : string
+ worst_arrival_time : float
+ worst_slack : float
+ total_negative_slack : float
+ no_of_timing_paths : int
+ no_of_slack_violations : int" fillcolor=lightyellow shape=box style=filled]
+	PowerMetrics [label="PowerMetrics
+ combinational_power : float
+ sequential_power : float
+ macro_power : float
+ internal_power : float
+ switching_power : float
+ leakage_power : float
+ total_power : float" fillcolor=lightyellow shape=box style=filled]
+	AreaMetrics [label="AreaMetrics
+ combinational_cell_area : float
+ sequential_cell_area : float
+ buffer_area : float
+ inverter_area : float
+ filler_area : float
+ tap_cell_area : float
+ diode_area : float
+ macro_area : float
+ cell_area : float
+ total_area : float" fillcolor=lightyellow shape=box style=filled]
+	ViolationMetric [label=ViolationMetric fillcolor=lightblue shape=box style=filled]
+	CellMetrics [label="CellMetrics
+ no_of_combinational_cells : int
+ no_of_sequential_cells : int
+ no_of_buffers : int
+ no_of_inverters : int
+ no_of_fillers : int
+ no_of_tap_cells : int
+ no_of_diodes : int
+ no_of_macros : int
+ no_of_total_cells : int" fillcolor=lightyellow shape=box style=filled]
+	ClockTree [label="ClockTree
+ no_of_buffers : int
+ clock_source : string
+ no_of_clock_sinks : int" fillcolor=lightyellow shape=box style=filled]
+	Placement [label=Placement fillcolor=lightblue shape=box style=filled]
+	GlobalPlacement [label=GlobalPlacement fillcolor=lightblue shape=box style=filled]
+	DetailedPlacement [label=DetailedPlacement fillcolor=lightblue shape=box style=filled]
+	Floorplanning [label=Floorplanning fillcolor=lightblue shape=box style=filled]
+	Routing [label=Routing fillcolor=lightblue shape=box style=filled]
+	GlobalRouting [label=GlobalRouting fillcolor=lightblue shape=box style=filled]
+	DetailedRouting [label=DetailedRouting fillcolor=lightblue shape=box style=filled]
+	ClockTreeSynthesis [label=ClockTreeSynthesis fillcolor=lightblue shape=box style=filled]
+	ParasiticExtraction [label=ParasiticExtraction fillcolor=lightblue shape=box style=filled]
+	Simulation [label=Simulation fillcolor=lightblue shape=box style=filled]
+	FormalVerification [label=FormalVerification fillcolor=lightblue shape=box style=filled]
+	DesignRuleChecking [label=DesignRuleChecking fillcolor=lightblue shape=box style=filled]
+	TimingSignoff [label=TimingSignoff fillcolor=lightblue shape=box style=filled]
+	LayoutVsSchematic [label=LayoutVsSchematic fillcolor=lightblue shape=box style=filled]
+	TechnologyMapping [label=TechnologyMapping fillcolor=lightblue shape=box style=filled]
+	Optimization [label=Optimization fillcolor=lightblue shape=box style=filled]
+	SynthesisTool [label=SynthesisTool fillcolor=lightblue shape=box style=filled]
+	PlacementTool [label=PlacementTool fillcolor=lightblue shape=box style=filled]
+	RoutingTool [label=RoutingTool fillcolor=lightblue shape=box style=filled]
+	STATool [label=STATool fillcolor=lightblue shape=box style=filled]
+	CTSTool [label=CTSTool fillcolor=lightblue shape=box style=filled]
+	Design [label="Design
+ designName : string
+ designType : string
+ numInputPorts : int
+ numOutputPorts : int" fillcolor=lightblue shape=box style=filled]
+	RTL [label=RTL fillcolor=lightblue shape=box style=filled]
+	Netlist [label="Netlist
+ utilization : float
+ width : float
+ height : float
+ no_of_inputs : int
+ no_of_outputs : int
+ no_of_cells : int
+ no_of_nets : int" fillcolor=lightyellow shape=box style=filled]
+	Layout [label=Layout fillcolor=lightblue shape=box style=filled]
+	OptimizedLayout [label=OptimizedLayout fillcolor=lightblue shape=box style=filled]
+	GDSII [label=GDSII fillcolor=lightblue shape=box style=filled]
+	Mask [label=Mask fillcolor=lightblue shape=box style=filled]
+	SDC [label=SDC fillcolor=lightblue shape=box style=filled]
+	TechnologyLibrary [label=TechnologyLibrary fillcolor=lightblue shape=box style=filled]
+	VerificationReport [label=VerificationReport fillcolor=lightblue shape=box style=filled]
+	Instance [label="Instance
+ instName : string
+ libcellName : string
+ isSequential : boolean
+ isFiller : boolean
+ isBuffer : boolean
+ isInverter : boolean
+ isDiode : boolean
+ numberOfInputs : int
+ numberOfOutputs : int" fillcolor=lightyellow shape=box style=filled]
+	Macro [label=Macro fillcolor=lightblue shape=box style=filled]
+	Port [label="Port
+ portName : string" fillcolor=lightyellow shape=box style=filled]
+	SignalPort [label=SignalPort fillcolor=lightblue shape=box style=filled]
+	Direction [label=Direction fillcolor=lightblue shape=box style=filled]
+	PinFunction [label=PinFunction fillcolor=lightblue shape=box style=filled]
+	Net [label="Net
+ isSpecial : boolean
+ netLength : float
+ estimatedHpwl : float
+ numWires : integer
+ numFanout : integer
+ netResistance : float
+ netCapacitance : float
+ totalCouplingCapacitance : float" fillcolor=lightyellow shape=box style=filled]
+	SignalNet [label=SignalNet fillcolor=lightblue shape=box style=filled]
+	PowerNet [label=PowerNet fillcolor=lightblue shape=box style=filled]
+	Wire [label="Wire
+ name : string
+ length : float
+ x1 : float
+ y1 : float
+ x2 : float
+ y2 : float
+ midpoint_x : float
+ midpoint_y : float
+ rudy : float
+ resistance : float
+ capacitance : float" fillcolor=lightyellow shape=box style=filled]
+	Pin [label="Pin
+ instName : string
+ pinName : string
+ pinX : float
+ pinY : float
+ isClockPin : boolean
+ isStartpoint : boolean
+ isEndpoint : boolean
+ setupRiseSlew : float
+ setupFallSlew : float
+ holdRiseSlew : float
+ holdFallSlew : float
+ worstSlew : float
+ setupRiseSlack : float
+ setupFallSlack : float
+ holdRiseSlack : float
+ holdFallSlack : float
+ setupRiseArrival : float
+ setupFallArrival : float
+ holdRiseArrival : float
+ holdFallArrival : float
+ inputCapacitance : float
+ irDrop : float
+ switchingActivity : float" fillcolor=lightyellow shape=box style=filled]
+	SignalPin [label=SignalPin fillcolor=lightblue shape=box style=filled]
+	PowerPin [label=PowerPin fillcolor=lightblue shape=box style=filled]
+	GroundPin [label=GroundPin fillcolor=lightblue shape=box style=filled]
+	VoltageSupplyPin [label=VoltageSupplyPin fillcolor=lightblue shape=box style=filled]
+	Library [label="Library
+ libraryName : string
+ revision : string
+ delayModel : string
+ capacitiveLoadUnit : string
+ currentUnit : string
+ leakagePowerUnit : string
+ pullingResistanceUnit : string
+ timeUnit : string
+ voltageUnit : string
+ defaultCellLeakagePower : float
+ defaultFanoutLoad : float
+ defaultMaxTransition : float
+ defaultOutputPinCap : float
+ inPlaceSwapMode : string
+ inputThresholdPctFall : float
+ inputThresholdPctRise : float
+ nomProcess : string
+ nomTemperature : float
+ nomVoltage : float
+ outputThresholdPctFall : float
+ outputThresholdPctRise : float
+ slewDerateFromLibrary : float
+ slewLowerThresholdPctFall : float
+ slewLowerThresholdPctRise : float
+ slewUpperThresholdPctFall : float
+ slewUpperThresholdPctRise : float
+ defaultOperatingCondition : string" fillcolor=lightblue shape=box style=filled]
+	OperatingCondition [label="OperatingCondition
+ process : string
+ temperature : float
+ voltage : float" fillcolor=lightblue shape=box style=filled]
+	LibCell [label="LibCell
+ height : float
+ area : float
+ function : string
+ symmetry : string" fillcolor=lightblue shape=box style=filled]
+	LeakagePower [label="LeakagePower
+ value : float
+ relatedPgPin : string
+ when : string" fillcolor=lightblue shape=box style=filled]
+	LibPin [label="LibPin
+ maxTransition : float
+ maxCapacitance : float
+ relatedGroundPin : string
+ relatedPowerPin : string
+ outputVoltage : float" fillcolor=lightblue shape=box style=filled]
+	LibArc [label="LibArc
+ inputLibPin : string
+ outputLibPin : string" fillcolor=lightblue shape=box style=filled]
+	PowerArc [label=PowerArc fillcolor=lightblue shape=box style=filled]
+	TimingArc [label=TimingArc fillcolor=lightblue shape=box style=filled]
+	LUT [label="LUT
+ lutType : string
+ templateName : string
+ values : string" fillcolor=lightblue shape=box style=filled]
+	Template [label="Template
+ index1Array : string
+ index2Array : string" fillcolor=lightblue shape=box style=filled]
+	DelayTemplate [label=DelayTemplate fillcolor=lightblue shape=box style=filled]
+	PowerTemplate [label=PowerTemplate fillcolor=lightblue shape=box style=filled]
+	TechnologyArtifact [label=TechnologyArtifact fillcolor=lightblue shape=box style=filled]
+	TechLEF [label="TechLEF
+ techNode : string
+ lefVersion : string
+ dbuUnits : integer" fillcolor=lightblue shape=box style=filled]
+	Layer [label="Layer
+ spacing : float" fillcolor=lightblue shape=box style=filled]
+	RoutingLayer [label="RoutingLayer
+ preferredRoutingDirection : string
+ pitch : float
+ offset : float
+ minDensity : float
+ maxDensity : float" fillcolor=lightblue shape=box style=filled]
+	CutLayer [label=CutLayer fillcolor=lightblue shape=box style=filled]
+	Shape [label="Shape
+ rect : List" fillcolor=lightblue shape=box style=filled]
+	TimingGraph [label=TimingGraph fillcolor=lightblue shape=box style=filled]
+	TimingNode [label="TimingNode
+ slack : float
+ arrivalTime : float
+ requiredTime : float" fillcolor=lightblue shape=box style=filled]
+	TimingEdge [label="TimingEdge
+ delayValue : float
+ riseDelay : float
+ fallDelay : float" fillcolor=lightblue shape=box style=filled]
+	TimingPath [label="TimingPath
+ startpoint : string
+ endpoint : string
+ path_type : string
+ arrival_time : float
+ required_time : float
+ slack : float
+ no_of_gates : integer
+ is_critical_path : boolean" fillcolor=lightyellow shape=box style=filled]
+	ClockDomain [label=ClockDomain fillcolor=lightblue shape=box style=filled]
+	StartPoint [label=StartPoint fillcolor=lightblue shape=box style=filled]
+	EndPoint [label=EndPoint fillcolor=lightblue shape=box style=filled]
+	IntermediatePoint [label=IntermediatePoint fillcolor=lightblue shape=box style=filled]
+	CellDelay [label=CellDelay fillcolor=lightblue shape=box style=filled]
+	NetDelay [label=NetDelay fillcolor=lightblue shape=box style=filled]
+	SetupCheck [label=SetupCheck fillcolor=lightblue shape=box style=filled]
+	HoldCheck [label=HoldCheck fillcolor=lightblue shape=box style=filled]
+	Clock [label="Clock
+ clockName : string
+ clockPortName : string
+ clockPeriod : float
+ clockUncertainty : float
+ clockLatency : float
+ period : float
+ waveform : string
+ dutyCycle : float
+ isInverted : boolean
+ phaseShift : float" fillcolor=lightblue shape=box style=filled]
+	GeneratedClock [label="GeneratedClock
+ divisionFactor : integer
+ multiplicationFactor : integer" fillcolor=lightblue shape=box style=filled]
+	PrimaryClock [label=PrimaryClock fillcolor=lightblue shape=box style=filled]
+	VirtualClock [label=VirtualClock fillcolor=lightblue shape=box style=filled]
+	Constraints [label="Constraints
+ clockCount : int
+ maxTransition : float
+ maxFanout : float
+ maxCapacitance : float" fillcolor=lightblue shape=box style=filled]
+	TimingConstraint [label=TimingConstraint fillcolor=lightblue shape=box style=filled]
+	ClockConstraint [label=ClockConstraint fillcolor=lightblue shape=box style=filled]
+	ClockLatency [label="ClockLatency
+ sourceLatency : float
+ networkLatency : float" fillcolor=lightblue shape=box style=filled]
+	ClockUncertainty [label="ClockUncertainty
+ clockSkew : float
+ clockJitter : float
+ setupUncertainty : float
+ holdUncertainty : float" fillcolor=lightblue shape=box style=filled]
+	ClockTransition [label=ClockTransition fillcolor=lightblue shape=box style=filled]
+	ClockGroup [label=ClockGroup fillcolor=lightblue shape=box style=filled]
+	ClockRelationship [label=ClockRelationship fillcolor=lightblue shape=box style=filled]
+	SynchronousRelationship [label=SynchronousRelationship fillcolor=lightblue shape=box style=filled]
+	AsynchronousRelationship [label=AsynchronousRelationship fillcolor=lightblue shape=box style=filled]
+	MutuallyExclusiveRelationship [label=MutuallyExclusiveRelationship fillcolor=lightblue shape=box style=filled]
+	PathExceptionConstraint [label=PathExceptionConstraint fillcolor=lightblue shape=box style=filled]
+	MultiCyclePath [label="MultiCyclePath
+ cycleCount : integer" fillcolor=lightblue shape=box style=filled]
+	SetupMultiCycle [label=SetupMultiCycle fillcolor=lightblue shape=box style=filled]
+	HoldMultiCycle [label=HoldMultiCycle fillcolor=lightblue shape=box style=filled]
+	FalsePath [label=FalsePath fillcolor=lightblue shape=box style=filled]
+	MaxDelay [label=MaxDelay fillcolor=lightblue shape=box style=filled]
+	MinDelay [label=MinDelay fillcolor=lightblue shape=box style=filled]
+	CircuitGraph [label=CircuitGraph fillcolor=lightblue shape=box style=filled]
+	DecisionPoint [label=DecisionPoint fillcolor=lightblue shape=box style=filled]
+	FallbackStrategy [label=FallbackStrategy fillcolor=lightblue shape=box style=filled]
+	AgentAction [label="AgentAction
+ hasPrecondition : string
+ hasExpectedOutcome : string" fillcolor=lightblue shape=box style=filled]
+	InsertBuffer [label=InsertBuffer fillcolor=lightblue shape=box style=filled]
+	ResizeCell [label=ResizeCell fillcolor=lightblue shape=box style=filled]
+	HeuristicRule [label="HeuristicRule
+ appliesWhen : string" fillcolor=lightblue shape=box style=filled]
+	SuccessMetric [label="SuccessMetric
+ hasThreshold : float" fillcolor=lightblue shape=box style=filled]
+	ToolCommand [label="ToolCommand
+ commandSyntax : string" fillcolor=lightblue shape=box style=filled]
+	ResourceRequirement [label=ResourceRequirement fillcolor=lightblue shape=box style=filled]
+	ErrorCondition [label="ErrorCondition
+ hasErrorPattern : string
+ hasRecoveryStrategy : string" fillcolor=lightblue shape=box style=filled]
+	DesignPattern [label="DesignPattern
+ solvesProblem : string
+ patternSteps : string" fillcolor=lightblue shape=box style=filled]
+	SystemDesign [label=SystemDesign fillcolor=lightblue shape=box style=filled]
+	Chiplet [label=Chiplet fillcolor=lightblue shape=box style=filled]
+	BottomDie [label=BottomDie fillcolor=lightblue shape=box style=filled]
+	PhysicalSubstrate [label=PhysicalSubstrate fillcolor=lightblue shape=box style=filled]
+	Interposer [label=Interposer fillcolor=lightblue shape=box style=filled]
+	PackageSubstrate [label=PackageSubstrate fillcolor=lightblue shape=box style=filled]
+	InterconnectElement [label=InterconnectElement fillcolor=lightblue shape=box style=filled]
+	MicroBump [label=MicroBump fillcolor=lightblue shape=box style=filled]
+	SolderBump [label=SolderBump fillcolor=lightblue shape=box style=filled]
+	C4Bump [label=C4Bump fillcolor=lightblue shape=box style=filled]
+	HybridBondingInterface [label=HybridBondingInterface fillcolor=lightblue shape=box style=filled]
+	Interface [label=Interface fillcolor=lightblue shape=box style=filled]
+	ChipletInterface [label=ChipletInterface fillcolor=lightblue shape=box style=filled]
+	InterfacePin [label=InterfacePin fillcolor=lightblue shape=box style=filled]
+	SystemLevelNet [label="SystemLevelNet
+ interChipletDelay : float" fillcolor=lightblue shape=box style=filled]
+	SystemPartitioning [label=SystemPartitioning fillcolor=lightblue shape=box style=filled]
+	MinCutPartitioning [label=MinCutPartitioning fillcolor=lightblue shape=box style=filled]
+	SystemPlacement [label=SystemPlacement fillcolor=lightblue shape=box style=filled]
+	InterconnectRouting [label=InterconnectRouting fillcolor=lightblue shape=box style=filled]
+	SystemTimingAnalysis [label=SystemTimingAnalysis fillcolor=lightblue shape=box style=filled]
+	InterconnectOptimization [label=InterconnectOptimization fillcolor=lightblue shape=box style=filled]
+	SystemOptimizationLoop [label=SystemOptimizationLoop fillcolor=lightblue shape=box style=filled]
+	ThermalMetric [label="ThermalMetric
+ maxTemperature : float
+ junctionTemperature : float" fillcolor=lightblue shape=box style=filled]
+	PowerDeliveryNetworkMetric [label="PowerDeliveryNetworkMetric
+ systemIRDrop : float" fillcolor=lightblue shape=box style=filled]
+	InterconnectBandwidth [label=InterconnectBandwidth fillcolor=lightblue shape=box style=filled]
+	Material [label=Material fillcolor=lightblue shape=box style=filled]
+	Underfill [label=Underfill fillcolor=lightblue shape=box style=filled]
+	SemiconductorManufacturingProcess [label=SemiconductorManufacturingProcess fillcolor=lightblue shape=box style=filled]
+	SubstratePreparation [label=SubstratePreparation fillcolor=lightblue shape=box style=filled]
+	FilmFormation [label=FilmFormation fillcolor=lightblue shape=box style=filled]
+	Patterning [label=Patterning fillcolor=lightblue shape=box style=filled]
+	Doping [label=Doping fillcolor=lightblue shape=box style=filled]
+	Planarization [label=Planarization fillcolor=lightblue shape=box style=filled]
+	CleaningAndSurfacePreparation [label=CleaningAndSurfacePreparation fillcolor=lightblue shape=box style=filled]
+	ThermalProcessing [label=ThermalProcessing fillcolor=lightblue shape=box style=filled]
+	MetrologyAndInspection [label=MetrologyAndInspection fillcolor=lightblue shape=box style=filled]
+	AdvancedModules [label=AdvancedModules fillcolor=lightblue shape=box style=filled]
+	BackEndProcesses [label=BackEndProcesses fillcolor=lightblue shape=box style=filled]
+	Etching [label=Etching fillcolor=lightblue shape=box style=filled]
+	WetEtching [label=WetEtching fillcolor=lightblue shape=box style=filled]
+	DryEtching [label=DryEtching fillcolor=lightblue shape=box style=filled]
+	PlasmaEtching [label=PlasmaEtching fillcolor=lightblue shape=box style=filled]
+	ReactiveIonEtching [label=ReactiveIonEtching fillcolor=lightblue shape=box style=filled]
+	TimingPathPin [label="TimingPathPin
+ startpoint : string
+ endpoint : string
+ name : string
+ path_type : string
+ arrival_time : float
+ gate : string
+ standard_cell : string
+ pin : string
+ cell_delay : float
+ slew : float
+ is_rise_transition : boolean
+ is_fall_transition : boolean
+ node_depth : integer" fillcolor=lightyellow shape=box style=filled]
+	EDAProcess -> Verification [label=subClassOf]
+	EDAProcess -> LogicalSynthesis [label=subClassOf]
+	EDAProcess -> LogicalDesign [label=subClassOf]
+	EDAProcess -> PhysicalDesign [label=subClassOf]
+	EDAProcess -> OPC [label=subClassOf]
+	EDAProcess -> ParasiticExtraction [label=subClassOf]
+	EDAProcess -> DecisionPoint [label=subClassOf]
+	EDAProcess -> SystemPartitioning [label=subClassOf]
+	EDAProcess -> SystemOptimizationLoop [label=subClassOf]
+	EDAProcess -> SemiconductorManufacturingProcess [label=subClassOf]
+	PhysicalDesign -> ConcurrentPhysicalOptimization [label=subClassOf]
+	PhysicalDesign -> Placement [label=subClassOf]
+	PhysicalDesign -> Floorplanning [label=subClassOf]
+	PhysicalDesign -> Routing [label=subClassOf]
+	PhysicalDesign -> ClockTreeSynthesis [label=subClassOf]
+	DesignArtifact -> Flow [label=subClassOf]
+	DesignArtifact -> Design [label=subClassOf]
+	DesignArtifact -> RTL [label=subClassOf]
+	DesignArtifact -> Netlist [label=subClassOf]
+	DesignArtifact -> Layout [label=subClassOf]
+	DesignArtifact -> OptimizedLayout [label=subClassOf]
+	DesignArtifact -> Mask [label=subClassOf]
+	DesignArtifact -> SDC [label=subClassOf]
+	DesignArtifact -> TechnologyLibrary [label=subClassOf]
+	DesignArtifact -> VerificationReport [label=subClassOf]
+	DesignArtifact -> TechnologyArtifact [label=subClassOf]
+	DesignArtifact -> TimingGraph [label=subClassOf]
+	DesignArtifact -> CircuitGraph [label=subClassOf]
+	DesignArtifact -> PhysicalSubstrate [label=subClassOf]
+	Corner -> RCCorner [label=subClassOf]
+	Corner -> LibCorner [label=subClassOf]
+	Corner -> ProcessCorner [label=subClassOf]
+	Corner -> VoltageCorner [label=subClassOf]
+	Corner -> TemperatureCorner [label=subClassOf]
+	Analyses -> TimingAnalysis [label=subClassOf]
+	Analyses -> PowerAnalysis [label=subClassOf]
+	Analyses -> AreaAnalysis [label=subClassOf]
+	Analyses -> ViolationAnalysis [label=subClassOf]
+	TimingAnalysis -> SetupTimingAnalysis [label=subClassOf]
+	TimingAnalysis -> HoldTimingAnalysis [label=subClassOf]
+	Metric -> TimingMetrics [label=subClassOf]
+	Metric -> PowerMetrics [label=subClassOf]
+	Metric -> AreaMetrics [label=subClassOf]
+	Metric -> ViolationMetric [label=subClassOf]
+	Metric -> CellMetrics [label=subClassOf]
+	Metric -> SuccessMetric [label=subClassOf]
+	Metric -> ThermalMetric [label=subClassOf]
+	Metric -> PowerDeliveryNetworkMetric [label=subClassOf]
+	Metric -> InterconnectBandwidth [label=subClassOf]
+	Netlist -> ClockTree [label=subClassOf]
+	Placement -> GlobalPlacement [label=subClassOf]
+	Placement -> DetailedPlacement [label=subClassOf]
+	Placement -> SystemPlacement [label=subClassOf]
+	Routing -> GlobalRouting [label=subClassOf]
+	Routing -> DetailedRouting [label=subClassOf]
+	Routing -> InterconnectRouting [label=subClassOf]
+	Verification -> Simulation [label=subClassOf]
+	Verification -> FormalVerification [label=subClassOf]
+	Verification -> DesignRuleChecking [label=subClassOf]
+	Verification -> TimingSignoff [label=subClassOf]
+	Verification -> LayoutVsSchematic [label=subClassOf]
+	LogicalSynthesis -> TechnologyMapping [label=subClassOf]
+	LogicalSynthesis -> Optimization [label=subClassOf]
+	Tool -> SynthesisTool [label=subClassOf]
+	Tool -> PlacementTool [label=subClassOf]
+	Tool -> RoutingTool [label=subClassOf]
+	Tool -> STATool [label=subClassOf]
+	Tool -> CTSTool [label=subClassOf]
+	Layout -> GDSII [label=subClassOf]
+	Instance -> Macro [label=subClassOf]
+	Port -> SignalPort [label=subClassOf]
+	Net -> SignalNet [label=subClassOf]
+	Net -> PowerNet [label=subClassOf]
+	Net -> SystemLevelNet [label=subClassOf]
+	Pin -> SignalPin [label=subClassOf]
+	Pin -> PowerPin [label=subClassOf]
+	Pin -> InterfacePin [label=subClassOf]
+	PowerPin -> GroundPin [label=subClassOf]
+	PowerPin -> VoltageSupplyPin [label=subClassOf]
+	LibArc -> PowerArc [label=subClassOf]
+	LibArc -> TimingArc [label=subClassOf]
+	Template -> DelayTemplate [label=subClassOf]
+	Template -> PowerTemplate [label=subClassOf]
+	TechnologyArtifact -> TechLEF [label=subClassOf]
+	Layer -> RoutingLayer [label=subClassOf]
+	Layer -> CutLayer [label=subClassOf]
+	TimingNode -> StartPoint [label=subClassOf]
+	TimingNode -> EndPoint [label=subClassOf]
+	TimingNode -> IntermediatePoint [label=subClassOf]
+	TimingEdge -> CellDelay [label=subClassOf]
+	TimingEdge -> NetDelay [label=subClassOf]
+	TimingEdge -> SetupCheck [label=subClassOf]
+	TimingEdge -> HoldCheck [label=subClassOf]
+	Clock -> GeneratedClock [label=subClassOf]
+	Clock -> PrimaryClock [label=subClassOf]
+	Clock -> VirtualClock [label=subClassOf]
+	TimingConstraint -> ClockConstraint [label=subClassOf]
+	TimingConstraint -> PathExceptionConstraint [label=subClassOf]
+	ClockConstraint -> ClockLatency [label=subClassOf]
+	ClockConstraint -> ClockUncertainty [label=subClassOf]
+	ClockConstraint -> ClockTransition [label=subClassOf]
+	ClockRelationship -> SynchronousRelationship [label=subClassOf]
+	ClockRelationship -> AsynchronousRelationship [label=subClassOf]
+	ClockRelationship -> MutuallyExclusiveRelationship [label=subClassOf]
+	PathExceptionConstraint -> MultiCyclePath [label=subClassOf]
+	PathExceptionConstraint -> FalsePath [label=subClassOf]
+	PathExceptionConstraint -> MaxDelay [label=subClassOf]
+	PathExceptionConstraint -> MinDelay [label=subClassOf]
+	MultiCyclePath -> SetupMultiCycle [label=subClassOf]
+	MultiCyclePath -> HoldMultiCycle [label=subClassOf]
+	AgentAction -> InsertBuffer [label=subClassOf]
+	AgentAction -> ResizeCell [label=subClassOf]
+	Design -> SystemDesign [label=subClassOf]
+	Design -> Chiplet [label=subClassOf]
+	Chiplet -> BottomDie [label=subClassOf]
+	PhysicalSubstrate -> Interposer [label=subClassOf]
+	PhysicalSubstrate -> PackageSubstrate [label=subClassOf]
+	InterconnectElement -> MicroBump [label=subClassOf]
+	InterconnectElement -> SolderBump [label=subClassOf]
+	InterconnectElement -> HybridBondingInterface [label=subClassOf]
+	SolderBump -> C4Bump [label=subClassOf]
+	Interface -> ChipletInterface [label=subClassOf]
+	SystemPartitioning -> MinCutPartitioning [label=subClassOf]
+	TimingSignoff -> SystemTimingAnalysis [label=subClassOf]
+	Optimization -> InterconnectOptimization [label=subClassOf]
+	Material -> Underfill [label=subClassOf]
+	SemiconductorManufacturingProcess -> SubstratePreparation [label=subClassOf]
+	SemiconductorManufacturingProcess -> FilmFormation [label=subClassOf]
+	SemiconductorManufacturingProcess -> Patterning [label=subClassOf]
+	SemiconductorManufacturingProcess -> Doping [label=subClassOf]
+	SemiconductorManufacturingProcess -> Planarization [label=subClassOf]
+	SemiconductorManufacturingProcess -> CleaningAndSurfacePreparation [label=subClassOf]
+	SemiconductorManufacturingProcess -> ThermalProcessing [label=subClassOf]
+	SemiconductorManufacturingProcess -> MetrologyAndInspection [label=subClassOf]
+	SemiconductorManufacturingProcess -> AdvancedModules [label=subClassOf]
+	SemiconductorManufacturingProcess -> BackEndProcesses [label=subClassOf]
+	Patterning -> Etching [label=subClassOf]
+	Etching -> WetEtching [label=subClassOf]
+	Etching -> DryEtching [label=subClassOf]
+	DryEtching -> PlasmaEtching [label=subClassOf]
+	DryEtching -> ReactiveIonEtching [label=subClassOf]
+	ClockTree -> Port
+	ClockTree -> Instance
+	ClockTree -> Net
+	ClockTree -> Pin
+	Flow -> Stage
+	EDAProcess -> DesignArtifact
+	EDAProcess -> DesignArtifact
+	EDAProcess -> EDAProcess
+	EDAProcess -> Tool
+	ConcurrentPhysicalOptimization -> string
+	EDAProcess -> EDAProcess
+	EDAProcess -> EDAProcess
+	AnalysisView -> RCCorner
+	AnalysisView -> LibCorner
+	AnalysisView -> Mode
+	AnalysisView -> ProcessCorner
+	AnalysisView -> VoltageCorner
+	AnalysisView -> TemperatureCorner
+	Stage -> Analyses
+	Stage -> Netlist
+	Analyses -> TimingAnalysis
+	Analyses -> PowerAnalysis
+	Analyses -> AreaAnalysis
+	Analyses -> ViolationAnalysis
+	Netlist -> Instance
+	Netlist -> Port
+	Netlist -> Net
+	Instance -> Pin
+	Port -> Pin
+	Net -> Wire
+	Net -> Via
+	Pin -> Net
+	Pin -> Instance
+	Library -> LibCell
+	Library -> Template
+	LibCell -> LibPin
+	LibCell -> LibArc
+	LibCell -> LeakagePower
+	LibArc -> LUT
+	Metric -> AnalysisView
+	Design -> AnalysisView
+	Library -> OperatingCondition
+	AnalysisView -> OperatingCondition
+	Stage -> Metric
+	TimingGraph -> TimingNode
+	TimingGraph -> TimingEdge
+	TimingEdge -> TimingNode
+	TimingEdge -> TimingNode
+	TimingNode -> nec286bc85f5d4833a5bdbc0d82e9cc9cb13
+	GeneratedClock -> Clock
+	ClockGroup -> Clock
+	ClockRelationship -> Clock
+	ClockRelationship -> Clock
+	TechnologyArtifact -> RoutingLayer
+	TechnologyArtifact -> CutLayer
+	LibCell -> Shape
+	LibPin -> Shape
+	Wire -> Shape
+	Via -> Shape
+	Port -> Shape
+	CircuitGraph -> Net
+	CircuitGraph -> Instance
+	CircuitGraph -> Pin
+	EDAProcess -> EDAProcess
+	EDAProcess -> FallbackStrategy
+	HeuristicRule -> AgentAction
+	ToolCommand -> AgentAction
+	SystemDesign -> nec286bc85f5d4833a5bdbc0d82e9cc9cb23
+	Chiplet -> nec286bc85f5d4833a5bdbc0d82e9cc9cb27
+	InterconnectElement -> nec286bc85f5d4833a5bdbc0d82e9cc9cb31
+	Chiplet -> InterconnectElement
+	Interposer -> InterconnectElement
+	PackageSubstrate -> InterconnectElement
+	InterconnectElement -> Underfill
+	SystemPartitioning -> Chiplet
+	Chiplet -> ChipletInterface
+	ChipletInterface -> InterfacePin
+	InterfacePin -> Pin
+	SystemLevelNet -> Chiplet
+	InterconnectOptimization -> SystemLevelNet
+	Instance -> LibCell
+	Tool -> DesignArtifact
+	DesignArtifact -> DesignArtifact
+	Netlist -> TimingPath
+	TimingPath -> TimingPathPin
+}

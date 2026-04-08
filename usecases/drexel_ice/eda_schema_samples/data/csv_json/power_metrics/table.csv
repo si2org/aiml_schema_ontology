@@ -1,0 +1,8 @@
+circuit,netlist_id,phase,combinational_power,sequential_power,macro_power,internal_power,switching_power,leakage_power,total_power
+gcd,id-000001,floorplan,0.00106,0.000733,0.0,0.00124,0.000553,9.78e-10,0.0018
+gcd,id-000001,global_place,0.00106,0.000733,0.0,0.00124,0.000553,9.78e-10,0.0018
+gcd,id-000001,place_resized,0.00124,0.000747,0.0,0.00132,0.000676,1.07e-09,0.00199
+gcd,id-000001,detailed_place,0.00124,0.000747,0.0,0.00132,0.000676,1.07e-09,0.00199
+gcd,id-000001,cts,0.00153,0.000754,0.0,0.00169,0.000829,1.48e-09,0.00252
+gcd,id-000001,global_route,0.0016,0.000757,0.0,0.00173,0.000866,1.41e-09,0.00259
+gcd,id-000001,detailed_route,0.0016,0.000757,0.0,0.00173,0.000866,1.41e-09,0.00259

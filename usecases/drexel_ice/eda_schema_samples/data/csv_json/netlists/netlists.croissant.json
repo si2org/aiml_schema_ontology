@@ -1,0 +1,199 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "sc": "https://schema.org/",
+    "cr": "http://mlcommons.org/croissant/",
+    "dct": "http://purl.org/dc/terms/",
+    "conformsTo": "dct:conformsTo",
+    "recordSet": "cr:recordSet",
+    "field": "cr:field",
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "source": "cr:source",
+    "extract": "cr:extract",
+    "fileObject": "cr:fileObject",
+    "column": "cr:column"
+  },
+  "@type": "sc:Dataset",
+  "name": "netlists_dataset",
+  "description": "Dataset containing netlists metrics across different phases",
+  "datePublished": "2025-08-03",
+  "version": "1.0.0",
+  "license": "MIT",
+  "citation": "Netlists Dataset",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "url": "https://example.com/netlists_dataset",
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "netlists.csv",
+      "name": "netlists.csv",
+      "contentUrl": "./eda_schema_samples/data/csv_json/netlists/table.csv",
+      "encodingFormat": "text/csv",
+      "md5": "155b69e6d5d77d8b3db0a62c9d3e3fd3",
+      "sha256": "81f85bce67961f2037743d056749bfa31d7ba573ab44fd85b02ef50465a10c37"
+    }
+  ],
+  "recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "@id": "netlists_records",
+      "name": "netlists_records",
+      "description": "Netlists records",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "netlists_records/circuit",
+          "name": "circuit",
+          "description": "Circuit",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "netlists.csv"
+            },
+            "extract": {
+              "column": "circuit"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "netlists_records/netlist_id",
+          "name": "netlist_id",
+          "description": "Netlist id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "netlists.csv"
+            },
+            "extract": {
+              "column": "netlist_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "netlists_records/phase",
+          "name": "phase",
+          "description": "Phase",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "netlists.csv"
+            },
+            "extract": {
+              "column": "phase"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "netlists_records/width",
+          "name": "width",
+          "description": "Width",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "netlists.csv"
+            },
+            "extract": {
+              "column": "width"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "netlists_records/height",
+          "name": "height",
+          "description": "Height",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "netlists.csv"
+            },
+            "extract": {
+              "column": "height"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "netlists_records/no_of_inputs",
+          "name": "no_of_inputs",
+          "description": "No of inputs",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "netlists.csv"
+            },
+            "extract": {
+              "column": "no_of_inputs"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "netlists_records/no_of_outputs",
+          "name": "no_of_outputs",
+          "description": "No of outputs",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "netlists.csv"
+            },
+            "extract": {
+              "column": "no_of_outputs"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "netlists_records/no_of_cells",
+          "name": "no_of_cells",
+          "description": "No of cells",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "netlists.csv"
+            },
+            "extract": {
+              "column": "no_of_cells"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "netlists_records/no_of_nets",
+          "name": "no_of_nets",
+          "description": "No of nets",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "netlists.csv"
+            },
+            "extract": {
+              "column": "no_of_nets"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "netlists_records/utilization",
+          "name": "utilization",
+          "description": "Utilization",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "netlists.csv"
+            },
+            "extract": {
+              "column": "utilization"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

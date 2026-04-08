@@ -1,0 +1,1 @@
+{"nodes": ["_378_/Q", "_285_/S", "_285_/X", "_387_/D"], "node_types": ["TIMINPPATHPIN", "TIMINPPATHPIN", "TIMINPPATHPIN", "TIMINPPATHPIN"], "edges": [["_378_/Q", "_285_/S"], ["_285_/S", "_285_/X"], ["_285_/X", "_387_/D"]]}

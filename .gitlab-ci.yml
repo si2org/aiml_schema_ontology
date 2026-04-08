@@ -1,0 +1,89 @@
+stages:
+  - build
+  - test
+
+asu_build:
+  image: ubuntu:22.04
+  stage: build
+  script:
+    - apt-get update
+    - apt-get install -y --no-install-recommends build-essential git curl wget unzip python3 python3-venv python3-pip
+    - python3 -m venv asu_venv
+    - source asu_venv/bin/activate
+    - pip install --upgrade pip setuptools wheel
+    - pip install -r usecases/ASU/ASU_ML_EDA_data_flow/requirements.txt
+  artifacts:
+    paths:
+      - asu_venv
+
+asu_tests:
+  image: ubuntu:22.04
+  stage: test
+  dependencies:
+    - asu_build
+  script:
+    - apt-get update
+    - apt-get install -y --no-install-recommends python3 python3-venv python3-pip
+    - source asu_venv/bin/activate
+    - python3 -m pytest usecases/ASU/ASU_ML_EDA_data_flow/tests/test_arc_delay_predictor.py
+    - python3 -m pytest usecases/ASU/ASU_ML_EDA_data_flow/tests/test_preroute_delay_predictor.py
+
+ontology_build:
+  image: python:3.11
+  stage: build
+  script:
+    - python -m venv ontology_venv
+    - source ontology_venv/bin/activate
+    - pip install --upgrade pip setuptools wheel
+    - pip install rdflib[sparql] requests fastmcp pytest
+  artifacts:
+    paths:
+      - ontology_venv
+
+ontology_tests:
+  image: python:3.11
+  stage: test
+  dependencies:
+    - ontology_build
+  script:
+    - source ontology_venv/bin/activate
+    - python ontology/tests/run_tests.py --path ontology --main eda_ontology.ttl
+    - pytest ontology/tests/test_eda_ontology.py
+
+drexel_build:
+  image: python:3.10-slim
+  stage: build
+  script:
+    - python -m venv drexel_venv
+    - source drexel_venv/bin/activate
+    - pip install --upgrade pip setuptools wheel
+    - pip install torch==2.2.2 --index-url https://download.pytorch.org/whl/cpu
+    - |
+        TORCH_VERSION=$(python -c "import torch; print(torch.__version__)")
+        pip install \
+          --no-build-isolation \
+          -r usecases/drexel_ice/requirements-ml.txt \
+          -f https://data.pyg.org/whl/torch-${TORCH_VERSION}.html
+    - pip install -r usecases/drexel_ice/requirements.txt
+  artifacts:
+    paths:
+      - drexel_venv
+
+drexel_tests:
+  image: python:3.10-slim
+  stage: test
+  dependencies:
+    - drexel_build
+  script:
+    - source drexel_venv/bin/activate
+    - python -m pytest usecases/drexel_ice/tests/test_timing_prediction.py
+    - python -m pytest usecases/drexel_ice/tests/test_length_prediction.py
+
+drexel_tests_asu_data:
+  image: python:3.10-slim
+  stage: test
+  dependencies:
+    - drexel_build
+  script:
+    - source drexel_venv/bin/activate
+    - python usecases/drexel_ice/usecases/length_prediction/main.py

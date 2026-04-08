@@ -1,0 +1,8 @@
+circuit,netlist_id,phase,width,height,no_of_inputs,no_of_outputs,no_of_cells,no_of_nets,utilization
+gcd,id-000001,floorplan,97.34,97.34,36,18,312,272,32
+gcd,id-000001,global_place,97.34,97.34,36,18,213,272,32
+gcd,id-000001,place_resized,97.34,97.34,36,18,266,325,36
+gcd,id-000001,detailed_place,97.34,97.34,36,18,266,325,36
+gcd,id-000001,cts,97.34,97.34,36,18,340,399,47
+gcd,id-000001,global_route,97.34,97.34,36,18,354,413,47
+gcd,id-000001,detailed_route,97.34,97.34,36,18,1006,413,47

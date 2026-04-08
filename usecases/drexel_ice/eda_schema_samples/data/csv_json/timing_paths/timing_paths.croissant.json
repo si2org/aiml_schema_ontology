@@ -1,0 +1,229 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "sc": "https://schema.org/",
+    "cr": "http://mlcommons.org/croissant/",
+    "dct": "http://purl.org/dc/terms/",
+    "conformsTo": "dct:conformsTo",
+    "recordSet": "cr:recordSet",
+    "field": "cr:field",
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "source": "cr:source",
+    "extract": "cr:extract",
+    "fileObject": "cr:fileObject",
+    "column": "cr:column"
+  },
+  "@type": "sc:Dataset",
+  "name": "timing_paths_dataset",
+  "description": "Dataset containing timing_paths metrics across different phases",
+  "datePublished": "2025-08-03",
+  "version": "1.0.0",
+  "license": "MIT",
+  "citation": "Timing_paths Dataset",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "url": "https://example.com/timing_paths_dataset",
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "timing_paths.csv",
+      "name": "timing_paths.csv",
+      "contentUrl": "./eda_schema_samples/data/csv_json/timing_paths/table.csv",
+      "encodingFormat": "text/csv",
+      "md5": "fdf65e26415d923e0ff8c353bf2c9089",
+      "sha256": "866b803942324cf5b54fe1f6bf60e39e6f3f98d23713ff8c4e888258c19c7396"
+    }
+  ],
+  "recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "@id": "timing_paths_records",
+      "name": "timing_paths_records",
+      "description": "Timing_paths records",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "timing_paths_records/circuit",
+          "name": "circuit",
+          "description": "Circuit",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_paths.csv"
+            },
+            "extract": {
+              "column": "circuit"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_paths_records/netlist_id",
+          "name": "netlist_id",
+          "description": "Netlist id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_paths.csv"
+            },
+            "extract": {
+              "column": "netlist_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_paths_records/phase",
+          "name": "phase",
+          "description": "Phase",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_paths.csv"
+            },
+            "extract": {
+              "column": "phase"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_paths_records/startpoint",
+          "name": "startpoint",
+          "description": "Startpoint",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_paths.csv"
+            },
+            "extract": {
+              "column": "startpoint"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_paths_records/endpoint",
+          "name": "endpoint",
+          "description": "Endpoint",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_paths.csv"
+            },
+            "extract": {
+              "column": "endpoint"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_paths_records/path_type",
+          "name": "path_type",
+          "description": "Path type",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_paths.csv"
+            },
+            "extract": {
+              "column": "path_type"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_paths_records/sort_index",
+          "name": "sort_index",
+          "description": "Sort index",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "timing_paths.csv"
+            },
+            "extract": {
+              "column": "sort_index"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_paths_records/arrival_time",
+          "name": "arrival_time",
+          "description": "Arrival time",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "timing_paths.csv"
+            },
+            "extract": {
+              "column": "arrival_time"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_paths_records/required_time",
+          "name": "required_time",
+          "description": "Required time",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "timing_paths.csv"
+            },
+            "extract": {
+              "column": "required_time"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_paths_records/slack",
+          "name": "slack",
+          "description": "Slack",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_paths.csv"
+            },
+            "extract": {
+              "column": "slack"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_paths_records/no_of_gates",
+          "name": "no_of_gates",
+          "description": "No of gates",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "timing_paths.csv"
+            },
+            "extract": {
+              "column": "no_of_gates"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_paths_records/is_critical_path",
+          "name": "is_critical_path",
+          "description": "Is critical path",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_paths.csv"
+            },
+            "extract": {
+              "column": "is_critical_path"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

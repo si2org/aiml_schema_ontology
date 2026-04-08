@@ -1,0 +1,289 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "sc": "https://schema.org/",
+    "cr": "http://mlcommons.org/croissant/",
+    "dct": "http://purl.org/dc/terms/",
+    "conformsTo": "dct:conformsTo",
+    "recordSet": "cr:recordSet",
+    "field": "cr:field",
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "source": "cr:source",
+    "extract": "cr:extract",
+    "fileObject": "cr:fileObject",
+    "column": "cr:column"
+  },
+  "@type": "sc:Dataset",
+  "name": "nets_dataset",
+  "description": "Dataset containing nets metrics across different phases",
+  "datePublished": "2025-08-03",
+  "version": "1.0.0",
+  "license": "MIT",
+  "citation": "Nets Dataset",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "url": "https://example.com/nets_dataset",
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "nets.csv",
+      "name": "nets.csv",
+      "contentUrl": "./eda_schema_samples/data/csv_json/nets/table.csv",
+      "encodingFormat": "text/csv",
+      "md5": "637301e67b4daa05bf39a235b1796151",
+      "sha256": "fe6279f97bb7e2bfab0b5b4f804e8e148552ce69eee3e0f056a84587057c8441"
+    }
+  ],
+  "recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "@id": "nets_records",
+      "name": "nets_records",
+      "description": "Nets records",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "nets_records/circuit",
+          "name": "circuit",
+          "description": "Circuit",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "nets.csv"
+            },
+            "extract": {
+              "column": "circuit"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "nets_records/netlist_id",
+          "name": "netlist_id",
+          "description": "Netlist id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "nets.csv"
+            },
+            "extract": {
+              "column": "netlist_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "nets_records/phase",
+          "name": "phase",
+          "description": "Phase",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "nets.csv"
+            },
+            "extract": {
+              "column": "phase"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "nets_records/name",
+          "name": "name",
+          "description": "Name",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "nets.csv"
+            },
+            "extract": {
+              "column": "name"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "nets_records/isSpecial",
+          "name": "isSpecial",
+          "description": "Is special net",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "nets.csv"
+            },
+            "extract": {
+              "column": "isSpecial"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "nets_records/no_of_fanouts",
+          "name": "no_of_fanouts",
+          "description": "No of fanouts",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "nets.csv"
+            },
+            "extract": {
+              "column": "no_of_fanouts"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "nets_records/x_min",
+          "name": "x_min",
+          "description": "X min",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "nets.csv"
+            },
+            "extract": {
+              "column": "x_min"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "nets_records/y_min",
+          "name": "y_min",
+          "description": "Y min",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "nets.csv"
+            },
+            "extract": {
+              "column": "y_min"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "nets_records/x_max",
+          "name": "x_max",
+          "description": "X max",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "nets.csv"
+            },
+            "extract": {
+              "column": "x_max"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "nets_records/y_max",
+          "name": "y_max",
+          "description": "Y max",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "nets.csv"
+            },
+            "extract": {
+              "column": "y_max"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "nets_records/length",
+          "name": "length",
+          "description": "Length",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "nets.csv"
+            },
+            "extract": {
+              "column": "length"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "nets_records/hpwl",
+          "name": "hpwl",
+          "description": "Hpwl",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "nets.csv"
+            },
+            "extract": {
+              "column": "hpwl"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "nets_records/rudy",
+          "name": "rudy",
+          "description": "Rudy",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "nets.csv"
+            },
+            "extract": {
+              "column": "rudy"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "nets_records/resistance",
+          "name": "resistance",
+          "description": "Resistance",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "nets.csv"
+            },
+            "extract": {
+              "column": "resistance"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "nets_records/capacitance",
+          "name": "capacitance",
+          "description": "Capacitance",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "nets.csv"
+            },
+            "extract": {
+              "column": "capacitance"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "nets_records/total_coupling_capacitance",
+          "name": "total_coupling_capacitance",
+          "description": "Total coupling capacitance",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "nets.csv"
+            },
+            "extract": {
+              "column": "total_coupling_capacitance"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

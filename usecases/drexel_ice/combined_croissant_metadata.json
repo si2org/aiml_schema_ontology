@@ -1,0 +1,3584 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "sc": "https://schema.org/",
+    "cr": "http://mlcommons.org/croissant/",
+    "dct": "http://purl.org/dc/terms/",
+    "conformsTo": "dct:conformsTo",
+    "recordSet": "cr:recordSet",
+    "field": "cr:field",
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "source": "cr:source",
+    "extract": "cr:extract",
+    "fileObject": "cr:fileObject",
+    "column": "cr:column"
+  },
+  "@type": "sc:Dataset",
+  "name": "wires_dataset",
+  "description": "Dataset containing wires metrics across different phases",
+  "datePublished": "2025-06-18",
+  "version": "1.0.0",
+  "license": "MIT",
+  "citation": "Wires Dataset",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "url": "https://example.com/wires_dataset",
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "wires.csv",
+      "name": "wires.csv",
+      "contentUrl": "./eda_schema_samples/data/csv_json/wires/table.csv",
+      "encodingFormat": "text/csv",
+      "md5": "735b68043115a484a75aa6da49730c35",
+      "sha256": "3b4c5088d3c343f887702f91bc8b14d016dc87d7ad9a93ff9c8422db114bed2a"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "area_metrics.csv",
+      "name": "area_metrics.csv",
+      "contentUrl": "./eda_schema_samples/data/csv_json/area_metrics/table.csv",
+      "encodingFormat": "text/csv",
+      "md5": "0b88d9d63d66f242c1938224c16b8261",
+      "sha256": "c78018211b85afbf96ea5c72a94098f18ebc9048c1b95e074eea8b2298fbdbd5"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "pins.csv",
+      "name": "pins.csv",
+      "contentUrl": "./eda_schema_samples/data/csv_json/pins/table.csv",
+      "encodingFormat": "text/csv",
+      "md5": "c20220972fa9d2a4f6a48ec48d93e283",
+      "sha256": "a0fc67d10cffa7a666ae535519b3731ebdf55796f69b8e39d352dfcfdc86b56a"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "gates.csv",
+      "name": "gates.csv",
+      "contentUrl": "./eda_schema_samples/data/csv_json/gates/table.csv",
+      "encodingFormat": "text/csv",
+      "md5": "7db9891f6f2130d7ed7b11abc806fa0b",
+      "sha256": "840ef584a98b34db4a67bf6b8201cb7f304beb9727f053c13c7e5b9cc1b10fd3"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "timing_graphs_graph.csv",
+      "name": "timing_graphs_graph.csv",
+      "contentUrl": "./eda_schema_samples/data/csv_json/timing_graphs/graph_table.csv",
+      "encodingFormat": "text/csv",
+      "md5": "234dfd001c694de3d849e00b4b8f6d41",
+      "sha256": "e08fb30b69f802093dda2e47a0afd751499e7e27317ef81bb1c32ab34166abbd"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "netlists.csv",
+      "name": "netlists.csv",
+      "contentUrl": "./eda_schema_samples/data/csv_json/netlists/table.csv",
+      "encodingFormat": "text/csv",
+      "md5": "155b69e6d5d77d8b3db0a62c9d3e3fd3",
+      "sha256": "81f85bce67961f2037743d056749bfa31d7ba573ab44fd85b02ef50465a10c37"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "netlists_graph.csv",
+      "name": "netlists_graph.csv",
+      "contentUrl": "./eda_schema_samples/data/csv_json/netlists/graph_table.csv",
+      "encodingFormat": "text/csv",
+      "md5": "7e4b57fe188a1d2b085c9e854e3bd6c6",
+      "sha256": "d96a8ee291c41e5683763db318b2baa0b78fe719a16deda7ea6ab0b50fba3f78"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "clock_trees.csv",
+      "name": "clock_trees.csv",
+      "contentUrl": "./eda_schema_samples/data/csv_json/clock_trees/table.csv",
+      "encodingFormat": "text/csv",
+      "md5": "92f913503e7630a750a5b2832bd0becd",
+      "sha256": "6c2e26296090e945835c51d4559a38d6cd2a88183e427ae6a8d3d2f653433810"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "clock_trees_graph.csv",
+      "name": "clock_trees_graph.csv",
+      "contentUrl": "./eda_schema_samples/data/csv_json/clock_trees/graph_table.csv",
+      "encodingFormat": "text/csv",
+      "md5": "4d8fa3adc9b53b954e0d5654c383a1de",
+      "sha256": "5ef44a21a9e87dc8c1b013b5e324a52d66b3c99a9c2d5144a07e87b90bc740b6"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "stages.csv",
+      "name": "stages.csv",
+      "contentUrl": "./eda_schema_samples/data/csv_json/stages/table.csv",
+      "encodingFormat": "text/csv",
+      "md5": "7d55a9c145507403277b3becbfca41c4",
+      "sha256": "18d3fce2f1220db50e23b566988bcfd7b96ffa08812724b6d1507d63e6b8bd4b"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "timing_metrics.csv",
+      "name": "timing_metrics.csv",
+      "contentUrl": "./eda_schema_samples/data/csv_json/timing_metrics/table.csv",
+      "encodingFormat": "text/csv",
+      "md5": "fe09a95e58da76f0e49abc32cda42d16",
+      "sha256": "509f54dd0a4858b6410fd77d4ee4477d0b7d7753f20d84057e5a62415629b15b"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "cell_metrics.csv",
+      "name": "cell_metrics.csv",
+      "contentUrl": "./eda_schema_samples/data/csv_json/cell_metrics/table.csv",
+      "encodingFormat": "text/csv",
+      "md5": "ecff0b5d5dd7c1a3b154603cac61632e",
+      "sha256": "5162c1c5280bb7683a130284434fceace5f413f49a92e271dcdae9f8ae4d53de"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "timing_paths.csv",
+      "name": "timing_paths.csv",
+      "contentUrl": "./eda_schema_samples/data/csv_json/timing_paths/table.csv",
+      "encodingFormat": "text/csv",
+      "md5": "fdf65e26415d923e0ff8c353bf2c9089",
+      "sha256": "866b803942324cf5b54fe1f6bf60e39e6f3f98d23713ff8c4e888258c19c7396"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "timing_paths_graph.csv",
+      "name": "timing_paths_graph.csv",
+      "contentUrl": "./eda_schema_samples/data/csv_json/timing_paths/graph_table.csv",
+      "encodingFormat": "text/csv",
+      "md5": "2d34d5afc412df9d297f45292f8b1a2b",
+      "sha256": "20aee6db2829b291376b89b763dc38ccab8a66d913fcfd083dbda22aad8603d1"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "nets.csv",
+      "name": "nets.csv",
+      "contentUrl": "./eda_schema_samples/data/csv_json/nets/table.csv",
+      "encodingFormat": "text/csv",
+      "md5": "637301e67b4daa05bf39a235b1796151",
+      "sha256": "fe6279f97bb7e2bfab0b5b4f804e8e148552ce69eee3e0f056a84587057c8441"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "nets_graph.csv",
+      "name": "nets_graph.csv",
+      "contentUrl": "./eda_schema_samples/data/csv_json/nets/graph_table.csv",
+      "encodingFormat": "text/csv",
+      "md5": "f678e33056a29ea2befd50e7f28fbf1d",
+      "sha256": "1c09d16c6c7916f9d67f1e3c68f3edc45c4e1fae1f1d06ba5679fac9b3daec70"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "standard_cells.csv",
+      "name": "standard_cells.csv",
+      "contentUrl": "./eda_schema_samples/data/csv_json/standard_cells/table.csv",
+      "encodingFormat": "text/csv",
+      "md5": "f6c14df507a2f109158ee389c7b36826",
+      "sha256": "f3ae815cf3761e9a7f76170251bc0ef8b6034c6fedd4bc2fadf0716228aeb8eb"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "timing_path_pins.csv",
+      "name": "timing_path_pins.csv",
+      "contentUrl": "./eda_schema_samples/data/csv_json/timing_path_pins/table.csv",
+      "encodingFormat": "text/csv",
+      "md5": "4086f27ff509d3dd13ebd9b4085912d9",
+      "sha256": "43fe5bd5bda7ece300276b424b87f35268c21fbec151d4cf5003bf3a5c6249c1"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "ports.csv",
+      "name": "ports.csv",
+      "contentUrl": "./eda_schema_samples/data/csv_json/ports/table.csv",
+      "encodingFormat": "text/csv",
+      "md5": "c1583238bfb7dbb07ac4747f8299eea0",
+      "sha256": "bc21bc2246190d15849dd861a92fc130460f68feba9333589c127f6f7d17ac11"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "power_metrics.csv",
+      "name": "power_metrics.csv",
+      "contentUrl": "./eda_schema_samples/data/csv_json/power_metrics/table.csv",
+      "encodingFormat": "text/csv",
+      "md5": "0b3fbc32673b9b3717bd5757d799be8c",
+      "sha256": "06bc410f8d84522b378be728b7313931034fa7cca1108dd16e06c64b1cfaca7f"
+    }
+  ],
+  "recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "@id": "wire_records",
+      "name": "wire_records",
+      "description": "Wires records",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "wire_records/circuit",
+          "name": "circuit",
+          "description": "Circuit",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "wires.csv"
+            },
+            "extract": {
+              "column": "circuit"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "wire_records/netlist_id",
+          "name": "netlist_id",
+          "description": "Netlist id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "wires.csv"
+            },
+            "extract": {
+              "column": "netlist_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "wire_records/phase",
+          "name": "phase",
+          "description": "Phase",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "wires.csv"
+            },
+            "extract": {
+              "column": "phase"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "wire_records/netName",
+          "name": "netName",
+          "description": "Net name",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "wires.csv"
+            },
+            "extract": {
+              "column": "net_name"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "wire_records/name",
+          "name": "name",
+          "description": "Name",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "wires.csv"
+            },
+            "extract": {
+              "column": "name"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "wire_records/length",
+          "name": "length",
+          "description": "Length",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "wires.csv"
+            },
+            "extract": {
+              "column": "length"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "wire_records/layer",
+          "name": "layer",
+          "description": "Metal layer",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "wires.csv"
+            },
+            "extract": {
+              "column": "layer"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "wire_records/llx",
+          "name": "llx",
+          "description": "X1",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "wires.csv"
+            },
+            "extract": {
+              "column": "x1"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "wire_records/lly",
+          "name": "lly",
+          "description": "Y1",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "wires.csv"
+            },
+            "extract": {
+              "column": "y1"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "wire_records/urx",
+          "name": "urx",
+          "description": "X2",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "wires.csv"
+            },
+            "extract": {
+              "column": "x2"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "wire_records/ury",
+          "name": "ury",
+          "description": "Y2",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "wires.csv"
+            },
+            "extract": {
+              "column": "y2"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "wire_records/rudy",
+          "name": "rudy",
+          "description": "Rudy",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "wires.csv"
+            },
+            "extract": {
+              "column": "rudy"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "wire_records/resistance",
+          "name": "resistance",
+          "description": "Resistance",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "wires.csv"
+            },
+            "extract": {
+              "column": "resistance"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "wire_records/capacitance",
+          "name": "capacitance",
+          "description": "Capacitance",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "wires.csv"
+            },
+            "extract": {
+              "column": "capacitance"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "area_analysis_records",
+      "name": "area_analysis_records",
+      "description": "Area_metrics records",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "area_analysis_records/circuit",
+          "name": "circuit",
+          "description": "Circuit",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "area_metrics.csv"
+            },
+            "extract": {
+              "column": "circuit"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "area_analysis_records/netlist_id",
+          "name": "netlist_id",
+          "description": "Netlist id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "area_metrics.csv"
+            },
+            "extract": {
+              "column": "netlist_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "area_analysis_records/phase",
+          "name": "phase",
+          "description": "Phase",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "area_metrics.csv"
+            },
+            "extract": {
+              "column": "phase"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "area_analysis_records/combinationalArea",
+          "name": "combinationalArea",
+          "description": "Combinational cell area",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "area_metrics.csv"
+            },
+            "extract": {
+              "column": "combinational_cell_area"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "area_analysis_records/sequentialArea",
+          "name": "sequentialArea",
+          "description": "Sequential cell area",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "area_metrics.csv"
+            },
+            "extract": {
+              "column": "sequential_cell_area"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "area_analysis_records/bufferArea",
+          "name": "bufferArea",
+          "description": "Buffer area",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "area_metrics.csv"
+            },
+            "extract": {
+              "column": "buffer_area"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "area_analysis_records/inverterArea",
+          "name": "inverterArea",
+          "description": "Inverter area",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "area_metrics.csv"
+            },
+            "extract": {
+              "column": "inverter_area"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "area_analysis_records/fillerArea",
+          "name": "fillerArea",
+          "description": "Filler area",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "area_metrics.csv"
+            },
+            "extract": {
+              "column": "filler_area"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "area_analysis_records/macroArea",
+          "name": "macroArea",
+          "description": "Macro area",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "area_metrics.csv"
+            },
+            "extract": {
+              "column": "macro_area"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "area_analysis_records/instsArea",
+          "name": "instsArea",
+          "description": "Cell area",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "area_metrics.csv"
+            },
+            "extract": {
+              "column": "cell_area"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "area_analysis_records/coreArea",
+          "name": "coreArea",
+          "description": "Core area",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "area_metrics.csv"
+            },
+            "extract": {
+              "column": "core_area"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "area_analysis_records/dieArea",
+          "name": "dieArea",
+          "description": "Die area",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "area_metrics.csv"
+            },
+            "extract": {
+              "column": "die_area"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "area_analysis_records/totalArea",
+          "name": "totalArea",
+          "description": "Total area",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "area_metrics.csv"
+            },
+            "extract": {
+              "column": "total_area"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "pin_records",
+      "name": "pin_records",
+      "description": "Pins records",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "pin_records/circuit",
+          "name": "circuit",
+          "description": "Circuit",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "pins.csv"
+            },
+            "extract": {
+              "column": "circuit"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pin_records/netlist_id",
+          "name": "netlist_id",
+          "description": "Netlist id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "pins.csv"
+            },
+            "extract": {
+              "column": "netlist_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pin_records/phase",
+          "name": "phase",
+          "description": "Phase",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "pins.csv"
+            },
+            "extract": {
+              "column": "phase"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pin_records/pinName",
+          "name": "pinName",
+          "description": "Name",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "pins.csv"
+            },
+            "extract": {
+              "column": "name"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pin_records/type",
+          "name": "type",
+          "description": "Type",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "pins.csv"
+            },
+            "extract": {
+              "column": "type"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pin_records/direction",
+          "name": "direction",
+          "description": "Direction",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "pins.csv"
+            },
+            "extract": {
+              "column": "direction"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pin_records/isStartpoint",
+          "name": "isStartpoint",
+          "description": "Is startpoint",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "pins.csv"
+            },
+            "extract": {
+              "column": "is_startpoint"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pin_records/isEndpoint",
+          "name": "isEndpoint",
+          "description": "Is endpoint",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "pins.csv"
+            },
+            "extract": {
+              "column": "is_endpoint"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pin_records/setupRiseSlew",
+          "name": "setupRiseSlew",
+          "description": "Setup rise slew",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "pins.csv"
+            },
+            "extract": {
+              "column": "setup_rise_slew"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pin_records/setupFallSlew",
+          "name": "setupFallSlew",
+          "description": "Setup fall slew",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "pins.csv"
+            },
+            "extract": {
+              "column": "setup_fall_slew"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pin_records/holdRiseSlew",
+          "name": "holdRiseSlew",
+          "description": "Hold rise slew",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "pins.csv"
+            },
+            "extract": {
+              "column": "hold_rise_slew"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pin_records/holdFallSlew",
+          "name": "holdFallSlew",
+          "description": "Hold fall slew",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "pins.csv"
+            },
+            "extract": {
+              "column": "hold_fall_slew"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pin_records/setupRiseSlack",
+          "name": "setupRiseSlack",
+          "description": "Setup rise slack",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "pins.csv"
+            },
+            "extract": {
+              "column": "setup_rise_slack"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pin_records/setupFallSlack",
+          "name": "setupFallSlack",
+          "description": "Setup fall slack",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "pins.csv"
+            },
+            "extract": {
+              "column": "setup_fall_slack"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pin_records/holdRiseSlack",
+          "name": "holdRiseSlack",
+          "description": "Hold rise slack",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "pins.csv"
+            },
+            "extract": {
+              "column": "hold_rise_slack"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pin_records/holdFallSlack",
+          "name": "holdFallSlack",
+          "description": "Hold fall slack",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "pins.csv"
+            },
+            "extract": {
+              "column": "hold_fall_slack"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pin_records/loadCapacitance",
+          "name": "loadCapacitance",
+          "description": "Load capacitance",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "pins.csv"
+            },
+            "extract": {
+              "column": "load_capacitance"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pin_records/irDrop",
+          "name": "irDrop",
+          "description": "Ir drop",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "pins.csv"
+            },
+            "extract": {
+              "column": "ir_drop"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pin_records/switchingActivity",
+          "name": "switchingActivity",
+          "description": "Switching activity",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "pins.csv"
+            },
+            "extract": {
+              "column": "switching_activity"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "instance_records",
+      "name": "instance_records",
+      "description": "Gates records",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "instance_records/circuit",
+          "name": "circuit",
+          "description": "Circuit",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "gates.csv"
+            },
+            "extract": {
+              "column": "circuit"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "instance_records/netlist_id",
+          "name": "netlist_id",
+          "description": "Netlist id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "gates.csv"
+            },
+            "extract": {
+              "column": "netlist_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "instance_records/phase",
+          "name": "phase",
+          "description": "Phase",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "gates.csv"
+            },
+            "extract": {
+              "column": "phase"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "instance_records/instName",
+          "name": "instName",
+          "description": "Name",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "gates.csv"
+            },
+            "extract": {
+              "column": "name"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "instance_records/libcellName",
+          "name": "libcellName",
+          "description": "Standard cell",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "gates.csv"
+            },
+            "extract": {
+              "column": "standard_cell"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "instance_records/numberOfInputs",
+          "name": "numberOfInputs",
+          "description": "No of fanins",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "gates.csv"
+            },
+            "extract": {
+              "column": "no_of_fanins"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "instance_records/numberOfOutputs",
+          "name": "numberOfOutputs",
+          "description": "No of fanouts",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "gates.csv"
+            },
+            "extract": {
+              "column": "no_of_fanouts"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "instance_records/llx",
+          "name": "llx",
+          "description": "Llx",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "gates.csv"
+            },
+            "extract": {
+              "column": "llx"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "instance_records/lly",
+          "name": "lly",
+          "description": "Lly",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "gates.csv"
+            },
+            "extract": {
+              "column": "lly"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "instance_records/urx",
+          "name": "urx",
+          "description": "Urx",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "gates.csv"
+            },
+            "extract": {
+              "column": "urx"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "instance_records/ury",
+          "name": "ury",
+          "description": "Ury",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "gates.csv"
+            },
+            "extract": {
+              "column": "ury"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "instance_records/isSequential",
+          "name": "isSequential",
+          "description": "Is sequential",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "gates.csv"
+            },
+            "extract": {
+              "column": "is_sequential"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "instance_records/isFiller",
+          "name": "isFiller",
+          "description": "Is filler",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "gates.csv"
+            },
+            "extract": {
+              "column": "is_filler"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "instance_records/isInverter",
+          "name": "isInverter",
+          "description": "Is inverter",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "gates.csv"
+            },
+            "extract": {
+              "column": "is_inverter"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "instance_records/isBuffer",
+          "name": "isBuffer",
+          "description": "Is buffer",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "gates.csv"
+            },
+            "extract": {
+              "column": "is_buffer"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "timing_graph_graph_records",
+      "name": "timing_graph_graph_records",
+      "description": "Timing_graphs_graph records",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "timing_graph_graph_records/circuit",
+          "name": "circuit",
+          "description": "Circuit",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_graphs_graph.csv"
+            },
+            "extract": {
+              "column": "circuit"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_graph_graph_records/netlist_id",
+          "name": "netlist_id",
+          "description": "Netlist id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_graphs_graph.csv"
+            },
+            "extract": {
+              "column": "netlist_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_graph_graph_records/phase",
+          "name": "phase",
+          "description": "Phase",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_graphs_graph.csv"
+            },
+            "extract": {
+              "column": "phase"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_graph_graph_records/source",
+          "name": "source",
+          "description": "Source",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_graphs_graph.csv"
+            },
+            "extract": {
+              "column": "source"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_graph_graph_records/target",
+          "name": "target",
+          "description": "Target",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_graphs_graph.csv"
+            },
+            "extract": {
+              "column": "target"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_graph_graph_records/source_type",
+          "name": "source_type",
+          "description": "Source type",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_graphs_graph.csv"
+            },
+            "extract": {
+              "column": "source_type"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_graph_graph_records/target_type",
+          "name": "target_type",
+          "description": "Target type",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_graphs_graph.csv"
+            },
+            "extract": {
+              "column": "target_type"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "netlist_records",
+      "name": "netlist_records",
+      "description": "Netlists records",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "netlist_records/circuit",
+          "name": "circuit",
+          "description": "Circuit",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "netlists.csv"
+            },
+            "extract": {
+              "column": "circuit"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "netlist_records/netlist_id",
+          "name": "netlist_id",
+          "description": "Netlist id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "netlists.csv"
+            },
+            "extract": {
+              "column": "netlist_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "netlist_records/phase",
+          "name": "phase",
+          "description": "Phase",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "netlists.csv"
+            },
+            "extract": {
+              "column": "phase"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "netlist_records/width",
+          "name": "width",
+          "description": "Width",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "netlists.csv"
+            },
+            "extract": {
+              "column": "width"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "netlist_records/height",
+          "name": "height",
+          "description": "Height",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "netlists.csv"
+            },
+            "extract": {
+              "column": "height"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "netlist_records/noOfInputs",
+          "name": "no_of_inputs",
+          "description": "No of inputs",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "netlists.csv"
+            },
+            "extract": {
+              "column": "no_of_inputs"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "netlist_records/noOfOutputs",
+          "name": "no_of_outputs",
+          "description": "No of outputs",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "netlists.csv"
+            },
+            "extract": {
+              "column": "no_of_outputs"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "netlist_records/totalInstances",
+          "name": "totalInstances",
+          "description": "No of cells",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "netlists.csv"
+            },
+            "extract": {
+              "column": "no_of_cells"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "netlist_records/totalNets",
+          "name": "totalNets",
+          "description": "No of nets",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "netlists.csv"
+            },
+            "extract": {
+              "column": "no_of_nets"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "power_analysis_records/utilization",
+          "name": "utilization",
+          "description": "Utilization",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "netlists.csv"
+            },
+            "extract": {
+              "column": "utilization"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "netlist_graph_records",
+      "name": "netlist_graph_records",
+      "description": "Netlists_graph records",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "netlist_graph_records/circuit",
+          "name": "circuit",
+          "description": "Circuit",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "netlists_graph.csv"
+            },
+            "extract": {
+              "column": "circuit"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "netlist_graph_records/netlist_id",
+          "name": "netlist_id",
+          "description": "Netlist id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "netlists_graph.csv"
+            },
+            "extract": {
+              "column": "netlist_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "netlist_graph_records/phase",
+          "name": "phase",
+          "description": "Phase",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "netlists_graph.csv"
+            },
+            "extract": {
+              "column": "phase"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "netlist_graph_records/source",
+          "name": "source",
+          "description": "Source",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "netlists_graph.csv"
+            },
+            "extract": {
+              "column": "source"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "netlist_graph_records/target",
+          "name": "target",
+          "description": "Target",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "netlists_graph.csv"
+            },
+            "extract": {
+              "column": "target"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "netlist_graph_records/source_type",
+          "name": "source_type",
+          "description": "Source type",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "netlists_graph.csv"
+            },
+            "extract": {
+              "column": "source_type"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "netlist_graph_records/target_type",
+          "name": "target_type",
+          "description": "Target type",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "netlists_graph.csv"
+            },
+            "extract": {
+              "column": "target_type"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "clock_tree_records",
+      "name": "clock_tree_records",
+      "description": "Clock_trees records",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "clock_tree_records/circuit",
+          "name": "circuit",
+          "description": "Circuit",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "clock_trees.csv"
+            },
+            "extract": {
+              "column": "circuit"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "clock_tree_records/netlist_id",
+          "name": "netlist_id",
+          "description": "Netlist id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "clock_trees.csv"
+            },
+            "extract": {
+              "column": "netlist_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "clock_tree_records/phase",
+          "name": "phase",
+          "description": "Phase",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "clock_trees.csv"
+            },
+            "extract": {
+              "column": "phase"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "clock_tree_records/clock_source",
+          "name": "clock_source",
+          "description": "Clock source",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "clock_trees.csv"
+            },
+            "extract": {
+              "column": "clock_source"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "clock_tree_records/no_of_buffers",
+          "name": "no_of_buffers",
+          "description": "No of buffers",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "clock_trees.csv"
+            },
+            "extract": {
+              "column": "no_of_buffers"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "clock_tree_records/no_of_clock_sinks",
+          "name": "no_of_clock_sinks",
+          "description": "No of clock sinks",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "clock_trees.csv"
+            },
+            "extract": {
+              "column": "no_of_clock_sinks"
+            }
+          }
+        }
+      ]
+    },
+
+
+    {
+      "@type": "cr:RecordSet",
+      "@id": "clock_tree_graph_records",
+      "name": "clock_tree_graph_records",
+      "description": "Clock_trees_graph records",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "clock_tree_graph_records/circuit",
+          "name": "circuit",
+          "description": "Circuit",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "clock_trees_graph.csv"
+            },
+            "extract": {
+              "column": "circuit"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "clock_tree_graph_records/netlist_id",
+          "name": "netlist_id",
+          "description": "Netlist id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "clock_trees_graph.csv"
+            },
+            "extract": {
+              "column": "netlist_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "clock_tree_graph_records/phase",
+          "name": "phase",
+          "description": "Phase",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "clock_trees_graph.csv"
+            },
+            "extract": {
+              "column": "phase"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "clock_tree_graph_records/clock_source",
+          "name": "clock_source",
+          "description": "Clock source",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "clock_trees_graph.csv"
+            },
+            "extract": {
+              "column": "clock_source"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "clock_tree_graph_records/source",
+          "name": "source",
+          "description": "Source",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "clock_trees_graph.csv"
+            },
+            "extract": {
+              "column": "source"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "clock_tree_graph_records/target",
+          "name": "target",
+          "description": "Target",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "clock_trees_graph.csv"
+            },
+            "extract": {
+              "column": "target"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "clock_tree_graph_records/source_type",
+          "name": "source_type",
+          "description": "Source type",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "clock_trees_graph.csv"
+            },
+            "extract": {
+              "column": "source_type"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "clock_tree_graph_records/target_type",
+          "name": "target_type",
+          "description": "Target type",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "clock_trees_graph.csv"
+            },
+            "extract": {
+              "column": "target_type"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "stage_records",
+      "name": "stage_records",
+      "description": "Stages records",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "stage_records/circuit",
+          "name": "circuit",
+          "description": "Circuit",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "stages.csv"
+            },
+            "extract": {
+              "column": "circuit"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "stage_records/netlist_id",
+          "name": "netlist_id",
+          "description": "Netlist id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "stages.csv"
+            },
+            "extract": {
+              "column": "netlist_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "stage_records/phase",
+          "name": "phase",
+          "description": "Phase",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "stages.csv"
+            },
+            "extract": {
+              "column": "phase"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "stage_records/stageName",
+          "name": "stageName",
+          "description": "Name",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "stages.csv"
+            },
+            "extract": {
+              "column": "stageName"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "timing_analysis_records",
+      "name": "timing_analysis_records",
+      "description": "Timing_metrics records",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "timing_analysis_records/circuit",
+          "name": "circuit",
+          "description": "Circuit",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_metrics.csv"
+            },
+            "extract": {
+              "column": "circuit"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_analysis_records/netlist_id",
+          "name": "netlist_id",
+          "description": "Netlist id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_metrics.csv"
+            },
+            "extract": {
+              "column": "netlist_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_analysis_records/phase",
+          "name": "phase",
+          "description": "Phase",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_metrics.csv"
+            },
+            "extract": {
+              "column": "phase"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_analysis_records/totalNegativeSlack",
+          "name": "totalNegativeSlack",
+          "description": "Total negative slack",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_metrics.csv"
+            },
+            "extract": {
+              "column": "total_negative_slack"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_analysis_records/worstSlack",
+          "name": "worstSlack",
+          "description": "Worst slack",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_metrics.csv"
+            },
+            "extract": {
+              "column": "worst_slack"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_analysis_records/arrivalTimeOfCriticalPath",
+          "name": "arrivalTimeOfCriticalPath",
+          "description": "Critical path arrival time",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "timing_metrics.csv"
+            },
+            "extract": {
+              "column": "critical_path_arrival_time"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_analysis_records/requiredTimeOfCriticalPath",
+          "name": "requiredTimeOfCriticalPath",
+          "description": "Critical path required time",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "timing_metrics.csv"
+            },
+            "extract": {
+              "column": "critical_path_required_time"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_analysis_records/worstEndpoint",
+          "name": "worstEndpoint",
+          "description": "Critical path endpoint",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_metrics.csv"
+            },
+            "extract": {
+              "column": "critical_path_endpoint"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_analysis_records/violatingEndpointCount",
+          "name": "violatingEndpointCount",
+          "description": "No of violating endpoints",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "timing_metrics.csv"
+            },
+            "extract": {
+              "column": "no_of_violating_endpoints"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "cell_metric_records",
+      "name": "cell_metric_records",
+      "description": "Cell_metrics records",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "cell_metric_records/circuit",
+          "name": "circuit",
+          "description": "Circuit",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "cell_metrics.csv"
+            },
+            "extract": {
+              "column": "circuit"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "cell_metric_records/netlist_id",
+          "name": "netlist_id",
+          "description": "Netlist id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "cell_metrics.csv"
+            },
+            "extract": {
+              "column": "netlist_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "cell_metric_records/phase",
+          "name": "phase",
+          "description": "Phase",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "cell_metrics.csv"
+            },
+            "extract": {
+              "column": "phase"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "cell_metric_records/no_of_combinational_cells",
+          "name": "no_of_combinational_cells",
+          "description": "No of combinational cells",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "cell_metrics.csv"
+            },
+            "extract": {
+              "column": "no_of_combinational_cells"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "cell_metric_records/no_of_sequential_cells",
+          "name": "no_of_sequential_cells",
+          "description": "No of sequential cells",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "cell_metrics.csv"
+            },
+            "extract": {
+              "column": "no_of_sequential_cells"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "cell_metric_records/no_of_buffers",
+          "name": "no_of_buffers",
+          "description": "No of buffers",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "cell_metrics.csv"
+            },
+            "extract": {
+              "column": "no_of_buffers"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "cell_metric_records/no_of_inverters",
+          "name": "no_of_inverters",
+          "description": "No of inverters",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "cell_metrics.csv"
+            },
+            "extract": {
+              "column": "no_of_inverters"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "cell_metric_records/no_of_fillers",
+          "name": "no_of_fillers",
+          "description": "No of fillers",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "cell_metrics.csv"
+            },
+            "extract": {
+              "column": "no_of_fillers"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "cell_metric_records/no_of_tap_cells",
+          "name": "no_of_tap_cells",
+          "description": "No of tap cells",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "cell_metrics.csv"
+            },
+            "extract": {
+              "column": "no_of_tap_cells"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "cell_metric_records/no_of_diodes",
+          "name": "no_of_diodes",
+          "description": "No of diodes",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "cell_metrics.csv"
+            },
+            "extract": {
+              "column": "no_of_diodes"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "cell_metric_records/no_of_macros",
+          "name": "no_of_macros",
+          "description": "No of macros",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "cell_metrics.csv"
+            },
+            "extract": {
+              "column": "no_of_macros"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "cell_metric_records/no_of_total_cells",
+          "name": "no_of_total_cells",
+          "description": "No of total cells",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "cell_metrics.csv"
+            },
+            "extract": {
+              "column": "no_of_total_cells"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "timing_path_records",
+      "name": "timing_path_records",
+      "description": "Timing_paths records",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "timing_path_records/circuit",
+          "name": "circuit",
+          "description": "Circuit",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_paths.csv"
+            },
+            "extract": {
+              "column": "circuit"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_path_records/netlist_id",
+          "name": "netlist_id",
+          "description": "Netlist id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_paths.csv"
+            },
+            "extract": {
+              "column": "netlist_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_path_records/phase",
+          "name": "phase",
+          "description": "Phase",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_paths.csv"
+            },
+            "extract": {
+              "column": "phase"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_path_records/startpoint",
+          "name": "startpoint",
+          "description": "Startpoint",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_paths.csv"
+            },
+            "extract": {
+              "column": "startpoint"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_path_records/endpoint",
+          "name": "endpoint",
+          "description": "Endpoint",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_paths.csv"
+            },
+            "extract": {
+              "column": "endpoint"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_path_records/pathType",
+          "name": "pathType",
+          "description": "Path type",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_paths.csv"
+            },
+            "extract": {
+              "column": "path_type"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_path_records/arrivalTime",
+          "name": "arrivalTime",
+          "description": "Arrival time",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "timing_paths.csv"
+            },
+            "extract": {
+              "column": "arrival_time"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_path_records/requiredTime",
+          "name": "requiredTime",
+          "description": "Required time",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "timing_paths.csv"
+            },
+            "extract": {
+              "column": "required_time"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_path_records/slack",
+          "name": "slack",
+          "description": "Slack",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "timing_paths.csv"
+            },
+            "extract": {
+              "column": "slack"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_path_records/noOfGates",
+          "name": "noOfGates",
+          "description": "No of gates",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "timing_paths.csv"
+            },
+            "extract": {
+              "column": "no_of_gates"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_path_records/isCriticalPath",
+          "name": "is_critical_path",
+          "description": "Is critical path",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_paths.csv"
+            },
+            "extract": {
+              "column": "is_critical_path"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "timing_path_graph_records",
+      "name": "timing_path_graph_records",
+      "description": "Timing_paths_graph records",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "timing_path_graph_records/circuit",
+          "name": "circuit",
+          "description": "Circuit",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_paths_graph.csv"
+            },
+            "extract": {
+              "column": "circuit"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_path_graph_records/netlist_id",
+          "name": "netlist_id",
+          "description": "Netlist id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_paths_graph.csv"
+            },
+            "extract": {
+              "column": "netlist_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_path_graph_records/phase",
+          "name": "phase",
+          "description": "Phase",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_paths_graph.csv"
+            },
+            "extract": {
+              "column": "phase"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_path_graph_records/startpoint",
+          "name": "startpoint",
+          "description": "Startpoint",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_paths_graph.csv"
+            },
+            "extract": {
+              "column": "startpoint"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_path_graph_records/endpoint",
+          "name": "endpoint",
+          "description": "Endpoint",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_paths_graph.csv"
+            },
+            "extract": {
+              "column": "endpoint"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_path_graph_records/pathType",
+          "name": "pathType",
+          "description": "Path type",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_paths_graph.csv"
+            },
+            "extract": {
+              "column": "path_type"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_path_graph_records/sort_index",
+          "name": "sort_index",
+          "description": "Sort index",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "timing_paths_graph.csv"
+            },
+            "extract": {
+              "column": "sort_index"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_path_graph_records/source",
+          "name": "source",
+          "description": "Source",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_paths_graph.csv"
+            },
+            "extract": {
+              "column": "source"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_path_graph_records/target",
+          "name": "target",
+          "description": "Target",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_paths_graph.csv"
+            },
+            "extract": {
+              "column": "target"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_path_graph_records/source_type",
+          "name": "source_type",
+          "description": "Source type",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_paths_graph.csv"
+            },
+            "extract": {
+              "column": "source_type"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_path_graph_records/target_type",
+          "name": "target_type",
+          "description": "Target type",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_paths_graph.csv"
+            },
+            "extract": {
+              "column": "target_type"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "net_records",
+      "name": "net_records",
+      "description": "Nets records",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "net_records/circuit",
+          "name": "circuit",
+          "description": "Circuit",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "nets.csv"
+            },
+            "extract": {
+              "column": "circuit"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "net_records/netlist_id",
+          "name": "netlist_id",
+          "description": "Netlist id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "nets.csv"
+            },
+            "extract": {
+              "column": "netlist_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "net_records/phase",
+          "name": "phase",
+          "description": "Phase",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "nets.csv"
+            },
+            "extract": {
+              "column": "phase"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "net_records/name",
+          "name": "name",
+          "description": "Name",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "nets.csv"
+            },
+            "extract": {
+              "column": "name"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "net_records/isSpecial",
+          "name": "isSpecial",
+          "description": "Is special net",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "nets.csv"
+            },
+            "extract": {
+              "column": "is_special_net"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "net_records/numFanout",
+          "name": "no_of_fanouts",
+          "description": "No of fanouts",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "nets.csv"
+            },
+            "extract": {
+              "column": "no_of_fanouts"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "net_records/x_min",
+          "name": "x_min",
+          "description": "X min",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "nets.csv"
+            },
+            "extract": {
+              "column": "x_min"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "net_records/y_min",
+          "name": "y_min",
+          "description": "Y min",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "nets.csv"
+            },
+            "extract": {
+              "column": "y_min"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "net_records/x_max",
+          "name": "x_max",
+          "description": "X max",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "nets.csv"
+            },
+            "extract": {
+              "column": "x_max"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "net_records/y_max",
+          "name": "y_max",
+          "description": "Y max",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "nets.csv"
+            },
+            "extract": {
+              "column": "y_max"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "net_records/netLength",
+          "name": "netLength",
+          "description": "Length",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "nets.csv"
+            },
+            "extract": {
+              "column": "length"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "net_records/estimatedHpwl",
+          "name": "estimatedHpwl",
+          "description": "Hpwl",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "nets.csv"
+            },
+            "extract": {
+              "column": "hpwl"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "net_records/rudy",
+          "name": "rudy",
+          "description": "Rudy",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "nets.csv"
+            },
+            "extract": {
+              "column": "rudy"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "net_records/netResistance",
+          "name": "netResistance",
+          "description": "Resistance",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "nets.csv"
+            },
+            "extract": {
+              "column": "resistance"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "net_records/netCapacitance",
+          "name": "netCapacitance",
+          "description": "Capacitance",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "nets.csv"
+            },
+            "extract": {
+              "column": "capacitance"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "net_records/totalCouplingCapacitance",
+          "name": "totalCouplingCapacitance",
+          "description": "Total coupling capacitance",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "nets.csv"
+            },
+            "extract": {
+              "column": "total_coupling_capacitance"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "net_graph_records",
+      "name": "net_graph_records",
+      "description": "Nets_graph records",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "net_graph_records/circuit",
+          "name": "circuit",
+          "description": "Circuit",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "nets_graph.csv"
+            },
+            "extract": {
+              "column": "circuit"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "net_graph_records/netlist_id",
+          "name": "netlist_id",
+          "description": "Netlist id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "nets_graph.csv"
+            },
+            "extract": {
+              "column": "netlist_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "net_graph_records/phase",
+          "name": "phase",
+          "description": "Phase",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "nets_graph.csv"
+            },
+            "extract": {
+              "column": "phase"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "net_graph_records/net_source",
+          "name": "net_source",
+          "description": "Net source",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "nets_graph.csv"
+            },
+            "extract": {
+              "column": "net_source"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "net_graph_records/target",
+          "name": "target",
+          "description": "Target",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "nets_graph.csv"
+            },
+            "extract": {
+              "column": "target"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "net_graph_records/source_type",
+          "name": "source_type",
+          "description": "Source type",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "nets_graph.csv"
+            },
+            "extract": {
+              "column": "source_type"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "net_graph_records/target_type",
+          "name": "target_type",
+          "description": "Target type",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "nets_graph.csv"
+            },
+            "extract": {
+              "column": "target_type"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "standard_cell_records",
+      "name": "standard_cell_records",
+      "description": "Standard_cells records",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "standard_cell_records/name",
+          "name": "name",
+          "description": "Name",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "standard_cells.csv"
+            },
+            "extract": {
+              "column": "name"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "standard_cell_records/width",
+          "name": "width",
+          "description": "Width",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "standard_cells.csv"
+            },
+            "extract": {
+              "column": "width"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "standard_cell_records/height",
+          "name": "height",
+          "description": "Height",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "standard_cells.csv"
+            },
+            "extract": {
+              "column": "height"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "standard_cell_records/no_of_input_pins",
+          "name": "no_of_input_pins",
+          "description": "No of input pins",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "standard_cells.csv"
+            },
+            "extract": {
+              "column": "no_of_input_pins"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "standard_cell_records/no_of_output_pins",
+          "name": "no_of_output_pins",
+          "description": "No of output pins",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "standard_cells.csv"
+            },
+            "extract": {
+              "column": "no_of_output_pins"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "standard_cell_records/is_sequential",
+          "name": "is_sequential",
+          "description": "Is sequential",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "standard_cells.csv"
+            },
+            "extract": {
+              "column": "is_sequential"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "standard_cell_records/is_inverter",
+          "name": "is_inverter",
+          "description": "Is inverter",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "standard_cells.csv"
+            },
+            "extract": {
+              "column": "is_inverter"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "standard_cell_records/is_buffer",
+          "name": "is_buffer",
+          "description": "Is buffer",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "standard_cells.csv"
+            },
+            "extract": {
+              "column": "is_buffer"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "standard_cell_records/drive_strength",
+          "name": "drive_strength",
+          "description": "Drive strength",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "standard_cells.csv"
+            },
+            "extract": {
+              "column": "drive_strength"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "standard_cell_records/input_capacitance_min",
+          "name": "input_capacitance_min",
+          "description": "Input capacitance min",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "standard_cells.csv"
+            },
+            "extract": {
+              "column": "input_capacitance_min"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "standard_cell_records/input_capacitance_max",
+          "name": "input_capacitance_max",
+          "description": "Input capacitance max",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "standard_cells.csv"
+            },
+            "extract": {
+              "column": "input_capacitance_max"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "standard_cell_records/input_capacitance_mean",
+          "name": "input_capacitance_mean",
+          "description": "Input capacitance mean",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "standard_cells.csv"
+            },
+            "extract": {
+              "column": "input_capacitance_mean"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "standard_cell_records/output_capacitance_min",
+          "name": "output_capacitance_min",
+          "description": "Output capacitance min",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "standard_cells.csv"
+            },
+            "extract": {
+              "column": "output_capacitance_min"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "standard_cell_records/output_capacitance_max",
+          "name": "output_capacitance_max",
+          "description": "Output capacitance max",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "standard_cells.csv"
+            },
+            "extract": {
+              "column": "output_capacitance_max"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "standard_cell_records/output_capacitance_mean",
+          "name": "output_capacitance_mean",
+          "description": "Output capacitance mean",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "standard_cells.csv"
+            },
+            "extract": {
+              "column": "output_capacitance_mean"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "standard_cell_records/leakage_power_min",
+          "name": "leakage_power_min",
+          "description": "Leakage power min",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "standard_cells.csv"
+            },
+            "extract": {
+              "column": "leakage_power_min"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "standard_cell_records/leakage_power_max",
+          "name": "leakage_power_max",
+          "description": "Leakage power max",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "standard_cells.csv"
+            },
+            "extract": {
+              "column": "leakage_power_max"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "standard_cell_records/leakage_power_provided",
+          "name": "leakage_power_provided",
+          "description": "Leakage power provided",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "standard_cells.csv"
+            },
+            "extract": {
+              "column": "leakage_power_provided"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "timing_path_pin_records",
+      "name": "timing_path_pin_records",
+      "description": "Timing_path_pins records",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "timing_path_pin_records/circuit",
+          "name": "circuit",
+          "description": "Circuit",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_path_pins.csv"
+            },
+            "extract": {
+              "column": "circuit"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_path_pin_records/netlist_id",
+          "name": "netlist_id",
+          "description": "Netlist id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_path_pins.csv"
+            },
+            "extract": {
+              "column": "netlist_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_path_pin_records/phase",
+          "name": "phase",
+          "description": "Phase",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_path_pins.csv"
+            },
+            "extract": {
+              "column": "phase"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_path_pin_records/startpoint",
+          "name": "startpoint",
+          "description": "Startpoint",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_path_pins.csv"
+            },
+            "extract": {
+              "column": "startpoint"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_path_pin_records/endpoint",
+          "name": "endpoint",
+          "description": "Endpoint",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_path_pins.csv"
+            },
+            "extract": {
+              "column": "endpoint"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_path_pin_records/pathType",
+          "name": "pathType",
+          "description": "Path type",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_path_pins.csv"
+            },
+            "extract": {
+              "column": "path_type"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_path_pin_records/sort_index",
+          "name": "sort_index",
+          "description": "Sort index",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "timing_path_pins.csv"
+            },
+            "extract": {
+              "column": "sort_index"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_path_pin_records/pin",
+          "name": "pin",
+          "description": "Pin",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_path_pins.csv"
+            },
+            "extract": {
+              "column": "pin"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_path_pin_records/cell_delay",
+          "name": "cell_delay",
+          "description": "CellDelay",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "timing_path_pins.csv"
+            },
+            "extract": {
+              "column": "cell_delay"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_path_pin_records/arrival_time",
+          "name": "arrival_time",
+          "description": "Arrival time",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "timing_path_pins.csv"
+            },
+            "extract": {
+              "column": "arrival_time"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_path_pin_records/slew",
+          "name": "slew",
+          "description": "Slew",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "timing_path_pins.csv"
+            },
+            "extract": {
+              "column": "slew"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_path_pin_records/is_rise_transition",
+          "name": "is_rise_transition",
+          "description": "Is rise transition",
+          "dataType": "sc:Boolean",
+          "source": {
+            "fileObject": {
+              "@id": "timing_path_pins.csv"
+            },
+            "extract": {
+              "column": "is_rise_transition"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_path_pin_records/is_fall_transition",
+          "name": "is_fall_transition",
+          "description": "Is fall transition",
+          "dataType": "sc:Boolean",
+          "source": {
+            "fileObject": {
+              "@id": "timing_path_pins.csv"
+            },
+            "extract": {
+              "column": "is_fall_transition"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "port_records",
+      "name": "port_records",
+      "description": "Ports records",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "port_records/circuit",
+          "name": "circuit",
+          "description": "Circuit",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "ports.csv"
+            },
+            "extract": {
+              "column": "circuit"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "port_records/netlist_id",
+          "name": "netlist_id",
+          "description": "Netlist id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "ports.csv"
+            },
+            "extract": {
+              "column": "netlist_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "port_records/phase",
+          "name": "phase",
+          "description": "Phase",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "ports.csv"
+            },
+            "extract": {
+              "column": "phase"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "port_records/name",
+          "name": "name",
+          "description": "Name",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "ports.csv"
+            },
+            "extract": {
+              "column": "name"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "port_records/direction",
+          "name": "direction",
+          "description": "Direction",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "ports.csv"
+            },
+            "extract": {
+              "column": "direction"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "port_records/loadCapacitance",
+          "name": "loadCapacitance",
+          "description": "Load capacitance",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "ports.csv"
+            },
+            "extract": {
+              "column": "load_capacitance"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "power_analysis_records",
+      "name": "power_analysis_records",
+      "description": "Power_metrics records",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "power_analysis_records/circuit",
+          "name": "circuit",
+          "description": "Circuit",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "power_metrics.csv"
+            },
+            "extract": {
+              "column": "circuit"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "power_analysis_records/netlist_id",
+          "name": "netlist_id",
+          "description": "Netlist id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "power_metrics.csv"
+            },
+            "extract": {
+              "column": "netlist_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "power_analysis_records/phase",
+          "name": "phase",
+          "description": "Phase",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "power_metrics.csv"
+            },
+            "extract": {
+              "column": "phase"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "power_analysis_records/macroPower",
+          "name": "macroPower",
+          "description": "Macro power",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "power_metrics.csv"
+            },
+            "extract": {
+              "column": "macro_power"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "power_analysis_records/internalPower",
+          "name": "internalPower",
+          "description": "Internal power",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "power_metrics.csv"
+            },
+            "extract": {
+              "column": "internal_power"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "power_analysis_records/switchingPower",
+          "name": "switchingPower",
+          "description": "Switching power",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "power_metrics.csv"
+            },
+            "extract": {
+              "column": "switching_power"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "power_analysis_records/leakagePower",
+          "name": "leakagePower",
+          "description": "Leakage power",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "power_metrics.csv"
+            },
+            "extract": {
+              "column": "leakage_power"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "power_analysis_records/totalPower",
+          "name": "totalPower",
+          "description": "Total power",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "power_metrics.csv"
+            },
+            "extract": {
+              "column": "total_power"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

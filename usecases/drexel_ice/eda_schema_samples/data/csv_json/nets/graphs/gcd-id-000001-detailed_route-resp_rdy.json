@@ -1,0 +1,1 @@
+{"nodes": ["resp_rdy_1", "resp_rdy_2"], "node_types": ["WIRE", "WIRE"], "edges": [["resp_rdy_1", "resp_rdy_2"], ["resp_rdy_2", "resp_rdy_1"]]}

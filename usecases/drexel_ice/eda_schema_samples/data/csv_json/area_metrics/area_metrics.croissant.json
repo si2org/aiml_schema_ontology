@@ -1,0 +1,274 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "sc": "https://schema.org/",
+    "cr": "http://mlcommons.org/croissant/",
+    "dct": "http://purl.org/dc/terms/",
+    "conformsTo": "dct:conformsTo",
+    "recordSet": "cr:recordSet",
+    "field": "cr:field",
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "source": "cr:source",
+    "extract": "cr:extract",
+    "fileObject": "cr:fileObject",
+    "column": "cr:column"
+  },
+  "@type": "sc:Dataset",
+  "name": "area_metrics_dataset",
+  "description": "Dataset containing area_metrics metrics across different phases",
+  "datePublished": "2025-08-03",
+  "version": "1.0.0",
+  "license": "MIT",
+  "citation": "Area_metrics Dataset",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "url": "https://example.com/area_metrics_dataset",
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "area_metrics.csv",
+      "name": "area_metrics.csv",
+      "contentUrl": "./eda_schema_samples/data/csv_json/area_metrics/table.csv",
+      "encodingFormat": "text/csv",
+      "md5": "0b88d9d63d66f242c1938224c16b8261",
+      "sha256": "c78018211b85afbf96ea5c72a94098f18ebc9048c1b95e074eea8b2298fbdbd5"
+    }
+  ],
+  "recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "@id": "area_metrics_records",
+      "name": "area_metrics_records",
+      "description": "Area_metrics records",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "area_metrics_records/circuit",
+          "name": "circuit",
+          "description": "Circuit",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "area_metrics.csv"
+            },
+            "extract": {
+              "column": "circuit"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "area_metrics_records/netlist_id",
+          "name": "netlist_id",
+          "description": "Netlist id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "area_metrics.csv"
+            },
+            "extract": {
+              "column": "netlist_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "area_metrics_records/phase",
+          "name": "phase",
+          "description": "Phase",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "area_metrics.csv"
+            },
+            "extract": {
+              "column": "phase"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "area_metrics_records/combinational_cell_area",
+          "name": "combinational_cell_area",
+          "description": "Combinational cell area",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "area_metrics.csv"
+            },
+            "extract": {
+              "column": "combinational_cell_area"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "area_metrics_records/sequential_cell_area",
+          "name": "sequential_cell_area",
+          "description": "Sequential cell area",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "area_metrics.csv"
+            },
+            "extract": {
+              "column": "sequential_cell_area"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "area_metrics_records/buffer_area",
+          "name": "buffer_area",
+          "description": "Buffer area",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "area_metrics.csv"
+            },
+            "extract": {
+              "column": "buffer_area"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "area_metrics_records/inverter_area",
+          "name": "inverter_area",
+          "description": "Inverter area",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "area_metrics.csv"
+            },
+            "extract": {
+              "column": "inverter_area"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "area_metrics_records/filler_area",
+          "name": "filler_area",
+          "description": "Filler area",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "area_metrics.csv"
+            },
+            "extract": {
+              "column": "filler_area"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "area_metrics_records/tap_cell_area",
+          "name": "tap_cell_area",
+          "description": "Tap cell area",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "area_metrics.csv"
+            },
+            "extract": {
+              "column": "tap_cell_area"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "area_metrics_records/diode_area",
+          "name": "diode_area",
+          "description": "Diode area",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "area_metrics.csv"
+            },
+            "extract": {
+              "column": "diode_area"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "area_metrics_records/macro_area",
+          "name": "macro_area",
+          "description": "Macro area",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "area_metrics.csv"
+            },
+            "extract": {
+              "column": "macro_area"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "area_metrics_records/cell_area",
+          "name": "cell_area",
+          "description": "Cell area",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "area_metrics.csv"
+            },
+            "extract": {
+              "column": "cell_area"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "area_metrics_records/core_area",
+          "name": "core_area",
+          "description": "Core area",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "area_metrics.csv"
+            },
+            "extract": {
+              "column": "core_area"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "area_metrics_records/die_area",
+          "name": "die_area",
+          "description": "Die area",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "area_metrics.csv"
+            },
+            "extract": {
+              "column": "die_area"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "area_metrics_records/total_area",
+          "name": "total_area",
+          "description": "Total area",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "area_metrics.csv"
+            },
+            "extract": {
+              "column": "total_area"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

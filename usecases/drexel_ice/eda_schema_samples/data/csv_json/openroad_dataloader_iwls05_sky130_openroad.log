@@ -1,0 +1,133 @@
+2025-06-18 18:29:11,016 - _dataloader.openroad_dataloader - INFO - Initializing OpenROADDataLoader.
+2025-06-18 18:29:11,016 - _dataloader.openroad_dataloader - INFO - Parsing LEF file: /mnt/networkresearchdata/savrsch_shared/PDKs/sky130hd/lef/sky130_fd_sc_hd_merged.lef
+2025-06-18 18:29:12,028 - _dataloader.openroad_dataloader - INFO - LEF file parsed successfully.
+2025-06-18 18:29:12,028 - _dataloader.openroad_dataloader - INFO - Parsing Liberty file: /mnt/networkresearchdata/savrsch_shared/PDKs/sky130hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+2025-06-18 18:29:26,426 - _dataloader.openroad_dataloader - INFO - Liberty file parsed successfully.
+2025-06-18 18:29:26,426 - _dataloader.openroad_dataloader - INFO - Extracting standard cell data.
+2025-06-18 18:29:27,088 - _dataloader.openroad_dataloader - INFO - Standard cell data extraction completed.
+2025-06-18 18:30:45,313 - _dataloader.openroad_dataloader - INFO - Initializing OpenROADDataLoader.
+2025-06-18 18:30:45,314 - _dataloader.openroad_dataloader - INFO - Parsing LEF file: /mnt/networkresearchdata/savrsch_shared/PDKs/sky130hd/lef/sky130_fd_sc_hd_merged.lef
+2025-06-18 18:30:46,008 - _dataloader.openroad_dataloader - INFO - LEF file parsed successfully.
+2025-06-18 18:30:46,008 - _dataloader.openroad_dataloader - INFO - Parsing Liberty file: /mnt/networkresearchdata/savrsch_shared/PDKs/sky130hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+2025-06-18 18:31:00,742 - _dataloader.openroad_dataloader - INFO - Liberty file parsed successfully.
+2025-06-18 18:31:00,743 - _dataloader.openroad_dataloader - INFO - Extracting standard cell data.
+2025-06-18 18:31:01,419 - _dataloader.openroad_dataloader - INFO - Standard cell data extraction completed.
+2025-06-18 18:32:56,959 - _dataloader.openroad_dataloader - INFO - Initializing OpenROADDataLoader.
+2025-06-18 18:32:56,960 - _dataloader.openroad_dataloader - INFO - Parsing LEF file: /mnt/networkresearchdata/savrsch_shared/PDKs/sky130hd/lef/sky130_fd_sc_hd_merged.lef
+2025-06-18 18:32:57,690 - _dataloader.openroad_dataloader - INFO - LEF file parsed successfully.
+2025-06-18 18:32:57,690 - _dataloader.openroad_dataloader - INFO - Parsing Liberty file: /mnt/networkresearchdata/savrsch_shared/PDKs/sky130hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+2025-06-18 18:33:11,837 - _dataloader.openroad_dataloader - INFO - Liberty file parsed successfully.
+2025-06-18 18:33:11,838 - _dataloader.openroad_dataloader - INFO - Extracting standard cell data.
+2025-06-18 18:33:12,490 - _dataloader.openroad_dataloader - INFO - Standard cell data extraction completed.
+2025-06-18 18:39:34,149 - _dataloader.openroad_dataloader - INFO - Initializing OpenROADDataLoader.
+2025-06-18 18:39:34,149 - _dataloader.openroad_dataloader - INFO - Parsing LEF file: /mnt/networkresearchdata/savrsch_shared/PDKs/sky130hd/lef/sky130_fd_sc_hd_merged.lef
+2025-06-18 18:39:35,111 - _dataloader.openroad_dataloader - INFO - LEF file parsed successfully.
+2025-06-18 18:39:35,112 - _dataloader.openroad_dataloader - INFO - Parsing Liberty file: /mnt/networkresearchdata/savrsch_shared/PDKs/sky130hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+2025-06-18 18:39:48,882 - _dataloader.openroad_dataloader - INFO - Liberty file parsed successfully.
+2025-06-18 18:39:48,882 - _dataloader.openroad_dataloader - INFO - Extracting standard cell data.
+2025-06-18 18:39:49,531 - _dataloader.openroad_dataloader - INFO - Standard cell data extraction completed.
+2025-06-18 18:41:21,346 - _dataloader.openroad_dataloader - INFO - Initializing OpenROADDataLoader.
+2025-06-18 18:41:21,347 - _dataloader.openroad_dataloader - INFO - Parsing LEF file: /mnt/networkresearchdata/savrsch_shared/PDKs/sky130hd/lef/sky130_fd_sc_hd_merged.lef
+2025-06-18 18:41:22,081 - _dataloader.openroad_dataloader - INFO - LEF file parsed successfully.
+2025-06-18 18:41:22,081 - _dataloader.openroad_dataloader - INFO - Parsing Liberty file: /mnt/networkresearchdata/savrsch_shared/PDKs/sky130hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+2025-06-18 18:41:36,564 - _dataloader.openroad_dataloader - INFO - Liberty file parsed successfully.
+2025-06-18 18:41:36,565 - _dataloader.openroad_dataloader - INFO - Extracting standard cell data.
+2025-06-18 18:41:37,214 - _dataloader.openroad_dataloader - INFO - Standard cell data extraction completed.
+2025-06-18 18:41:38,658 - _dataloader.openroad_dataloader - INFO - Creating entity for netlist gcd-id-000001 for phase floorplan.
+2025-06-18 18:41:44,107 - _dataloader.openroad_dataloader - INFO - Creating cell entity and area entity for phase floorplan.
+2025-06-18 18:41:47,018 - _dataloader.openroad_dataloader - INFO - Creating power entity for phase floorplan.
+2025-06-18 18:41:47,027 - _dataloader.openroad_dataloader - INFO - Extracting timing graph for phase floorplan.
+2025-06-18 18:41:50,754 - _dataloader.openroad_dataloader - INFO - Extracted timing graph.
+2025-06-18 18:41:54,404 - _dataloader.openroad_dataloader - INFO - Extracting timing path entities for phase floorplan.
+2025-06-18 18:41:54,405 - _dataloader.openroad_dataloader - INFO - Extracting timing paths from /mnt/networkresearchdata/savrsch_shared/datasets/mleda-dataset-iwls05-openroad-sky130-v1.1/gcd/id-000001/openroad/reports_/2_floorplan_timing_min.rpt.
+2025-06-18 18:41:55,020 - _dataloader.openroad_dataloader - INFO - Parsed timing paths from /mnt/networkresearchdata/savrsch_shared/datasets/mleda-dataset-iwls05-openroad-sky130-v1.1/gcd/id-000001/openroad/reports_/2_floorplan_timing_min.rpt.
+2025-06-18 18:41:57,777 - _dataloader.openroad_dataloader - INFO - Extracting timing paths from /mnt/networkresearchdata/savrsch_shared/datasets/mleda-dataset-iwls05-openroad-sky130-v1.1/gcd/id-000001/openroad/reports_/2_floorplan_timing_max.rpt.
+2025-06-18 18:42:01,974 - _dataloader.openroad_dataloader - INFO - Extracted 355 timing paths.
+2025-06-18 18:42:01,974 - _dataloader.openroad_dataloader - INFO - Creating clock entity.
+2025-06-18 18:42:02,524 - _dataloader.openroad_dataloader - INFO - Extracted clock tree graph with 71 nodes.
+2025-06-18 18:42:02,525 - _dataloader.openroad_dataloader - INFO - Creating netlist entity.
+2025-06-18 18:42:02,527 - _dataloader.openroad_dataloader - INFO - Netlist added to dataset.
+2025-06-18 18:42:02,786 - _dataloader.openroad_dataloader - INFO - Creating entity for netlist gcd-id-000001 for phase global_place.
+2025-06-18 18:42:05,798 - _dataloader.openroad_dataloader - INFO - Creating cell entity and area entity for phase global_place.
+2025-06-18 18:42:05,962 - _dataloader.openroad_dataloader - INFO - Creating power entity for phase global_place.
+2025-06-18 18:42:05,966 - _dataloader.openroad_dataloader - INFO - Extracting timing graph for phase global_place.
+2025-06-18 18:42:06,229 - _dataloader.openroad_dataloader - INFO - Extracted timing graph.
+2025-06-18 18:42:06,229 - _dataloader.openroad_dataloader - INFO - Extracting timing path entities for phase global_place.
+2025-06-18 18:42:06,229 - _dataloader.openroad_dataloader - INFO - Extracting timing paths from /mnt/networkresearchdata/savrsch_shared/datasets/mleda-dataset-iwls05-openroad-sky130-v1.1/gcd/id-000001/openroad/reports_/3_3_place_gp_timing_min.rpt.
+2025-06-18 18:42:06,810 - _dataloader.openroad_dataloader - INFO - Parsed timing paths from /mnt/networkresearchdata/savrsch_shared/datasets/mleda-dataset-iwls05-openroad-sky130-v1.1/gcd/id-000001/openroad/reports_/3_3_place_gp_timing_min.rpt.
+2025-06-18 18:42:08,142 - _dataloader.openroad_dataloader - INFO - Extracting timing paths from /mnt/networkresearchdata/savrsch_shared/datasets/mleda-dataset-iwls05-openroad-sky130-v1.1/gcd/id-000001/openroad/reports_/3_3_place_gp_timing_max.rpt.
+2025-06-18 18:42:12,564 - _dataloader.openroad_dataloader - INFO - Extracted 355 timing paths.
+2025-06-18 18:42:12,565 - _dataloader.openroad_dataloader - INFO - Creating clock entity.
+2025-06-18 18:42:12,918 - _dataloader.openroad_dataloader - INFO - Extracted clock tree graph with 71 nodes.
+2025-06-18 18:42:12,919 - _dataloader.openroad_dataloader - INFO - Creating netlist entity.
+2025-06-18 18:42:12,922 - _dataloader.openroad_dataloader - INFO - Netlist added to dataset.
+2025-06-18 18:42:13,188 - _dataloader.openroad_dataloader - INFO - Creating entity for netlist gcd-id-000001 for phase place_resized.
+2025-06-18 18:42:16,596 - _dataloader.openroad_dataloader - INFO - Creating cell entity and area entity for phase place_resized.
+2025-06-18 18:42:21,006 - _dataloader.openroad_dataloader - INFO - Creating power entity for phase place_resized.
+2025-06-18 18:42:22,270 - _dataloader.openroad_dataloader - INFO - Extracting timing graph for phase place_resized.
+2025-06-18 18:42:22,657 - _dataloader.openroad_dataloader - INFO - Extracted timing graph.
+2025-06-18 18:42:22,657 - _dataloader.openroad_dataloader - INFO - Extracting timing path entities for phase place_resized.
+2025-06-18 18:42:22,657 - _dataloader.openroad_dataloader - INFO - Extracting timing paths from /mnt/networkresearchdata/savrsch_shared/datasets/mleda-dataset-iwls05-openroad-sky130-v1.1/gcd/id-000001/openroad/reports_/3_4_place_resized_timing_min.rpt.
+2025-06-18 18:42:23,264 - _dataloader.openroad_dataloader - INFO - Parsed timing paths from /mnt/networkresearchdata/savrsch_shared/datasets/mleda-dataset-iwls05-openroad-sky130-v1.1/gcd/id-000001/openroad/reports_/3_4_place_resized_timing_min.rpt.
+2025-06-18 18:42:24,595 - _dataloader.openroad_dataloader - INFO - Extracting timing paths from /mnt/networkresearchdata/savrsch_shared/datasets/mleda-dataset-iwls05-openroad-sky130-v1.1/gcd/id-000001/openroad/reports_/3_4_place_resized_timing_max.rpt.
+2025-06-18 18:42:29,122 - _dataloader.openroad_dataloader - INFO - Extracted 331 timing paths.
+2025-06-18 18:42:29,123 - _dataloader.openroad_dataloader - INFO - Creating clock entity.
+2025-06-18 18:42:29,623 - _dataloader.openroad_dataloader - INFO - Extracted clock tree graph with 71 nodes.
+2025-06-18 18:42:29,623 - _dataloader.openroad_dataloader - INFO - Creating netlist entity.
+2025-06-18 18:42:29,626 - _dataloader.openroad_dataloader - INFO - Netlist added to dataset.
+2025-06-18 18:42:29,956 - _dataloader.openroad_dataloader - INFO - Creating entity for netlist gcd-id-000001 for phase detailed_place.
+2025-06-18 18:42:34,005 - _dataloader.openroad_dataloader - INFO - Creating cell entity and area entity for phase detailed_place.
+2025-06-18 18:42:34,015 - _dataloader.openroad_dataloader - INFO - Creating power entity for phase detailed_place.
+2025-06-18 18:42:34,019 - _dataloader.openroad_dataloader - INFO - Extracting timing graph for phase detailed_place.
+2025-06-18 18:42:34,307 - _dataloader.openroad_dataloader - INFO - Extracted timing graph.
+2025-06-18 18:42:34,307 - _dataloader.openroad_dataloader - INFO - Extracting timing path entities for phase detailed_place.
+2025-06-18 18:42:34,307 - _dataloader.openroad_dataloader - INFO - Extracting timing paths from /mnt/networkresearchdata/savrsch_shared/datasets/mleda-dataset-iwls05-openroad-sky130-v1.1/gcd/id-000001/openroad/reports_/3_5_place_dp_timing_min.rpt.
+2025-06-18 18:42:34,989 - _dataloader.openroad_dataloader - INFO - Parsed timing paths from /mnt/networkresearchdata/savrsch_shared/datasets/mleda-dataset-iwls05-openroad-sky130-v1.1/gcd/id-000001/openroad/reports_/3_5_place_dp_timing_min.rpt.
+2025-06-18 18:42:36,347 - _dataloader.openroad_dataloader - INFO - Extracting timing paths from /mnt/networkresearchdata/savrsch_shared/datasets/mleda-dataset-iwls05-openroad-sky130-v1.1/gcd/id-000001/openroad/reports_/3_5_place_dp_timing_max.rpt.
+2025-06-18 18:42:41,299 - _dataloader.openroad_dataloader - INFO - Extracted 331 timing paths.
+2025-06-18 18:42:49,314 - _dataloader.openroad_dataloader - INFO - Creating clock entity.
+2025-06-18 18:42:49,799 - _dataloader.openroad_dataloader - INFO - Extracted clock tree graph with 71 nodes.
+2025-06-18 18:42:49,799 - _dataloader.openroad_dataloader - INFO - Creating netlist entity.
+2025-06-18 18:42:49,802 - _dataloader.openroad_dataloader - INFO - Netlist added to dataset.
+2025-06-18 18:42:50,137 - _dataloader.openroad_dataloader - INFO - Creating entity for netlist gcd-id-000001 for phase cts.
+2025-06-18 18:42:54,470 - _dataloader.openroad_dataloader - INFO - Creating cell entity and area entity for phase cts.
+2025-06-18 18:42:54,479 - _dataloader.openroad_dataloader - INFO - Creating power entity for phase cts.
+2025-06-18 18:42:54,482 - _dataloader.openroad_dataloader - INFO - Extracting timing graph for phase cts.
+2025-06-18 18:42:54,741 - _dataloader.openroad_dataloader - INFO - Extracted timing graph.
+2025-06-18 18:42:54,741 - _dataloader.openroad_dataloader - INFO - Extracting timing path entities for phase cts.
+2025-06-18 18:42:54,741 - _dataloader.openroad_dataloader - INFO - Extracting timing paths from /mnt/networkresearchdata/savrsch_shared/datasets/mleda-dataset-iwls05-openroad-sky130-v1.1/gcd/id-000001/openroad/reports_/4_cts_timing_min.rpt.
+2025-06-18 18:42:55,314 - _dataloader.openroad_dataloader - INFO - Parsed timing paths from /mnt/networkresearchdata/savrsch_shared/datasets/mleda-dataset-iwls05-openroad-sky130-v1.1/gcd/id-000001/openroad/reports_/4_cts_timing_min.rpt.
+2025-06-18 18:42:56,719 - _dataloader.openroad_dataloader - INFO - Extracting timing paths from /mnt/networkresearchdata/savrsch_shared/datasets/mleda-dataset-iwls05-openroad-sky130-v1.1/gcd/id-000001/openroad/reports_/4_cts_timing_max.rpt.
+2025-06-18 18:43:01,801 - _dataloader.openroad_dataloader - INFO - Extracted 346 timing paths.
+2025-06-18 18:43:01,801 - _dataloader.openroad_dataloader - INFO - Creating clock entity.
+2025-06-18 18:43:02,239 - _dataloader.openroad_dataloader - INFO - Extracted clock tree graph with 91 nodes.
+2025-06-18 18:43:02,240 - _dataloader.openroad_dataloader - INFO - Creating netlist entity.
+2025-06-18 18:43:02,242 - _dataloader.openroad_dataloader - INFO - Netlist added to dataset.
+2025-06-18 18:43:02,556 - _dataloader.openroad_dataloader - INFO - Creating entity for netlist gcd-id-000001 for phase global_route.
+2025-06-18 18:43:06,817 - _dataloader.openroad_dataloader - INFO - Creating cell entity and area entity for phase global_route.
+2025-06-18 18:43:06,827 - _dataloader.openroad_dataloader - INFO - Creating power entity for phase global_route.
+2025-06-18 18:43:06,830 - _dataloader.openroad_dataloader - INFO - Extracting timing graph for phase global_route.
+2025-06-18 18:43:07,106 - _dataloader.openroad_dataloader - INFO - Extracted timing graph.
+2025-06-18 18:43:07,107 - _dataloader.openroad_dataloader - INFO - Extracting timing path entities for phase global_route.
+2025-06-18 18:43:07,107 - _dataloader.openroad_dataloader - INFO - Extracting timing paths from /mnt/networkresearchdata/savrsch_shared/datasets/mleda-dataset-iwls05-openroad-sky130-v1.1/gcd/id-000001/openroad/reports_/5_1_grt_timing_min.rpt.
+2025-06-18 18:43:07,725 - _dataloader.openroad_dataloader - INFO - Parsed timing paths from /mnt/networkresearchdata/savrsch_shared/datasets/mleda-dataset-iwls05-openroad-sky130-v1.1/gcd/id-000001/openroad/reports_/5_1_grt_timing_min.rpt.
+2025-06-18 18:43:09,115 - _dataloader.openroad_dataloader - INFO - Extracting timing paths from /mnt/networkresearchdata/savrsch_shared/datasets/mleda-dataset-iwls05-openroad-sky130-v1.1/gcd/id-000001/openroad/reports_/5_1_grt_timing_max.rpt.
+2025-06-18 18:43:14,181 - _dataloader.openroad_dataloader - INFO - Extracted 324 timing paths.
+2025-06-18 18:43:14,181 - _dataloader.openroad_dataloader - INFO - Creating clock entity.
+2025-06-18 18:43:14,610 - _dataloader.openroad_dataloader - INFO - Extracted clock tree graph with 91 nodes.
+2025-06-18 18:43:14,610 - _dataloader.openroad_dataloader - INFO - Creating netlist entity.
+2025-06-18 18:43:14,612 - _dataloader.openroad_dataloader - INFO - Netlist added to dataset.
+2025-06-18 18:43:26,265 - _dataloader.openroad_dataloader - INFO - Creating entity for netlist gcd-id-000001 for phase detailed_route.
+2025-06-18 18:43:34,196 - _dataloader.openroad_dataloader - INFO - Creating cell entity and area entity for phase detailed_route.
+2025-06-18 18:43:34,212 - _dataloader.openroad_dataloader - INFO - Creating power entity for phase detailed_route.
+2025-06-18 18:43:34,215 - _dataloader.openroad_dataloader - INFO - Extracting timing graph for phase detailed_route.
+2025-06-18 18:43:34,493 - _dataloader.openroad_dataloader - INFO - Extracted timing graph.
+2025-06-18 18:43:34,494 - _dataloader.openroad_dataloader - INFO - Extracting timing path entities for phase detailed_route.
+2025-06-18 18:43:34,494 - _dataloader.openroad_dataloader - INFO - Extracting timing paths from /mnt/networkresearchdata/savrsch_shared/datasets/mleda-dataset-iwls05-openroad-sky130-v1.1/gcd/id-000001/openroad/reports_/5_3_route_timing_min.rpt.
+2025-06-18 18:43:35,131 - _dataloader.openroad_dataloader - INFO - Parsed timing paths from /mnt/networkresearchdata/savrsch_shared/datasets/mleda-dataset-iwls05-openroad-sky130-v1.1/gcd/id-000001/openroad/reports_/5_3_route_timing_min.rpt.
+2025-06-18 18:43:36,530 - _dataloader.openroad_dataloader - INFO - Extracting timing paths from /mnt/networkresearchdata/savrsch_shared/datasets/mleda-dataset-iwls05-openroad-sky130-v1.1/gcd/id-000001/openroad/reports_/5_3_route_timing_max.rpt.
+2025-06-18 18:43:41,813 - _dataloader.openroad_dataloader - INFO - Extracted 324 timing paths.
+2025-06-18 18:43:41,813 - _dataloader.openroad_dataloader - INFO - Creating clock entity.
+2025-06-18 18:43:42,363 - _dataloader.openroad_dataloader - INFO - Extracted clock tree graph with 91 nodes.
+2025-06-18 18:43:42,364 - _dataloader.openroad_dataloader - INFO - Creating netlist entity.
+2025-06-18 18:43:42,366 - _dataloader.openroad_dataloader - INFO - Netlist added to dataset.

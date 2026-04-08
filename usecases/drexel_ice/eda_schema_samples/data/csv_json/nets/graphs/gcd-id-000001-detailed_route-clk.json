@@ -1,0 +1,1 @@
+{"nodes": ["clk_1", "clk_2", "clk_3", "clk_4", "clk_5"], "node_types": ["WIRE", "WIRE", "WIRE", "WIRE", "WIRE"], "edges": [["clk_1", "clk_2"], ["clk_2", "clk_1"], ["clk_2", "clk_5"], ["clk_3", "clk_4"], ["clk_3", "clk_5"], ["clk_4", "clk_3"], ["clk_5", "clk_2"], ["clk_5", "clk_3"]]}

@@ -1,0 +1,1 @@
+{"nodes": ["net37_0", "net37_1", "net37_2", "net37_3", "net37_4", "net37_5"], "node_types": ["WIRE", "WIRE", "WIRE", "WIRE", "WIRE", "WIRE"], "edges": [["net37_0", "net37_1"], ["net37_0", "net37_5"], ["net37_1", "net37_0"], ["net37_2", "net37_3"], ["net37_3", "net37_2"], ["net37_4", "net37_5"], ["net37_5", "net37_0"], ["net37_5", "net37_4"]]}

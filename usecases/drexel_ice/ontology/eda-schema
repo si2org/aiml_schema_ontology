@@ -1,0 +1,180 @@
+// Ontology Class Diagram
+digraph {
+	StandardCell [label="StandardCell
+ name : string
+ width : float
+ height : float
+ no_of_input_pins : int
+ no_of_output_pins : int
+ is_sequential : boolean
+ is_inverter : boolean
+ is_buffer : boolean
+ drive_strength : float
+ input_capacitance_min : float
+ input_capacitance_max : float
+ output_capacitance_min : float
+ output_capacitance_max : float
+ leakage_power_min : float
+ leakage_power_max : float" fillcolor=lightyellow shape=box style=filled]
+	Instance [label="Instance
+ name : string
+ is_sequential : boolean
+ is_inverter : boolean
+ is_buffer : boolean
+ llx : float
+ lly : float
+ urx : float
+ ury : float
+ is_filler : boolean
+ is_diode : boolean
+ no_of_fanins : int
+ no_of_fanouts : int" fillcolor=lightyellow shape=box style=filled]
+	Port [label="Port
+ name : string
+ direction : string
+ x : float
+ y : float
+ capacitance : float" fillcolor=lightyellow shape=box style=filled]
+	Wire [label="Wire
+ name : string
+ capacitance : float
+ length : float
+ x1 : float
+ y1 : float
+ x2 : float
+ y2 : float
+ midpoint_x : float
+ midpoint_y : float
+ rudy : float
+ resistance : float" fillcolor=lightyellow shape=box style=filled]
+	Net [label="Net
+ name : string
+ capacitance : float
+ length : float
+ rudy : float
+ resistance : float
+ no_of_inputs : int
+ no_of_outputs : int
+ x_min : float
+ y_min : float
+ x_max : float
+ y_max : float
+ hpwl : float" fillcolor=lightyellow shape=box style=filled]
+	Pin [label="Pin
+ direction : string
+ pin_name : string
+ type : string
+ is_in_clk : boolean
+ is_startpoint : boolean
+ is_endpoint : boolean
+ cell_name : string
+ net_name : string
+ setup_rise_slew : float
+ hold_rise_slew : float
+ setup_fall_slew : float
+ hold_fall_slew : float
+ setup_rise_slack : float
+ hold_rise_slack : float
+ setup_fall_slack : float
+ hold_fall_slack : float
+ setup_rise_arrival : float
+ setup_fall_arrival : float
+ hold_rise_arrival : float
+ hold_fall_arrival : float
+ load_capacitance : float
+ in_drop : float
+ switching_activity : float" fillcolor=lightyellow shape=box style=filled]
+	TimingPathPin [label="TimingPathPin
+ name : string
+ Instance : string
+ pin : string
+ cell_delay : float
+ arrival_time : float
+ slew : float
+ is_rise_transition : boolean
+ is_fall_transition : boolean
+ node_depth : int" fillcolor=lightyellow shape=box style=filled]
+	TimingPath [label="TimingPath
+ arrival_time : float
+ startpoint : string
+ endpoint : string
+ path_type : string
+ required_time : float
+ slack : float
+ no_of_gates : int
+ is_critical_path : boolean" fillcolor=lightyellow shape=box style=filled]
+	CellMetrics [label="CellMetrics
+ no_of_combinational_cells : int
+ no_of_sequential_cells : int
+ no_of_buffers : int
+ no_of_inverters : int
+ no_of_fillers : int
+ no_of_tap_cells : int
+ no_of_diodes : int
+ no_of_macros : int
+ no_of_total_cells : int" fillcolor=lightyellow shape=box style=filled]
+	AreaMetrics [label="AreaMetrics
+ combinational_cell_area : float
+ sequential_cell_area : float
+ buffer_area : float
+ inverter_area : float
+ filler_area : float
+ tap_cell_area : float
+ diode_area : float
+ macro_area : float
+ cell_area : float
+ total_area : float" fillcolor=lightyellow shape=box style=filled]
+	PowerMetrics [label="PowerMetrics
+ combinational_power : float
+ sequential_power : float
+ macro_power : float
+ internal_power : float
+ switching_power : float
+ leakage_power : float
+ total_power : float" fillcolor=lightyellow shape=box style=filled]
+	TimingMetrics [label="TimingMetrics
+ startpoint : string
+ endpoint : string
+ worst_arrival_time : float
+ worst_slack : float
+ total_negative_slack : float
+ no_of_timing_paths : int
+ no_of_slack_violations : int" fillcolor=lightyellow shape=box style=filled]
+	ClockTree [label="ClockTree
+ no_of_buffers : int
+ clock_source : string
+ no_of_clock_sinks : int" fillcolor=lightyellow shape=box style=filled]
+	Netlist [label="Netlist
+ width : float
+ height : float
+ no_of_inputs : int
+ no_of_outputs : int
+ no_of_cells : int
+ no_of_nets : int
+ utilization : float" fillcolor=lightyellow shape=box style=filled]
+	Stage [label="Stage
+ name : string" fillcolor=lightyellow shape=box style=filled]
+	Flow [label="Flow
+ timestamp : dateTime
+ runtime : float
+ tool_name : string" fillcolor=lightyellow shape=box style=filled]
+	Instance -> StandardCell
+	Net -> Wire
+	TimingPath -> TimingPathPin
+	ClockTree -> Port
+	ClockTree -> Instance
+	ClockTree -> Net
+	ClockTree -> Pin
+	Netlist -> TimingPath
+	Netlist -> ClockTree
+	Netlist -> Port
+	Netlist -> Instance
+	Netlist -> Net
+	Netlist -> Pin
+	Stage -> Netlist
+	Stage -> CellMetrics
+	Stage -> AreaMetrics
+	Stage -> PowerMetrics
+	Stage -> TimingMetrics
+	Flow -> Stage
+}

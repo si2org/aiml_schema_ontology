@@ -1,0 +1,349 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "sc": "https://schema.org/",
+    "cr": "http://mlcommons.org/croissant/",
+    "dct": "http://purl.org/dc/terms/",
+    "conformsTo": "dct:conformsTo",
+    "recordSet": "cr:recordSet",
+    "field": "cr:field",
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "source": "cr:source",
+    "extract": "cr:extract",
+    "fileObject": "cr:fileObject",
+    "column": "cr:column"
+  },
+  "@type": "sc:Dataset",
+  "name": "pins_dataset",
+  "description": "Dataset containing pins metrics across different phases",
+  "datePublished": "2025-08-03",
+  "version": "1.0.0",
+  "license": "MIT",
+  "citation": "Pins Dataset",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "url": "https://example.com/pins_dataset",
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "pins.csv",
+      "name": "pins.csv",
+      "contentUrl": "./eda_schema_samples/data/csv_json/pins/table.csv",
+      "encodingFormat": "text/csv",
+      "md5": "c20220972fa9d2a4f6a48ec48d93e283",
+      "sha256": "a0fc67d10cffa7a666ae535519b3731ebdf55796f69b8e39d352dfcfdc86b56a"
+    }
+  ],
+  "recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "@id": "pins_records",
+      "name": "pins_records",
+      "description": "Pins records",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "pins_records/circuit",
+          "name": "circuit",
+          "description": "Circuit",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "pins.csv"
+            },
+            "extract": {
+              "column": "circuit"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pins_records/netlist_id",
+          "name": "netlist_id",
+          "description": "Netlist id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "pins.csv"
+            },
+            "extract": {
+              "column": "netlist_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pins_records/phase",
+          "name": "phase",
+          "description": "Phase",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "pins.csv"
+            },
+            "extract": {
+              "column": "phase"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pins_records/name",
+          "name": "name",
+          "description": "Name",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "pins.csv"
+            },
+            "extract": {
+              "column": "name"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pins_records/type",
+          "name": "type",
+          "description": "Type",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "pins.csv"
+            },
+            "extract": {
+              "column": "type"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pins_records/direction",
+          "name": "direction",
+          "description": "Direction",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "pins.csv"
+            },
+            "extract": {
+              "column": "direction"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pins_records/is_in_clk",
+          "name": "is_in_clk",
+          "description": "Is in clk",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "pins.csv"
+            },
+            "extract": {
+              "column": "is_in_clk"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pins_records/is_startpoint",
+          "name": "is_startpoint",
+          "description": "Is startpoint",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "pins.csv"
+            },
+            "extract": {
+              "column": "is_startpoint"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pins_records/is_endpoint",
+          "name": "is_endpoint",
+          "description": "Is endpoint",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "pins.csv"
+            },
+            "extract": {
+              "column": "is_endpoint"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pins_records/setup_rise_slew",
+          "name": "setup_rise_slew",
+          "description": "Setup rise slew",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "pins.csv"
+            },
+            "extract": {
+              "column": "setup_rise_slew"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pins_records/setup_fall_slew",
+          "name": "setup_fall_slew",
+          "description": "Setup fall slew",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "pins.csv"
+            },
+            "extract": {
+              "column": "setup_fall_slew"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pins_records/hold_rise_slew",
+          "name": "hold_rise_slew",
+          "description": "Hold rise slew",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "pins.csv"
+            },
+            "extract": {
+              "column": "hold_rise_slew"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pins_records/hold_fall_slew",
+          "name": "hold_fall_slew",
+          "description": "Hold fall slew",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "pins.csv"
+            },
+            "extract": {
+              "column": "hold_fall_slew"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pins_records/setup_rise_slack",
+          "name": "setup_rise_slack",
+          "description": "Setup rise slack",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "pins.csv"
+            },
+            "extract": {
+              "column": "setup_rise_slack"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pins_records/setup_fall_slack",
+          "name": "setup_fall_slack",
+          "description": "Setup fall slack",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "pins.csv"
+            },
+            "extract": {
+              "column": "setup_fall_slack"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pins_records/hold_rise_slack",
+          "name": "hold_rise_slack",
+          "description": "Hold rise slack",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "pins.csv"
+            },
+            "extract": {
+              "column": "hold_rise_slack"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pins_records/hold_fall_slack",
+          "name": "hold_fall_slack",
+          "description": "Hold fall slack",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "pins.csv"
+            },
+            "extract": {
+              "column": "hold_fall_slack"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pins_records/load_capacitance",
+          "name": "load_capacitance",
+          "description": "Load capacitance",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "pins.csv"
+            },
+            "extract": {
+              "column": "load_capacitance"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pins_records/ir_drop",
+          "name": "ir_drop",
+          "description": "Ir drop",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "pins.csv"
+            },
+            "extract": {
+              "column": "ir_drop"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "pins_records/switching_activity",
+          "name": "switching_activity",
+          "description": "Switching activity",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "pins.csv"
+            },
+            "extract": {
+              "column": "switching_activity"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

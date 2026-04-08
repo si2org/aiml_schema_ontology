@@ -1,0 +1,244 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "sc": "https://schema.org/",
+    "cr": "http://mlcommons.org/croissant/",
+    "dct": "http://purl.org/dc/terms/",
+    "conformsTo": "dct:conformsTo",
+    "recordSet": "cr:recordSet",
+    "field": "cr:field",
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "source": "cr:source",
+    "extract": "cr:extract",
+    "fileObject": "cr:fileObject",
+    "column": "cr:column"
+  },
+  "@type": "sc:Dataset",
+  "name": "timing_path_pins_dataset",
+  "description": "Dataset containing timing_path_pins metrics across different phases",
+  "datePublished": "2025-08-03",
+  "version": "1.0.0",
+  "license": "MIT",
+  "citation": "Timing_path_pins Dataset",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "url": "https://example.com/timing_path_pins_dataset",
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "timing_path_pins.csv",
+      "name": "timing_path_pins.csv",
+      "contentUrl": "./eda_schema_samples/data/csv_json/timing_path_pins/table.csv",
+      "encodingFormat": "text/csv",
+      "md5": "4086f27ff509d3dd13ebd9b4085912d9",
+      "sha256": "43fe5bd5bda7ece300276b424b87f35268c21fbec151d4cf5003bf3a5c6249c1"
+    }
+  ],
+  "recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "@id": "timing_path_pins_records",
+      "name": "timing_path_pins_records",
+      "description": "Timing_path_pins records",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "timing_path_pins_records/circuit",
+          "name": "circuit",
+          "description": "Circuit",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_path_pins.csv"
+            },
+            "extract": {
+              "column": "circuit"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_path_pins_records/netlist_id",
+          "name": "netlist_id",
+          "description": "Netlist id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_path_pins.csv"
+            },
+            "extract": {
+              "column": "netlist_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_path_pins_records/phase",
+          "name": "phase",
+          "description": "Phase",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_path_pins.csv"
+            },
+            "extract": {
+              "column": "phase"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_path_pins_records/startpoint",
+          "name": "startpoint",
+          "description": "Startpoint",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_path_pins.csv"
+            },
+            "extract": {
+              "column": "startpoint"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_path_pins_records/endpoint",
+          "name": "endpoint",
+          "description": "Endpoint",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_path_pins.csv"
+            },
+            "extract": {
+              "column": "endpoint"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_path_pins_records/path_type",
+          "name": "path_type",
+          "description": "Path type",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_path_pins.csv"
+            },
+            "extract": {
+              "column": "path_type"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_path_pins_records/sort_index",
+          "name": "sort_index",
+          "description": "Sort index",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "timing_path_pins.csv"
+            },
+            "extract": {
+              "column": "sort_index"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_path_pins_records/pin",
+          "name": "pin",
+          "description": "Pin",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_path_pins.csv"
+            },
+            "extract": {
+              "column": "pin"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_path_pins_records/delay",
+          "name": "delay",
+          "description": "Delay",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "timing_path_pins.csv"
+            },
+            "extract": {
+              "column": "delay"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_path_pins_records/arrival_time",
+          "name": "arrival_time",
+          "description": "Arrival time",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "timing_path_pins.csv"
+            },
+            "extract": {
+              "column": "arrival_time"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_path_pins_records/slew",
+          "name": "slew",
+          "description": "Slew",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "timing_path_pins.csv"
+            },
+            "extract": {
+              "column": "slew"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_path_pins_records/is_rise_transition",
+          "name": "is_rise_transition",
+          "description": "Is rise transition",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_path_pins.csv"
+            },
+            "extract": {
+              "column": "is_rise_transition"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "timing_path_pins_records/is_fall_transition",
+          "name": "is_fall_transition",
+          "description": "Is fall transition",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "timing_path_pins.csv"
+            },
+            "extract": {
+              "column": "is_fall_transition"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

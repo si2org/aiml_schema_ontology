@@ -1,0 +1,4613 @@
+
+# Electronic Design Automation (EDA) Ontology with Rule Descriptions
+# This ontology represents concepts, processes, artifacts, and relationships in Electronic Design Automation
+
+###  TODO: Technical Debt and Improvement Areas
+###
+### Semantic Precision:
+### More owl statements would help prevent conceptual overlap
+### Explicit inverse properties would make relationships clearer
+### 
+### Naming Conventions:
+### Property naming still varies between snake_case and camelCase
+### More consistency needed in abbreviations
+### 
+### Domain-Specific Extensions:
+### The semiconductor manufacturing process hierarchy could be better integrated with design processes
+### More explicit connections between design artifacts and manufacturing steps
+### 
+### Practical Usage Concerns:
+### Need for modular structure that allows partial imports
+### Balancing between complete specificity and usable simplicity
+### 
+### Formal Semantics:
+### More explicit cardinality constraints would improve modeling precision
+### Additional axioms defining rules would enhance reasoning capabilities
+### 
+### Validation Approach:
+### Use cases should be developed to test the completeness of the ontology
+### Competency questions would help verify if the ontology can answer key design questions
+
+# Standard namespace declarations for ontology prefixes
+@prefix eda: <http://example.org/eda#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix unit: <http://qudt.org/vocab/unit/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix om: <http://www.ontology-of-units-of-measure.org/resource/om-2/> .
+@prefix schema: <https://schema.org/> .
+@prefix crsnt: <http://mlcommons.org/croissant/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+
+# Machine learning namespace for model cards and datasets
+@prefix ml: <http://example.org/ml#> .
+
+# Main ontology declaration defining metadata and versioning information
+### Ontology Declaration
+<http://example.org/eda> a owl:Ontology ;
+    dc:title "Integrated Electronic Design Automation Ontology" ;
+    dc:description "A comprehensive ontology representing Electronic Design Automation concepts, processes, artifacts, and their relationships, merging the taxonomy_v0p5.json and eda-ontology.ttl schemas." ;
+    owl:versionInfo "2.0.0" ;
+    dct:created "2025-04-17"^^xsd:date ;
+    dct:creator [
+        a foaf:Person ;
+        foaf:name "Integrated EDA Ontology Working Group" ;
+    ] ;
+    dct:publisher "Integrated EDA Consortium" ;
+    vann:preferredNamespacePrefix "eda" ;
+    vann:preferredNamespaceUri "http://example.org/eda#" .
+
+# Fundamental class hierarchy defining the core conceptual framework of EDA
+###### Top-Level Classes ######
+
+# Root class for all activities and transformations in the EDA workflow
+eda:EDAProcess a owl:Class ;
+    rdfs:label "EDA Process" ;
+    rdfs:comment "A process in the Electronic Design Automation workflow" .
+
+# Root class for all data objects and files produced or consumed in EDA
+eda:DesignArtifact a owl:Class ;
+    rdfs:label "Design Artifact" ;
+    rdfs:comment "An artifact produced or consumed in the EDA process" .
+
+# Root class for all software applications used in EDA workflows
+eda:Tool a owl:Class ;
+    rdfs:label "Tool" ;
+    rdfs:comment "A software tool used in the EDA process" .
+
+# Root class for all quantifiable measures and figures of merit
+eda:Metric a owl:Class ;
+    rdfs:label "Metric" ;
+    rdfs:comment "A measurable attribute or figure of merit related to the design or process." .
+
+# Major process categories representing distinct phases of chip design
+###### Process Subclasses ######
+
+# Process ensuring design correctness and compliance with specifications
+eda:Verification a owl:Class ;
+    rdfs:subClassOf eda:EDAProcess ;
+    rdfs:label "Verification" ;
+    rdfs:comment "The process of ensuring design correctness" .
+
+# Process converting RTL descriptions into gate-level implementations
+eda:LogicalSynthesis a owl:Class ;
+    rdfs:subClassOf eda:EDAProcess ;
+    rdfs:label "Logical Synthesis" ;
+    rdfs:comment "The process of converting RTL into a gate-level netlist" .
+
+# Process creating logical representations before physical implementation
+eda:LogicalDesign a owl:Class ;
+    rdfs:subClassOf eda:EDAProcess ;
+    rdfs:label "Logical Design" ;
+    rdfs:comment "The process of mapping a netlist to a logical layout" .
+
+# Process creating physical chip layouts from logical descriptions
+eda:PhysicalDesign a owl:Class ;
+    rdfs:subClassOf eda:EDAProcess ;
+    rdfs:label "Physical Design" ;
+    rdfs:comment "The process of mapping a netlist to a physical layout" .
+
+# Process correcting mask patterns for lithographic effects
+eda:OPC a owl:Class ;
+    rdfs:subClassOf eda:EDAProcess ;
+    rdfs:label "Optical Proximity Correction" ;
+    rdfs:comment "The process of modifying mask patterns to account for lithographic distortions" .
+
+# Advanced process simultaneously optimizing multiple physical design objectives
+eda:ConcurrentPhysicalOptimization a owl:Class ;
+    rdfs:subClassOf eda:PhysicalDesign ;
+    rdfs:label "Concurrent Physical Optimization" ;
+    rdfs:comment "A process that simultaneously optimizes layout, global routing, and static timing analysis using a unified objective function" .
+
+# Flow management classes for tracking execution instances and stages
+###### Flow-Related Classes ######
+
+# Container class representing an execution instance of an EDA process sequence
+eda:Flow a owl:Class ;
+    rdfs:subClassOf eda:DesignArtifact ;
+    rdfs:label "Flow" ;
+    rdfs:comment "Represents an EDA process flow execution instance with stages." .
+
+# Individual step or phase within a flow execution
+eda:Stage a owl:Class ;
+    rdfs:label "Stage" ;
+    rdfs:comment "A distinct phase or step within an EDA flow execution." .
+
+# Specific stage implementing logic synthesis from RTL to gates
+eda:SynthStage a owl:Class ;
+    rdfs:subClassOf eda:Stage ;
+    rdfs:label "SynthStage" ;
+    rdfs:comment "Synthesis stage of the flow." .
+
+# Stage planning the overall chip layout and block arrangement
+eda:FloorplanStage a owl:Class ;
+    rdfs:subClassOf eda:Stage ;
+    rdfs:label "FloorplanStage" ;
+    rdfs:comment "Floorplanning stage of the flow." .
+
+# Stage performing coarse placement of circuit elements
+eda:GlobalPlacementStage a owl:Class ;
+    rdfs:subClassOf eda:Stage ;
+    rdfs:label "GlobalPlacementStage" ;
+    rdfs:comment "Global placement stage of the flow." .
+
+# Stage performing fine-tuned placement optimization
+eda:DetailedPlacementStage a owl:Class ;
+    rdfs:subClassOf eda:Stage ;
+    rdfs:label "DetailedPlacementStage" ;
+    rdfs:comment "Detailed placement stage of the flow." .
+
+# Stage creating clock distribution networks
+eda:CTSStage a owl:Class ;
+    rdfs:subClassOf eda:Stage ;
+    rdfs:label "CTSStage" ;
+    rdfs:comment "Clock tree synthesis stage of the flow." .
+
+# Stage performing coarse routing to establish connectivity
+eda:GlobalRouteStage a owl:Class ;
+    rdfs:subClassOf eda:Stage ;
+    rdfs:label "GlobalRouteStage" ;
+    rdfs:comment "Global routing stage of the flow." .
+
+# Stage performing detailed wire routing
+eda:DetailRouteStage a owl:Class ;
+    rdfs:subClassOf eda:Stage ;
+    rdfs:label "DetailRouteStage" ;
+    rdfs:comment "Detailed routing stage of the flow." .
+
+# Final stage completing the design flow
+eda:FinalStage a owl:Class ;
+    rdfs:subClassOf eda:Stage ;
+    rdfs:label "FinalStage" ;
+    rdfs:comment "Final stage of the flow." .
+
+# Analysis context classes defining simulation and analysis conditions
+###### Analysis View, Corners and Modes ######
+
+# Context combining specific corners and modes for consistent analysis
+eda:AnalysisView a owl:Class ;
+    rdfs:label "Analysis View" ;
+    rdfs:comment "A context for analysis defined by specific corners and modes." .
+
+# Operating condition specification for analysis consistency
+eda:Corner a owl:Class ;
+    rdfs:label "Corner" ;
+    rdfs:comment "A specific set of process, voltage, and temperature conditions for analysis." .
+
+# Functional or test configuration for the design
+eda:Mode a owl:Class ;
+    rdfs:label "Mode" ;
+    rdfs:comment "A functional or test mode of operation for the design." .
+
+# Corner defining resistance and capacitance values for parasitic analysis
+eda:RCCorner a owl:Class ;
+    rdfs:subClassOf eda:Corner ;
+    rdfs:label "RC Corner" ;
+    rdfs:comment "Resistance-Capacitance corner, defines parasitic values." .
+
+# Corner defining library cell characteristics for timing and power
+eda:LibCorner a owl:Class ;
+    rdfs:subClassOf eda:Corner ;
+    rdfs:label "Lib Corner" ;
+    rdfs:comment "Library corner, defines cell timing/power characterization." .
+
+# Corner representing manufacturing process variations
+eda:ProcessCorner a owl:Class ;
+    rdfs:subClassOf eda:Corner ;
+    rdfs:label "Process Corner" ;
+    rdfs:comment "Manufacturing process variation corner (e.g., Slow, Typical, Fast)." .
+
+# Corner representing supply voltage variations
+eda:VoltageCorner a owl:Class ;
+    rdfs:subClassOf eda:Corner ;
+    rdfs:label "Voltage Corner" ;
+    rdfs:comment "Supply voltage variation corner." .
+
+# Corner representing operating temperature variations
+eda:TemperatureCorner a owl:Class ;
+    rdfs:subClassOf eda:Corner ;
+    rdfs:label "Temperature Corner" ;
+    rdfs:comment "Operating temperature variation corner." .
+
+# Analysis result classes categorizing different types of design evaluation
+###### Analyses and Metrics ######
+
+# Container for various analysis results
+eda:Analyses a owl:Class ;
+    rdfs:label "Analyses" ;
+    rdfs:comment "Collection of different analysis results." .
+
+# Analysis evaluating timing performance and constraints
+eda:TimingAnalysis a owl:Class ;
+    rdfs:subClassOf eda:Analyses ;
+    rdfs:label "Timing Analysis" ;
+    rdfs:comment "Timing analysis results." .
+
+# Analysis checking setup timing requirements
+eda:SetupTimingAnalysis a owl:Class ;
+    rdfs:subClassOf eda:TimingAnalysis ;
+    rdfs:label "Setup Timing Analysis" ;
+    rdfs:comment "Setup timing analysis results." .
+
+# Analysis checking hold timing requirements
+eda:HoldTimingAnalysis a owl:Class ;
+    rdfs:subClassOf eda:TimingAnalysis ;
+    rdfs:label "Hold Timing Analysis" ;
+    rdfs:comment "Hold timing analysis results." .
+
+# Analysis evaluating power consumption characteristics
+eda:PowerAnalysis a owl:Class ;
+    rdfs:subClassOf eda:Analyses ;
+    rdfs:label "Power Analysis" ;
+    rdfs:comment "Power analysis results." .
+
+
+### UPF and timing
+eda:PowerDomain a owl:Class .
+
+eda:inPowerDomain a owl:ObjectProperty ;
+	rdfs:domain eda:Instance ;
+	rdfs:range eda:PowerDomain .
+
+eda:LevelShifter a owl:Class ;
+	rdfs:subClassOf eda:Instance .
+
+eda:IsolationCell a owl:Class ;
+	rdfs:subClassOf eda:Instance .
+
+# Analysis evaluating chip area utilization
+eda:AreaAnalysis a owl:Class ;
+    rdfs:subClassOf eda:Analyses ;
+    rdfs:label "Area Analysis" ;
+    rdfs:comment "Area analysis results." .
+
+# Analysis identifying design rule and electrical violations
+eda:ViolationAnalysis a owl:Class ;
+    rdfs:subClassOf eda:Analyses ;
+    rdfs:label "Violation Analysis" ;
+    rdfs:comment "Design rule and electrical violations analysis." .
+
+# Metric quantifying timing performance (WNS, TNS, slack values)
+eda:TimingMetric a owl:Class ;
+    rdfs:subClassOf eda:Metric ;
+    rdfs:label "Timing Metric" ;
+    rdfs:comment "Timing-related metric (e.g., WNS, TNS, setup/hold slack)." .
+
+# Metric quantifying power consumption (leakage, switching, total)
+eda:PowerMetric a owl:Class ;
+    rdfs:subClassOf eda:Metric ;
+    rdfs:label "Power Metric" ;
+    rdfs:comment "Power-related metric (e.g., leakage, switching, total power)." .
+
+# Metric quantifying area usage (die area, core area, utilization)
+eda:AreaMetric a owl:Class ;
+    rdfs:subClassOf eda:Metric ;
+    rdfs:label "Area Metric" ;
+    rdfs:comment "Area-related metric (e.g., die area, core area, utilization)." .
+
+# Metric tracking violation counts and severity
+eda:ViolationMetric a owl:Class ;
+    rdfs:subClassOf eda:Metric ;
+    rdfs:label "Violation Metric" ;
+    rdfs:comment "Metrics tracking counts or severity of design rule or electrical violations." .
+
+# Physical design subprocess classes for detailed implementation steps
+###### Physical Design Subprocesses ######
+
+# Process determining physical locations for circuit elements
+eda:Placement a owl:Class ;
+    rdfs:subClassOf eda:PhysicalDesign ;
+    rdfs:label "Placement" ;
+    rdfs:comment "The subprocess of assigning physical locations to circuit elements" .
+
+# Coarse placement establishing approximate element positions
+eda:GlobalPlacement a owl:Class ;
+    rdfs:subClassOf eda:Placement ;
+    rdfs:label "Global Placement" .
+
+# Fine placement optimizing exact element positions
+eda:DetailedPlacement a owl:Class ;
+    rdfs:subClassOf eda:Placement ;
+    rdfs:label "Detailed Placement" .
+
+# Process planning the overall physical arrangement of major blocks
+eda:Floorplanning a owl:Class ;
+    rdfs:subClassOf eda:PhysicalDesign ;
+    rdfs:label "Floorplanning" ;
+    rdfs:comment "Planning the physical arrangement of blocks on the chip" .
+
+# Process creating physical wire connections between elements
+eda:Routing a owl:Class ;
+    rdfs:subClassOf eda:PhysicalDesign ;
+    rdfs:label "Routing" ;
+    rdfs:comment "Creating physical connections between circuit elements" .
+
+# Coarse routing establishing connectivity patterns
+eda:GlobalRouting a owl:Class ;
+    rdfs:subClassOf eda:Routing ;
+    rdfs:label "Global Routing" .
+
+# Detailed routing creating actual wire geometries
+eda:DetailedRouting a owl:Class ;
+    rdfs:subClassOf eda:Routing ;
+    rdfs:label "Detailed Routing" .
+
+# Process designing the clock distribution network
+eda:ClockTreeSynthesis a owl:Class ;
+    rdfs:subClassOf eda:PhysicalDesign ;
+    rdfs:label "Clock Tree Synthesis" ;
+    rdfs:comment "Designing the clock distribution network" .
+
+### Entity: ClockTree
+eda:ClockTree a owl:Class ;
+    rdfs:subClassOf eda:Netlist ;
+    rdfs:label "ClockTree" ;
+    rdfs:comment "ClockTree description." .
+
+### connecgt to ClockSource!!!
+eda:clock_source a owl:DatatypeProperty ;
+    rdfs:domain eda:ClockTree ;
+    rdfs:range xsd:string ;
+    rdfs:label "clock source" .
+
+eda:no_of_buffers a owl:DatatypeProperty ;
+    rdfs:domain eda:ClockTree ;
+    rdfs:range xsd:int ;
+    rdfs:label "no of buffers" .
+
+eda:no_of_clock_sinks a owl:DatatypeProperty ;
+    rdfs:domain eda:ClockTree ;
+    rdfs:range xsd:int ;
+    rdfs:label "no of clock sinks" .
+
+eda:clock_tree_ports a owl:ObjectProperty ;
+    rdfs:domain eda:ClockTree ;
+    rdfs:range eda:Port ;
+    rdfs:label "ports" .
+
+eda:clock_tree_instances a owl:ObjectProperty ;
+    rdfs:domain eda:ClockTree ;
+    rdfs:range eda:Instance ;
+    rdfs:label "instances" .
+
+eda:clock_tree_nets a owl:ObjectProperty ;
+    rdfs:domain eda:ClockTree ;
+    rdfs:range eda:Net ;
+    rdfs:label "interconnects" .
+
+eda:clock_tree_pins a owl:ObjectProperty ;
+    rdfs:domain eda:ClockTree ;
+    rdfs:range eda:Pin ;
+    rdfs:label "pins" .
+
+
+# Process extracting parasitic resistance and capacitance from layout
+eda:ParasiticExtraction a owl:Class ;
+    rdfs:subClassOf eda:EDAProcess ;
+    rdfs:label "Parasitic Extraction" ;
+    rdfs:comment "The process of extracting resistance and capacitance from a layout" .
+
+# Verification subprocess classes for ensuring design correctness
+###### Verification Subprocesses ######
+
+# Process testing design behavior using input stimuli
+eda:Simulation a owl:Class ;
+    rdfs:subClassOf eda:Verification ;
+    rdfs:label "Simulation" ;
+    rdfs:comment "Testing the design using input stimuli" .
+
+# Process mathematically proving design properties
+eda:FormalVerification a owl:Class ;
+    rdfs:subClassOf eda:Verification ;
+    rdfs:label "Formal Verification" ;
+    rdfs:comment "Mathematically proving design correctness" .
+
+# Process verifying layout adherence to manufacturing rules
+eda:DesignRuleChecking a owl:Class ;
+    rdfs:subClassOf eda:Verification ;
+    rdfs:label "Design Rule Checking" ;
+    rdfs:comment "Ensuring the layout adheres to manufacturing rules" .
+
+# Process performing final timing verification for signoff
+eda:TimingSignoff a owl:Class ;
+    rdfs:subClassOf eda:Verification ;
+    rdfs:label "Timing Signoff" ;
+    rdfs:comment "The process of final timing verification using static timing analysis" .
+
+# Process verifying layout matches the original netlist
+eda:LayoutVsSchematic a owl:Class ;
+    rdfs:subClassOf eda:Verification ;
+    rdfs:label "Layout vs. Schematic (LVS)" ;
+    rdfs:comment "The process of verifying layout matches the netlist" .
+
+# Logical synthesis subprocess classes for RTL-to-gate transformation
+###### Logical Synthesis Subprocesses ######
+
+# Process mapping logic functions to specific technology library cells
+eda:TechnologyMapping a owl:Class ;
+    rdfs:subClassOf eda:LogicalSynthesis ;
+    rdfs:label "Technology Mapping" ;
+    rdfs:comment "Mapping logic to a specific technology library" .
+
+# Process improving netlist for area, power, or timing objectives
+eda:Optimization a owl:Class ;
+    rdfs:subClassOf eda:LogicalSynthesis ;
+    rdfs:label "Optimization" ;
+    rdfs:comment "Improving the netlist for area, power, or timing" .
+
+# Tool classes representing specific software applications used in EDA
+###### Tools ######
+
+# Tool performing logic synthesis from RTL to gates
+eda:SynthesisTool a owl:Class ;
+    rdfs:subClassOf eda:Tool ;
+    rdfs:label "Synthesis Tool" ;
+    rdfs:comment "A tool responsible for logic synthesis" .
+
+# Tool determining physical locations for circuit elements
+eda:PlacementTool a owl:Class ;
+    rdfs:subClassOf eda:Tool ;
+    rdfs:label "Placer" ;
+    rdfs:comment "A tool responsible for assigning physical locations to circuit elements" .
+
+# Tool creating physical wire connections between elements
+eda:RoutingTool a owl:Class ;
+    rdfs:subClassOf eda:Tool ;
+    rdfs:label "Router" ;
+    rdfs:comment "A tool responsible for global routing to estimate wire paths" .
+
+# Tool performing static timing analysis and optimization
+eda:STATool a owl:Class ;
+    rdfs:subClassOf eda:Tool ;
+    rdfs:label "Static Timing Analysis Tool" ;
+    rdfs:comment "A tool responsible for analyzing and optimizing timing paths" .
+
+# Tool synthesizing clock distribution networks
+eda:CTSTool a owl:Class ;
+    rdfs:subClassOf eda:Tool ;
+    rdfs:label "Clock Tree Synthesis" ;
+    rdfs:comment "A tool responsible for synthesizing Clock Tree" .
+
+# Design artifact classes representing data files and design representations
+###### Design Artifacts ######
+
+# Primary design entity undergoing the EDA process
+eda:Design a owl:Class ;
+    rdfs:subClassOf eda:DesignArtifact ;
+    rdfs:label "Design" ;
+    rdfs:comment "The integrated circuit design entity undergoing the EDA process." .
+
+# High-level behavioral description of digital circuits
+eda:RTL a owl:Class ;
+    rdfs:subClassOf eda:DesignArtifact ;
+    rdfs:label "Register Transfer Level" ;
+    rdfs:comment "High-level description of a digital circuit" .
+
+# Structural description consisting of instances and connections
+eda:Netlist a owl:Class ;
+    rdfs:subClassOf eda:DesignArtifact ;
+    rdfs:label "Netlist" ;
+    rdfs:comment "Collection of instances and connections." .
+
+# Physical geometric representation of the chip
+eda:Layout a owl:Class ;
+    rdfs:subClassOf eda:DesignArtifact ;
+    rdfs:label "Layout" ;
+    rdfs:comment "The physical representation of the chip, evolving through physical design" .
+
+# Layout optimized for multiple objectives (wirelength, routability, timing)
+eda:OptimizedLayout a owl:Class ;
+    rdfs:subClassOf eda:DesignArtifact ; 
+    rdfs:label "Optimized Layout" ;
+    rdfs:comment "A layout optimized for wirelength, routability, and timing" .
+
+# Final layout format ready for mask generation and manufacturing
+eda:GDSII a owl:Class ;
+    rdfs:subClassOf eda:Layout ;
+    rdfs:label "GDSII" ;
+    rdfs:comment "Final layout format ready for manufacturing" .
+
+# Physical or virtual mask patterns used in lithography
+eda:Mask a owl:Class ;
+    rdfs:subClassOf eda:DesignArtifact ;
+    rdfs:label "Mask" ;
+    rdfs:comment "A physical or virtual mask used in lithography" .
+
+# Timing constraints specification for synthesis and analysis
+eda:SDC a owl:Class ;
+    rdfs:subClassOf eda:DesignArtifact ;
+    rdfs:label "Synopsys Design Constraints (SDC)" ;
+    rdfs:comment "Timing constraints file for synthesis and STA." .
+
+# Technology specification defining process capabilities and rules
+eda:TechnologyLibrary a owl:Class ;
+    rdfs:subClassOf eda:DesignArtifact ;
+    rdfs:label "Technology Library" ;
+    rdfs:comment "Files defining process technology (e.g., LEF, techfile)" .
+
+# Output documentation from verification processes
+eda:VerificationReport a owl:Class ;
+    rdfs:subClassOf eda:DesignArtifact ;
+    rdfs:label "Verification Report" ;
+    rdfs:comment "Output artifact of verification processes (e.g., DRC Report, LVS Report, Timing Report)." .
+
+# Design structure classes representing circuit elements and connectivity
+###### Design Structure Elements ######
+
+# Instantiated cell or macro within the design hierarchy
+eda:Instance a owl:Class ;
+    rdfs:label "Instance" ;
+    rdfs:comment "An instantiated occurrence of a library cell or macro within the design." .
+
+# Large pre-designed functional block (memory, processor core, etc.)
+eda:Macro a owl:Class ;
+    rdfs:subClassOf eda:Instance ;
+    rdfs:label "Macro" ;
+    rdfs:comment "A large pre-designed block (e.g., memory, processor core) instantiated in the design." .
+
+# External connection point of the design or hierarchical block
+eda:Port a owl:Class ;
+    rdfs:label "Port" ;
+    rdfs:comment "An external connection point of the top-level design or a hierarchical block." .
+
+# Port carrying logical or timing-related signals
+eda:SignalPort a owl:Class ;
+    rdfs:subClassOf eda:Port ;
+    rdfs:comment "A port that transmits logical or timing-related information." .
+
+# Enumeration defining pin directionality (Input, Output, InOut)
+eda:Direction a owl:Class ; 
+    rdfs:comment "Enumeration for Pin direction (Input, Output, InOut)." .
+
+# Enumeration defining pin functionality (Signal, Power, Ground, Clock)
+eda:PinFunction a owl:Class ; 
+    rdfs:comment "Enumeration for Pin function (Signal, Power, Ground, Clock, etc.)." .
+
+# Electrically connected collection of pins and wires
+eda:Net a owl:Class ;
+    rdfs:label "Net" ;
+    rdfs:comment "A collection of electrically connected pins and wires." .
+
+# Net carrying logical or data signals
+eda:SignalNet a owl:Class ;
+    rdfs:subClassOf eda:Net ;
+    rdfs:label "Signal Net" .
+
+# Net distributing power supply voltages
+eda:PowerNet a owl:Class ;
+    rdfs:subClassOf eda:Net ;
+    rdfs:label "Power Net" ;
+    rdfs:comment "Net that distributes power (e.g., VDD, VSS, or analog supplies)" .
+
+# Physical metal segment implementing net connectivity
+eda:Wire a owl:Class ;
+    rdfs:label "Wire" ;
+    rdfs:comment "A physical segment of metal interconnect belonging to a net." .
+
+# Vertical connection between different metal layers
+eda:Via a owl:Class ;
+    rdfs:label "Via" ;
+    rdfs:comment "A vertical connection between different metal layers, belonging to a net." .
+
+# Connection point on instances or ports
+eda:Pin a owl:Class ;
+    rdfs:label "Pin" ;
+    rdfs:comment "A connection point on an instance or a port." .
+
+# Pin carrying logical or timing signals with restricted connectivity
+eda:SignalPin a owl:Class ;
+    rdfs:subClassOf eda:Pin , [
+            a owl:Restriction ;
+            owl:onProperty eda:connectsTo ;
+            owl:allValuesFrom eda:SignalNet
+    ] ;
+    rdfs:comment "Pin that transmits logical or timing-related information." .
+
+# Pin delivering power with restricted connectivity to power nets
+eda:PowerPin a owl:Class ;
+    rdfs:subClassOf eda:Pin, [
+        a owl:Restriction ;
+        owl:onProperty eda:connectsTo ;
+        owl:allValuesFrom eda:PowerNet
+    ] ;
+    rdfs:comment "Pin that delivers energy (e.g., VDD, VSS)." .
+
+# Pin connected to ground reference
+eda:GroundPin a owl:Class ;
+    rdfs:subClassOf eda:PowerPin ;
+    rdfs:label "Ground Pin" .
+
+# Pin connected to positive supply voltage
+eda:VoltageSupplyPin a owl:Class ;
+    rdfs:subClassOf eda:PowerPin ;
+    rdfs:label "Voltage Supply Pin" .
+
+# Library structure classes defining standard cell characteristics
+###### Library Structure Classes ######
+
+# Collection of characterized cells and technology information
+eda:Library a owl:Class ;
+    rdfs:label "Library" ;
+    rdfs:comment "A collection of characterized cells (LibCells) and technology information used in design." .
+
+# Specific PVT condition under which cells are characterized
+eda:OperatingCondition a owl:Class ;
+    rdfs:label "Operating Condition" ;
+    rdfs:comment "A specific condition (PVT) under which library cells are characterized." .
+
+# Standard cell, macro, or IO cell definition
+eda:LibCell a owl:Class ;
+    rdfs:label "Library Cell" ;
+    rdfs:comment "A standard cell, macro, or IO cell defined in a library." .
+
+# Leakage power specification for a library cell under specific conditions
+eda:LeakagePower a owl:Class ;
+    rdfs:label "Leakage Power Specification" ;
+    rdfs:comment "Leakage power value for a LibCell under specific conditions." .
+
+# Pin definition within a library cell
+eda:LibPin a owl:Class ;
+    rdfs:label "Library Pin" ;
+    rdfs:comment "A pin definition within a library cell." .
+
+# Timing or power characterization between pins within a library cell
+eda:LibArc a owl:Class ;
+    rdfs:label "Library Arc" ;
+    rdfs:comment "A timing or power characterization arc (e.g., input pin to output pin delay) within a library cell." .
+
+# Power characterization arc within a library cell
+eda:PowerArc a owl:Class ;
+    rdfs:subClassOf eda:LibArc ;
+    rdfs:label "Power Arc" ;
+    rdfs:comment "Power arc in a library cell." .
+
+# Timing characterization arc within a library cell
+eda:TimingArc a owl:Class ;
+    rdfs:subClassOf eda:LibArc ;
+    rdfs:label "Timing Arc" ;
+    rdfs:comment "Timing arc in a library cell." .
+
+eda:timingArcType a owl:DatatypeProperty ;
+	rdfs:domain eda:TimingArc ;
+	rdfs:range xsd:string .
+
+### positive_unate | negative_unate | non_unate
+eda:timingSense a owl:DatatypeProperty ;
+	rdfs:domain eda:TimingArc ;
+	rdfs:range xsd:string . 
+
+
+# Table representing complex timing or power characteristics
+eda:LUT a owl:Class ;
+    rdfs:label "Lookup Table (LUT)" ;
+    rdfs:comment "A table used to represent complex timing or power characteristics, often associated with LibArcs." .
+
+# Structure definition for lookup table organization
+eda:Template a owl:Class ;
+    rdfs:label "LUT Template" ;
+    rdfs:comment "Defines the structure (indices) for a type of Lookup Table." .
+
+# Template specifically for delay lookup tables
+eda:DelayTemplate a owl:Class ;
+    rdfs:subClassOf eda:Template ;
+    rdfs:label "Delay Template" ;
+    rdfs:comment "Template for delay look-up tables." .
+
+# Template specifically for power lookup tables
+eda:PowerTemplate a owl:Class ;
+    rdfs:subClassOf eda:Template ;
+    rdfs:label "Power Template" ;
+    rdfs:comment "Template for power look-up tables." .
+
+# Technology-related classes defining manufacturing process specifications
+###### Technology-Related Classes ######
+
+# Artifact defining manufacturing process rules and capabilities
+eda:TechnologyArtifact a owl:Class ;
+    rdfs:subClassOf eda:DesignArtifact ;
+    rdfs:label "Technology Artifact" ;
+    rdfs:comment "An artifact defining manufacturing process rules, layers, and capabilities (e.g., LEF file, techfile)." .
+
+# LEF file defining technology parameters and constraints
+eda:TechLEF a owl:Class ;
+    rdfs:subClassOf eda:TechnologyArtifact ;
+    rdfs:label "Technology LEF" ;
+    rdfs:comment "Library Exchange Format (LEF) file defining technology parameters like layers, vias, site, and macro abstracts." .
+
+# Processing layer specification in the technology
+eda:Layer a owl:Class ;
+    rdfs:label "Layer" ;
+    rdfs:comment "Represents a processing layer defined in the technology (e.g., metal layer, via layer, poly layer)." .
+
+# Metal layer specification for interconnect routing
+eda:RoutingLayer a owl:Class ;
+    rdfs:subClassOf eda:Layer ;
+    rdfs:label "Routing Layer" ;
+    rdfs:comment "Specification for a metal routing layer in the technology." .
+
+# Via or cut layer connecting different routing layers
+eda:CutLayer a owl:Class ;
+    rdfs:subClassOf eda:Layer ;
+    rdfs:label "Cut Layer" ;
+    rdfs:comment "Specification for a via or cut layer connecting other layers." .
+
+# Property defining which layers a via connects
+eda:connectsLayers a owl:ObjectProperty ;
+    rdfs:domain eda:Via ;
+    rdfs:range  eda:RoutingLayer ;
+    rdfs:label "connects layers" ;
+    rdfs:comment "Via connects two metal layers." .
+
+# Geometric shape representation for layout and library definitions
+eda:Shape a owl:Class ;
+    rdfs:label "Shape" ;
+    rdfs:comment "A geometric shape (e.g., rectangle, polygon) used in layout or library definitions." .
+
+# Cardinality constraint: Every wire must realize exactly one net
+### Every Wire realizes exactly one Net
+eda:Wire rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty eda:realizesNet ;
+    owl:cardinality "1"^^xsd:nonNegativeInteger
+] .
+
+# Cardinality constraint: Every wire must be on exactly one metal layer
+### Every Wire must be on one MetalLayer
+eda:Wire rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty eda:onLayer ;
+    owl:cardinality "1"^^xsd:nonNegativeInteger
+] .
+
+# Cardinality constraint: Every via must connect at least one metal layer
+### Every Via must connect at least one MetalLayer (ideally exactly two)
+eda:Via rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty eda:connectsLayers ;
+    owl:minCardinality "1"^^xsd:nonNegativeInteger
+] .
+
+# Polygon class distinct from wire representation
+eda:Polygon a owl:Class .
+
+# Disjointness: Polygons and wires are distinct geometric representations
+eda:Polygon owl:disjointWith eda:Wire .
+
+# Timing graph classes representing timing analysis structures
+###### Timing Graph Concepts ######
+
+# Directed graph representing timing paths and constraints
+eda:TimingGraph a owl:Class ;
+    rdfs:subClassOf eda:DesignArtifact ;
+    rdfs:label "Timing Graph" ;
+    rdfs:comment "A directed graph representing timing paths and constraints in a digital circuit." .
+
+# Vertex in timing graph representing circuit pins or ports
+eda:TimingNode a owl:Class ;
+    rdfs:label "Timing Node" ;
+    rdfs:comment "A vertex in the timing graph, typically representing a circuit pin or port." .
+
+# Directed edge representing signal propagation or constraint check
+eda:TimingEdge a owl:Class ;
+    rdfs:label "Timing Edge" ;
+    rdfs:comment "A directed edge in the timing graph, representing signal propagation delay or a constraint check." .
+
+# Collection of timing paths analyzed together under similar constraints
+eda:PathGroup a owl:Class ;
+    rdfs:label "Path Group" ;
+    rdfs:comment "A group of timing paths analyzed together under a clock domain and similar constraints." .
+
+# Property relating timing paths to their path groups
+eda:belongsToPathGroup a owl:ObjectProperty ;
+    rdfs:domain eda:TimingPath ;
+    rdfs:range eda:PathGroup ;
+    rdfs:label "belongs to path group" ;
+    rdfs:comment "Relates a timing path to the path group it is part of." .
+
+# Sequence of connected nodes and edges analyzed for timing
+eda:TimingPath a owl:Class ;
+	rdfs:subClassOf
+		[ a owl:Restriction ; owl:onProperty eda:hasStartPoint ; owl:cardinality "1"^^xsd:nonNegativeInteger ],
+		[ a owl:Restriction ; owl:onProperty eda:hasEndPoint   ; owl:cardinality "1"^^xsd:nonNegativeInteger ] ;
+    rdfs:label "Timing Path" ;
+    rdfs:comment "A sequence of connected timing nodes and edges from a startpoint to an endpoint." .
+
+
+
+# Path segmentation and CPPR
+eda:LaunchPath a owl:Class .
+eda:CapturePath a owl:Class .
+eda:DataPath a owl:Class .
+eda:CommonClockPath a owl:Class .
+
+eda:hasLaunchPath a owl:ObjectProperty ;
+  rdfs:domain eda:TimingPath ; rdfs:range eda:LaunchPath .
+
+eda:hasCapturePath a owl:ObjectProperty ;
+  rdfs:domain eda:TimingPath ; rdfs:range eda:CapturePath .
+
+eda:hasDataPath a owl:ObjectProperty ;
+  rdfs:domain eda:TimingPath ; rdfs:range eda:DataPath .
+
+eda:hasCommonClockPath a owl:ObjectProperty ;
+  rdfs:domain eda:TimingPath ; rdfs:range eda:CommonClockPath .
+
+eda:cpprCredit a owl:DatatypeProperty ;
+  rdfs:domain eda:TimingPath ; rdfs:range xsd:double ;
+  qudt:unit unit:NanoSecond .
+
+
+# Region controlled by specific clock or related clocks
+eda:ClockDomain a owl:Class ;
+    rdfs:label "Clock Domain" ;
+    rdfs:comment "A region of the design controlled by a specific clock or set of related clocks." .
+
+# Starting point of a timing path (clock pin, input port)
+eda:StartPoint a owl:Class ;
+    rdfs:subClassOf eda:TimingNode ;
+    rdfs:label "Start Point" ;
+    rdfs:comment "A timing node where a timing path begins (e.g., clock pin of a flip-flop, input port)." .
+
+# Ending point of a timing path (data input, output port)
+eda:EndPoint a owl:Class ;
+    rdfs:subClassOf eda:TimingNode ;
+    rdfs:label "End Point" ;
+    rdfs:comment "A timing node where a timing path terminates (e.g., data input of a flip-flop, output port)." .
+
+# Intermediate point along a timing path
+eda:IntermediatePoint a owl:Class ;
+    rdfs:subClassOf eda:TimingNode ;
+    rdfs:label "Intermediate Point" ;
+    rdfs:comment "A timing node along a path that is neither a start point nor an end point (e.g., intermediate pin in combinational logic)." .
+
+# Edge representing signal propagation delay through logic cells
+eda:CellDelay a owl:Class ;
+    rdfs:subClassOf eda:TimingEdge ;
+    rdfs:label "Cell Delay Edge" ;
+    rdfs:comment "Edge representing signal propagation delay through a logic cell." .
+
+# Edge representing signal propagation delay through interconnect
+eda:NetDelay a owl:Class ;
+    rdfs:subClassOf eda:TimingEdge ;
+    rdfs:label "Net Delay Edge" ;
+    rdfs:comment "Edge representing signal propagation delay through interconnect (nets/wires)." .
+
+# Edge representing setup timing constraint verification
+eda:SetupCheck a owl:Class ;
+    rdfs:subClassOf eda:TimingEdge ;
+    rdfs:label "Setup Check Edge" ;
+    rdfs:comment "Edge representing a setup timing constraint check at an endpoint." .
+
+# Edge representing hold timing constraint verification
+eda:HoldCheck a owl:Class ;
+    rdfs:subClassOf eda:TimingEdge ;
+    rdfs:label "Hold Check Edge" ;
+    rdfs:comment "Edge representing a hold timing constraint check at an endpoint." .
+
+# Timing path with worst slack for a given analysis
+eda:CriticalPath a owl:Class ;
+    rdfs:subClassOf eda:TimingPath ;
+    rdfs:label "Critical Path" ;
+    rdfs:comment "A timing path identified as having the worst (most negative or least positive) slack for a given analysis." .
+
+# Constraint set classes for managing design constraints
+### ConstraintSet → hasClock → Clock
+### ConstraintSet – the active SDC constraints
+
+# Collection of constraints applied during design analysis
+eda:ConstraintSet a owl:Class ;
+	rdfs:label "A set of constraints" ;
+	rdfs:comment "Constraints applied during the run (SDC etc.)." .
+
+# Property linking circuits to their constraint sets
+eda:hasConstraintSet a owl:ObjectProperty ;
+    rdfs:label "has constraint set" ;
+    rdfs:domain eda:DigitalCircuit ;
+    rdfs:range  eda:ConstraintSet ;
+    rdfs:comment "Links a digital circuit to a specific set of constraints." .
+
+# Property linking constraint sets to individual constraints
+eda:hasMember a owl:ObjectProperty ;
+    rdfs:label "has member" ;
+    rdfs:domain eda:ConstraintSet ;
+    rdfs:range eda:Constraint ;
+    rdfs:comment "Links a constraint set to an individual constraint that is part of the set." .
+
+# Individual step in a timing path (cell arc or net segment)
+eda:PathElement a owl:Class ;
+	rdfs:comment "One step in a path (cell arc or net segment)." .
+
+# Path element representing standard cell or macro contribution
+eda:CellArcElement a owl:Class ;
+	rdfs:subClassOf eda:PathElement ;
+	rdfs:comment "Standard-cell or macro arc contribution." .
+
+# Path element representing interconnect contribution
+eda:NetSegmentElement a owl:Class ;
+	rdfs:subClassOf eda:PathElement ;
+    rdfs:comment "Interconnect contribution." .
+
+### TimingPath – an analyzed path from a startpoint to an endpoint
+### TimingReport → hasPath → TimingPath
+### TimingPath → hasElement → PathElement
+
+# Report container for timing analysis results
+eda:TimingReport a owl:Class ;
+	rdfs:comment "Report container (paths, violations, summaries)." .
+
+# Summary of aggregate timing metrics
+eda:ViolationSummary a owl:Class ;
+	rdfs:comment "aggregate metrics like WNS/TNS" .
+
+# Clock classes representing timing synchronization elements
+###### Clock Classes ######
+
+# Periodic signal synchronizing circuit operation
+eda:Clock a owl:Class ;
+    rdfs:label "Clock" ;
+    rdfs:comment "A periodic signal that synchronizes circuit operation, defined in constraints (e.g., SDC)." .
+
+# Clock derived from another clock through frequency manipulation
+eda:GeneratedClock a owl:Class ;
+    rdfs:subClassOf eda:Clock ;
+    rdfs:label "Generated Clock" ;
+    rdfs:comment "A clock derived from another clock through logic (e.g., frequency dividers/multipliers)." .
+
+# Clock defined at primary input ports
+eda:PrimaryClock a owl:Class ;
+    rdfs:subClassOf eda:Clock ;
+    rdfs:label "Primary Clock" ;
+    rdfs:comment "A clock defined at a primary input port or pin of the design." .
+
+# Clock used for analysis but not physically present in design
+eda:VirtualClock a owl:Class ;
+    rdfs:subClassOf eda:Clock ;
+    rdfs:label "Virtual Clock" ;
+    rdfs:comment "A clock used for timing analysis (e.g., for IO timing) but not physically present or propagated in the design." .
+
+# Constraint classes defining design requirements and limitations
+###### Constraint Classes ######
+
+# General design constraints specification
+eda:Constraints a owl:Class ;
+    rdfs:label "Constraints" ;
+    rdfs:comment "Design constraints." .
+
+# Constraints specified for timing analysis
+eda:TimingConstraint a owl:Class ;
+	rdfs:subClassOf eda:Constraint ;
+    rdfs:label "Timing Constraint" ;
+    rdfs:comment "A constraint specified for timing analysis (e.g., in SDC)." .
+
+# Constraints applied to clock signals
+eda:ClockConstraint a owl:Class ;
+    rdfs:subClassOf eda:TimingConstraint ;
+    rdfs:label "Clock Constraint" ;
+    rdfs:comment "A constraint applied to one or more clocks (e.g., latency, uncertainty)." .
+
+# Constraint specifying clock source to network delay
+eda:ClockLatency a owl:Class ;
+    rdfs:subClassOf eda:ClockConstraint ;
+    rdfs:label "Clock Latency" ;
+    rdfs:comment "Specifies the delay from the clock source definition point to specific points in the clock network (source or network latency)." .
+
+# Constraint modeling clock arrival time variability
+eda:ClockUncertainty a owl:Class ;
+    rdfs:subClassOf eda:ClockConstraint ;
+    rdfs:label "Clock Uncertainty" ;
+    rdfs:comment "Models the variability in clock arrival times due to jitter, skew specified for inter-clock paths, or timing margins." .
+
+# Constraint specifying maximum clock signal transition time
+eda:ClockTransition a owl:Class ;
+    rdfs:subClassOf eda:ClockConstraint ;
+    rdfs:label "Clock Transition" ;
+    rdfs:comment "Specifies the maximum rise/fall time constraint for a clock signal." .
+
+# Collection of clocks grouped for constraint purposes
+eda:ClockGroup a owl:Class ;
+    rdfs:label "Clock Group" ;
+    rdfs:comment "A collection of clocks grouped for constraint purposes (e.g., asynchronous, exclusive)." .
+
+# Defined timing relationship between clocks
+eda:ClockRelationship a owl:Class ;
+    rdfs:label "Clock Relationship" ;
+    rdfs:comment "A defined timing relationship between two or more clocks or clock groups." .
+
+# Clock relationship indicating synchronous operation
+eda:SynchronousRelationship a owl:Class ;
+    rdfs:subClassOf eda:ClockRelationship ;
+    rdfs:label "Synchronous Relationship" ;
+    rdfs:comment "Indicates clocks that are considered synchronous for timing analysis." .
+
+# Clock relationship indicating no fixed phase relationship
+eda:AsynchronousRelationship a owl:Class ;
+    rdfs:subClassOf eda:ClockRelationship ;
+    rdfs:label "Asynchronous Relationship" ;
+    rdfs:comment "Indicates clocks that have no fixed phase relationship; paths between them are often treated as false paths by default unless specified otherwise." .
+
+# Clock relationship indicating mutual exclusivity
+eda:MutuallyExclusiveRelationship a owl:Class ;
+    rdfs:subClassOf eda:ClockRelationship ;
+    rdfs:label "Mutually Exclusive Relationship" ;
+    rdfs:comment "Indicates clock domains or groups that are logically or physically exclusive (paths between them are not timed)." .
+
+# Constraints overriding default timing analysis for specific paths
+eda:PathExceptionConstraint a owl:Class ;
+    rdfs:subClassOf eda:TimingConstraint ;
+    rdfs:label "Path Exception Constraint" ;
+    rdfs:comment "A constraint that overrides default timing analysis for specific paths." .
+
+# Constraint allowing multiple clock cycles for data propagation
+eda:MultiCyclePath a owl:Class ;
+    rdfs:subClassOf eda:PathExceptionConstraint ;
+    rdfs:label "Multi-Cycle Path Constraint" ;
+    rdfs:comment "Allows a path multiple clock cycles for data propagation." .
+
+# Multi-cycle constraint relaxing setup timing checks
+eda:SetupMultiCycle a owl:Class ;
+    rdfs:subClassOf eda:MultiCyclePath ;
+    rdfs:label "Setup Multi-Cycle" ;
+    rdfs:comment "Relaxed setup check allowing data to arrive after multiple cycles." .
+
+# Multi-cycle constraint modifying hold timing checks
+eda:HoldMultiCycle a owl:Class ;
+    rdfs:subClassOf eda:MultiCyclePath ;
+    rdfs:label "Hold Multi-Cycle" ;
+    rdfs:comment "Modified hold check accounting for multi-cycle setup paths." .
+
+# Constraint identifying logically impossible timing paths
+eda:FalsePath a owl:Class ;
+    rdfs:subClassOf eda:PathExceptionConstraint ;
+    rdfs:label "False Path Constraint" ;
+    rdfs:comment "Identifies a timing path that is logically or functionally impossible and should not be analyzed." .
+
+# Constraint specifying maximum allowable path delay
+eda:MaxDelay a owl:Class ;
+    rdfs:subClassOf eda:PathExceptionConstraint ;
+    rdfs:label "Maximum Delay Constraint" ;
+    rdfs:comment "Specifies the maximum allowable propagation delay on a specific path or set of paths." .
+
+# Constraint specifying minimum required path delay
+eda:MinDelay a owl:Class ;
+    rdfs:subClassOf eda:PathExceptionConstraint ;
+    rdfs:label "Minimum Delay Constraint" ;
+    rdfs:comment "Specifies the minimum required propagation delay on a specific path or set of paths." .
+
+
+### explicit comments for LLMs and other tools
+eda:Clock rdfs:comment "Corresponds to SDC create_clock." .
+eda:GeneratedClock rdfs:comment "Corresponds to SDC create_generated_clock." .
+eda:FalsePath rdfs:comment "Corresponds to SDC set_false_path (use fromPin/toPin/throughPin)." .
+eda:MultiCyclePath rdfs:comment "Corresponds to SDC set_multicycle_path (use eda:multiCycleValue)." .
+eda:InputDelay rdfs:comment "Corresponds to SDC set_input_delay (add clock reference via eda:checksClock)." .
+eda:OutputDelay rdfs:comment "Corresponds to SDC set_output_delay (add clock reference via eda:checksClock)." .
+eda:ClockGroup rdfs:comment "Corresponds to SDC set_clock_groups (add group type: asynchronous/exclusive) ." .
+
+
+# Constraints limiting power consumption
+eda:PowerConstraint a owl:Class ;
+    rdfs:subClassOf eda:Constraint ;
+    rdfs:label "Power Constraint" ;
+    rdfs:comment "A constraint that specifies limits on power consumption." .
+
+# Constraints related to physical chip size and layout
+eda:AreaConstraint a owl:Class ;
+    rdfs:subClassOf eda:Constraint ;
+    rdfs:label "Area Constraint" ;
+    rdfs:comment "A constraint related to the physical size and layout of the circuit on a silicon die." .
+
+# Constraints defining expected operating conditions
+eda:EnvironmentalConstraint a owl:Class ;
+    rdfs:subClassOf eda:Constraint ;
+    rdfs:label "Environmental Constraint" ;
+    rdfs:comment "A constraint defining the expected operating conditions (Process, Voltage, Temperature)." .
+
+# Constraints ensuring manufactured chip testability
+eda:DFTConstraint a owl:Class ;
+    rdfs:subClassOf eda:Constraint ;
+    rdfs:label "Design For Test Constraint" ;
+    rdfs:comment "A constraint to ensure the final manufactured chip is testable." .
+
+# Circuit graph classes for machine learning representations
+###### Circuit Graph Concepts ######
+
+# Graph-based circuit representation for ML models
+eda:CircuitGraph a owl:Class ;
+    rdfs:subClassOf eda:DesignArtifact ;
+    rdfs:label "Circuit Graph" ;
+    rdfs:comment "Graph-based representation of a circuit, often used as input for ML models." .
+
+# Decision point and flow control classes for automated EDA
+###### Decision Points and Flow Control ######
+
+# Point requiring agent evaluation and process selection
+eda:DecisionPoint a owl:Class ;
+    rdfs:subClassOf eda:EDAProcess ;
+    rdfs:label "Decision Point" ;
+    rdfs:comment "A point in the EDA flow where an agent must evaluate conditions and select a subsequent process or action." .
+
+# Alternative approach when primary method fails
+eda:FallbackStrategy a owl:Class ;
+    rdfs:label "Fallback Strategy" ;
+    rdfs:comment "An alternative approach or process to be applied when a primary method fails or does not converge." .
+
+# Agent action classes for automated EDA interventions
+###### Agent Actions and Heuristics ######
+
+# Concrete action an agent can take within EDA processes
+eda:AgentAction a owl:Class ;
+    rdfs:label "EDA Agent Action" ;
+    rdfs:comment "A concrete action that an agent can take within an EDA process, often involving tool commands." .
+
+# Action to insert buffer instance for timing improvement
+eda:InsertBuffer a owl:Class ;
+    rdfs:subClassOf eda:AgentAction ;
+    rdfs:label "Insert Buffer" ;
+    rdfs:comment "Action to insert a buffer instance on a net, typically to improve timing." .
+
+# Action to change library cell type for optimization
+eda:ResizeCell a owl:Class ;
+    rdfs:subClassOf eda:AgentAction ;
+    rdfs:label "Resize Cell" ;
+    rdfs:comment "Action to change the library cell type (size/strength) of an instance to affect timing, power, or area." .
+
+# Encoded expert knowledge guiding agent decisions
+eda:HeuristicRule a owl:Class ;
+    rdfs:label "Heuristic Rule" ;
+    rdfs:comment "An encoded piece of expert knowledge or rule-of-thumb that guides agent decision-making." .
+
+# Quantifiable measure for determining action success
+eda:SuccessMetric a owl:Class ;
+    rdfs:subClassOf eda:Metric ;
+    rdfs:label "Success Metric" ;
+    rdfs:comment "A quantifiable measure used to determine if an agent's intervention or action was successful in achieving its local goal." .
+
+# Primary identifier annotation for unique identification
+#####  Primary ID
+
+# Annotation property indicating primary identifier for class instances
+eda:primaryId a owl:AnnotationProperty ;
+    rdfs:label "primary ID property" ;
+    rdfs:comment "Indicates the property used as the unique identifier for instances of a class." .
+
+# Primary ID specification for Instance class
+eda:Instance a owl:Class ;
+    eda:primaryId eda:instName .
+
+eda:ofLibCell a owl:ObjectProperty ;
+	rdfs:domain eda:Instance ;
+	rdfs:range  eda:LibCell .
+
+eda:ofLibPin a owl:ObjectProperty ;
+	rdfs:domain eda:Pin ;
+	rdfs:range  eda:LibPin .
+
+# Primary ID specification for Net class
+eda:Net a owl:Class ;
+    eda:primaryId eda:netName .
+
+# Primary ID specification for Pin class
+eda:Pin a owl:Class ;
+    eda:primaryId eda:pinName .
+
+# Tool command and resource classes for implementation details
+###### Tool Commands and Resources ######
+
+# Specific command implementing abstract agent actions
+eda:ToolCommand a owl:Class ;
+    rdfs:label "Tool Command" ;
+    rdfs:comment "A specific command or script fragment for an EDA tool that implements an abstract agent action." .
+
+# Computational resource specification for process execution
+eda:ResourceRequirement a owl:Class ;
+    rdfs:label "Resource Requirement" ;
+    rdfs:comment "Specifies the computational resources needed to execute a process or tool command." .
+
+# Potential failure mode during EDA processes
+eda:ErrorCondition a owl:Class ;
+    rdfs:label "Error Condition" ;
+    rdfs:comment "A potential failure mode or error state encountered during an EDA process." .
+
+# Documented approach for addressing common EDA problems
+eda:DesignPattern a owl:Class ;
+    rdfs:label "Design Pattern (EDA)" ;
+    rdfs:comment "A documented, proven approach or technique to address a common problem in EDA (e.g., 'timing optimization pattern', 'congestion mitigation pattern')." .
+
+# System-level design classes for multi-chiplet and advanced packaging
+###### System-Level Design Classes ######
+
+# Multi-component system design with chiplets and packaging
+eda:SystemDesign a owl:Class ;
+    rdfs:subClassOf eda:Design ;
+    rdfs:label "System Design" ;
+    rdfs:comment "Represents a multi-component system design, typically involving multiple chiplets, interposers, and packaging." .
+
+# Distinct silicon die for system integration
+eda:Chiplet a owl:Class ;
+    rdfs:subClassOf eda:Design ;
+    rdfs:label "Chiplet" ;
+    rdfs:comment "A distinct silicon die, potentially designed independently, intended for integration into a larger SystemDesign via advanced packaging." .
+
+# Base die in 3D stack serving as foundation
+eda:BottomDie a owl:Class ;
+    rdfs:subClassOf eda:Chiplet ;
+    rdfs:label "Bottom Die" ;
+    rdfs:comment "A base die, potentially active, in a 3D stack onto which other chiplets are mounted." .
+
+# Physical substrate for carrying or connecting dies
+eda:PhysicalSubstrate a owl:Class ;
+    rdfs:subClassOf eda:DesignArtifact ;
+    rdfs:label "Physical Substrate" ;
+    rdfs:comment "A physical substrate carrying or connecting dies (e.g., Interposer, Package Substrate)." .
+
+# Substrate providing high-density interconnect between chiplets
+eda:Interposer a owl:Class ;
+    rdfs:subClassOf eda:PhysicalSubstrate ;
+    rdfs:label "Interposer" ;
+    rdfs:comment "A substrate, often silicon or organic, used to provide high-density interconnect between multiple chiplets." .
+
+# Main package substrate connecting to external system
+eda:PackageSubstrate a owl:Class ;
+    rdfs:subClassOf eda:PhysicalSubstrate ;
+    rdfs:label "Package Substrate" ;
+    rdfs:comment "The main package substrate, typically organic, holding the interposer or dies and providing connections to the external system." .
+
+# Interconnect element classes for system-level connections
+###### Interconnect Elements ######
+
+# Physical element providing electrical and mechanical connection
+eda:InterconnectElement a owl:Class ;
+    rdfs:label "Interconnect Element" ;
+    rdfs:comment "A physical element providing electrical and mechanical connection between dies or between a die and a substrate." .
+
+# Small solder bumps for high-density die connections
+eda:MicroBump a owl:Class ;
+    rdfs:subClassOf eda:InterconnectElement ;
+    rdfs:label "Micro-bump (µbump)" ;
+    rdfs:comment "Small solder bumps used for high-density die-to-die or die-to-interposer connections." .
+
+# Solder ball used for electrical connections
+eda:SolderBump a owl:Class ;
+    rdfs:subClassOf eda:InterconnectElement ;
+    rdfs:label "Solder Bump" ;
+    rdfs:comment "A solder ball used for connections." .
+
+# Large bumps for interposer to package connections
+eda:C4Bump a owl:Class ;
+    rdfs:subClassOf eda:SolderBump ;
+    rdfs:label "C4 Bump" ;
+    rdfs:comment "Controlled Collapse Chip Connection bump, typically larger bumps used for connecting interposer/die to a package substrate." .
+
+# Direct copper bonding for very fine pitch connections
+eda:HybridBondingInterface a owl:Class ;
+    rdfs:subClassOf eda:InterconnectElement ;
+    rdfs:label "Hybrid Bonding Interface" ;
+    rdfs:comment "Direct copper-to-copper bonding interface enabling very fine pitch die-to-die connections." .
+
+# System-level interface classes defining component boundaries
+###### System-Level Interfaces and Connections ######
+
+# Defined boundary between system components
+eda:Interface a owl:Class ;
+    rdfs:label "Interface" ;
+    rdfs:comment "A defined boundary or collection of connections between components (e.g., chiplets, interposer)." .
+
+# External connection specification for chiplets
+eda:ChipletInterface a owl:Class ;
+    rdfs:subClassOf eda:Interface ;
+    rdfs:label "Chiplet Interface" ;
+    rdfs:comment "The set of external connection points and their characteristics defined for a specific Chiplet." .
+
+# Pin designated as part of external interface
+eda:InterfacePin a owl:Class ;
+    rdfs:subClassOf eda:Pin ;
+    rdfs:label "Interface Pin" ;
+    rdfs:comment "A Pin specifically designated as part of an external ChipletInterface." .
+
+# Net spanning across multiple chiplets or interposer
+eda:SystemLevelNet a owl:Class ;
+    rdfs:subClassOf eda:Net ;
+    rdfs:label "System-Level Net" ;
+    rdfs:comment "A net that spans across multiple chiplets and/or the interposer." .
+
+# System-level process classes for multi-chiplet design
+###### System-Level Processes ######
+
+# Process dividing functionality across multiple chiplets
+eda:SystemPartitioning a owl:Class ;
+    rdfs:subClassOf eda:EDAProcess ;
+    rdfs:label "System Partitioning" ;
+    rdfs:comment "The process of dividing the functionality and logic of a SystemDesign across multiple Chiplets." .
+
+# Partitioning strategy minimizing inter-chiplet connections
+eda:MinCutPartitioning a owl:Class ;
+    rdfs:subClassOf eda:SystemPartitioning ;
+    rdfs:label "Min-Cut Partitioning" ;
+    rdfs:comment "A specific SystemPartitioning strategy aiming to minimize the number or bandwidth of connections required between the resulting Chiplets." .
+
+# Process determining physical locations of chiplets
+eda:SystemPlacement a owl:Class ;
+    rdfs:subClassOf eda:Placement ;
+    rdfs:label "System Placement" ;
+    rdfs:comment "The process of determining the physical locations of multiple Chiplets onto an Interposer, BottomDie, or PackageSubstrate." .
+
+# Process creating physical connections between chiplets
+eda:InterconnectRouting a owl:Class ;
+    rdfs:subClassOf eda:Routing ;
+    rdfs:label "Interconnect Routing" ;
+    rdfs:comment "The process of creating physical connections (routes) between Chiplets, typically on an Interposer or within a 3D stack." .
+
+# Timing analysis across chiplet boundaries
+eda:SystemTimingAnalysis a owl:Class ;
+    rdfs:subClassOf eda:TimingSignoff ;
+    rdfs:label "System-Level Timing Analysis" ;
+    rdfs:comment "Static Timing Analysis performed across chiplet boundaries, considering interconnect delays between chiplets." .
+
+# Process optimizing inter-chiplet connection performance
+eda:InterconnectOptimization a owl:Class ;
+    rdfs:subClassOf eda:Optimization ;
+    rdfs:label "Interconnect Optimization" ;
+    rdfs:comment "The process of optimizing the performance (timing, power) of inter-chiplet connections." .
+
+# Iterative optimization process for system-level design
+eda:SystemOptimizationLoop a owl:Class ;
+    rdfs:subClassOf eda:EDAProcess ;
+    rdfs:label "System Optimization Loop" ;
+    rdfs:comment "An iterative process encompassing system placement, interconnect routing, system-level analysis (STA, Power, Thermal), and interconnect optimization to meet system PPA targets." .
+
+# System-level metric classes for multi-chiplet evaluation
+###### System-Level Metrics ######
+
+# Metrics related to temperature and thermal management
+eda:ThermalMetric a owl:Class ;
+    rdfs:subClassOf eda:Metric ;
+    rdfs:label "Thermal Metric" ;
+    rdfs:comment "Metrics related to temperature or heat flow." .
+
+# Metrics evaluating power distribution quality
+eda:PowerDeliveryNetworkMetric a owl:Class ;
+    rdfs:subClassOf eda:Metric ;
+    rdfs:label "Power Delivery Network Metric" ;
+    rdfs:comment "Metrics related to the quality of the power distribution across the system (e.g., system-level IR drop)." .
+
+# Metric quantifying inter-chiplet data transfer capability
+eda:InterconnectBandwidth a owl:Class ;
+    rdfs:subClassOf eda:Metric ;
+    rdfs:label "Interconnect Bandwidth" ;
+    rdfs:comment "The data transfer rate achievable over the inter-chiplet interconnect." .
+
+# Material classes for manufacturing and packaging
+###### Materials ######
+
+# Physical material used in manufacturing and assembly
+eda:Material a owl:Class ;
+    rdfs:label "Material" ;
+    rdfs:comment "A physical material used in manufacturing, packaging, or assembly." .
+
+# Material providing mechanical stability for interconnects
+eda:Underfill a owl:Class ;
+    rdfs:subClassOf eda:Material ;
+    rdfs:label "Underfill" ;
+    rdfs:comment "Material dispensed between connected dies/substrates to provide mechanical stability and protection for interconnect elements." .
+
+# Semiconductor manufacturing process classes covering fabrication steps
+###### Semiconductor Manufacturing Process Classes ######
+
+# Root class for semiconductor manufacturing operations
+eda:SemiconductorManufacturingProcess a owl:Class ;
+    rdfs:subClassOf eda:EDAProcess ;
+    rdfs:label "Semiconductor Manufacturing Process" ;
+    rdfs:comment "A process in semiconductor manufacturing covering both front-end and back-end operations." .
+
+# Processes for creating and preparing wafers
+eda:SubstratePreparation a owl:Class ;
+    rdfs:subClassOf eda:SemiconductorManufacturingProcess ;
+    rdfs:label "Substrate Preparation" ;
+    rdfs:comment "Processes involved in creating and preparing the wafer, including crystal growth, slicing, and polishing." .
+
+# Processes for depositing thin films on wafers
+eda:FilmFormation a owl:Class ;
+    rdfs:subClassOf eda:SemiconductorManufacturingProcess ;
+    rdfs:label "Film Formation" ;
+    rdfs:comment "Processes for depositing thin films on the wafer (e.g., oxidation, deposition)." .
+
+# Processes for transferring patterns via lithography and etching
+eda:Patterning a owl:Class ;
+    rdfs:subClassOf eda:SemiconductorManufacturingProcess ;
+    rdfs:label "Patterning" ;
+    rdfs:comment "Processes for transferring patterns onto the wafer via lithography and subsequent etching." .
+
+# Processes for introducing impurities to modify electrical properties
+eda:Doping a owl:Class ;
+    rdfs:subClassOf eda:SemiconductorManufacturingProcess ;
+    rdfs:label "Doping" ;
+    rdfs:comment "Processes for introducing impurities into the semiconductor to modify its electrical properties." .
+
+# Processes for creating flat wafer surfaces
+eda:Planarization a owl:Class ;
+    rdfs:subClassOf eda:SemiconductorManufacturingProcess ;
+    rdfs:label "Planarization" ;
+    rdfs:comment "Processes used to create a flat surface on the wafer, such as chemical mechanical planarization (CMP)." .
+
+# Processes for cleaning and surface preparation
+eda:CleaningAndSurfacePreparation a owl:Class ;
+    rdfs:subClassOf eda:SemiconductorManufacturingProcess ;
+    rdfs:label "Cleaning and Surface Preparation" ;
+    rdfs:comment "Processes for cleaning and preparing the wafer surface for subsequent processing steps." .
+
+# Processes involving heat treatments and annealing
+eda:ThermalProcessing a owl:Class ;
+    rdfs:subClassOf eda:SemiconductorManufacturingProcess ;
+    rdfs:label "Thermal Processing" ;
+    rdfs:comment "Processes involving heat treatments, including annealing and rapid thermal processing." .
+
+# Processes for measuring and inspecting wafer properties
+eda:MetrologyAndInspection a owl:Class ;
+    rdfs:subClassOf eda:SemiconductorManufacturingProcess ;
+    rdfs:label "Metrology and Inspection" ;
+    rdfs:comment "Processes for measuring and inspecting wafer properties and dimensions." .
+
+# Specialized processing modules for advanced structures
+eda:AdvancedModules a owl:Class ;
+    rdfs:subClassOf eda:SemiconductorManufacturingProcess ;
+    rdfs:label "Advanced Modules" ;
+    rdfs:comment "Specialized processing modules used for emerging or advanced semiconductor structures." .
+
+# Post-fabrication processes including packaging and testing
+eda:BackEndProcesses a owl:Class ;
+    rdfs:subClassOf eda:SemiconductorManufacturingProcess ;
+    rdfs:label "Back-End Processes" ;
+    rdfs:comment "Processes that occur after front-end fabrication, including metallization, packaging, and testing." .
+
+# Etching process classes for material removal
+###### Etching Processes ######
+
+# Root class for material removal processes
+eda:Etching a owl:Class ;
+    rdfs:subClassOf eda:Patterning ;
+    rdfs:label "Etching" ;
+    rdfs:comment "The process of removing material from the wafer to form patterns." .
+
+# Etching using liquid chemical solutions
+eda:WetEtching a owl:Class ;
+    rdfs:subClassOf eda:Etching ;
+    rdfs:label "Wet Etching" ;
+    rdfs:comment "Etching using liquid chemicals." .
+
+# Etching using gaseous reactants or plasmas
+eda:DryEtching a owl:Class ;
+    rdfs:subClassOf eda:Etching ;
+    rdfs:label "Dry Etching" ;
+    rdfs:comment "Etching process that uses gaseous reactants or plasmas." .
+
+# Dry etching technique utilizing plasma for material removal
+eda:PlasmaEtching a owl:Class ;
+    rdfs:subClassOf eda:DryEtching ;
+    rdfs:label "Plasma Etching" ;
+    rdfs:comment "A dry etching technique that utilizes plasma to remove material." .
+
+# Dry etching using reactive ions for material removal
+eda:ReactiveIonEtching a owl:Class ;
+    rdfs:subClassOf eda:DryEtching ;
+    rdfs:label "Reactive Ion Etching" ;
+    rdfs:comment "Dry etching using reactive ions generated in plasma to remove material." .
+
+# Object properties defining relationships between ontology concepts
+###### Object Properties (Relationships) ######
+
+# Property linking flows to their constituent stages
+eda:hasStage a owl:ObjectProperty ;
+    rdfs:domain eda:Flow ;
+    rdfs:range eda:Stage ;
+    rdfs:label "has Stage" .
+
+# Process-related properties defining input/output relationships
+### Process-related properties
+
+# Property relating processes to artifacts they consume as input
+eda:consumes a owl:ObjectProperty ;
+    rdfs:domain eda:EDAProcess ;
+    rdfs:range eda:DesignArtifact ;
+    rdfs:label "consumes" ;
+    rdfs:comment "Relates a process to the artifact it consumes" .
+
+# Property relating processes to artifacts they produce as output
+eda:produces a owl:ObjectProperty ;
+    rdfs:domain eda:EDAProcess ;
+    rdfs:range eda:DesignArtifact ;
+    rdfs:label "produces" ;
+    rdfs:comment "Relates a process to the artifact it produces" .
+
+# Transitive property defining temporal ordering of processes
+eda:precedes a owl:ObjectProperty, owl:TransitiveProperty ;
+    rdfs:domain eda:EDAProcess ;
+    rdfs:range eda:EDAProcess ;
+    rdfs:label "precedes" ;
+    rdfs:comment "Indicates the sequential order of processes" .
+
+# Property relating processes to tools they utilize
+eda:usesTool a owl:ObjectProperty ;
+    rdfs:domain eda:EDAProcess ;
+    rdfs:range eda:Tool ;
+    rdfs:label "uses tool" ;
+    rdfs:comment "Relates a process to the tool it uses" .
+
+# Property specifying optimization objectives for concurrent processes
+eda:optimizes a owl:ObjectProperty ;
+    rdfs:domain eda:ConcurrentPhysicalOptimization ;
+    rdfs:range xsd:string ;
+    rdfs:label "optimizes" ;
+    rdfs:comment "Specifies the objectives optimized by the process" .
+
+# Subprocess properties defining hierarchical process relationships
+### Subprocess properties
+
+# Transitive property relating processes to their subprocesses
+eda:hasSubProcess a owl:ObjectProperty, owl:TransitiveProperty ;
+    rdfs:domain eda:EDAProcess ;
+    rdfs:range eda:EDAProcess ;
+    rdfs:label "has subprocess" ;
+    rdfs:comment "Relates a process to its subprocesses" .
+
+# Property relating subprocesses to their parent processes
+eda:isPartOf a owl:ObjectProperty ;
+    rdfs:domain eda:EDAProcess ;
+    rdfs:range eda:EDAProcess ;
+    rdfs:label "is part of" ;
+    rdfs:comment "Relates a subprocess to its parent process" ;
+    owl:inverseOf eda:hasSubProcess .
+
+# Analysis view properties linking views to corners and modes
+### Analysis view properties
+
+# Property linking analysis views to RC corners
+eda:hasRCCorner a owl:ObjectProperty ;
+    rdfs:domain eda:AnalysisView ;
+    rdfs:range eda:RCCorner ;
+    rdfs:label "has RC Corner" .
+
+# Property linking analysis views to library corners
+eda:hasLibCorner a owl:ObjectProperty ;
+    rdfs:domain eda:AnalysisView ;
+    rdfs:range eda:LibCorner ;
+    rdfs:label "has Lib Corner" .
+
+# Property linking analysis views to functional/test modes
+eda:hasMode a owl:ObjectProperty ;
+    rdfs:domain eda:AnalysisView ;
+    rdfs:range eda:Mode ;
+    rdfs:label "has mode" ;
+    rdfs:comment "Relates an analysis view to its functional/test mode." .
+
+# Property linking analysis views to process corners
+eda:hasProcessCorner a owl:ObjectProperty ;
+    rdfs:subPropertyOf eda:hasOperatingCondition ;
+    rdfs:domain eda:AnalysisView ;
+    rdfs:range eda:ProcessCorner ;
+    rdfs:label "has process corner" .
+
+# Property linking analysis views to voltage corners
+eda:hasVoltageCorner a owl:ObjectProperty ;
+    rdfs:subPropertyOf eda:hasOperatingCondition ;
+    rdfs:domain eda:AnalysisView ;
+    rdfs:range eda:VoltageCorner ;
+    rdfs:label "has voltage corner" .
+
+# Property linking analysis views to temperature corners
+eda:hasTemperatureCorner a owl:ObjectProperty ;
+    rdfs:subPropertyOf eda:hasOperatingCondition ;
+    rdfs:domain eda:AnalysisView ;
+    rdfs:range eda:TemperatureCorner ;
+    rdfs:label "has temperature corner" .
+
+# Stage properties linking stages to their analyses and netlists
+### Stage properties
+
+# Property linking stages to their analysis results
+eda:hasAnalyses a owl:ObjectProperty ;
+    rdfs:domain eda:Stage ;
+    rdfs:range eda:Analyses ;
+    rdfs:label "has analyses" .
+
+# Property linking stages to their netlist representations
+eda:hasNetlist a owl:ObjectProperty ;
+    rdfs:domain eda:Stage ;
+    rdfs:range eda:Netlist ;
+    rdfs:label "has netlist" .
+
+# Analysis properties linking analysis containers to specific analyses
+### Analysis properties
+
+# Property linking analyses to timing analysis results
+eda:hasTimingAnalysis a owl:ObjectProperty ;
+    rdfs:domain eda:Analyses ;
+    rdfs:range eda:TimingAnalysis ;
+    rdfs:label "has timing analysis" .
+
+# Property linking analyses to power analysis results
+eda:hasPowerAnalysis a owl:ObjectProperty ;
+    rdfs:domain eda:Analyses ;
+    rdfs:range eda:PowerAnalysis ;
+    rdfs:label "has power analysis" .
+
+# Property linking analyses to area analysis results
+eda:hasAreaAnalysis a owl:ObjectProperty ;
+    rdfs:domain eda:Analyses ;
+    rdfs:range eda:AreaAnalysis ;
+    rdfs:label "has area analysis" .
+
+# Property linking analyses to violation analysis results
+eda:hasViolationAnalysis a owl:ObjectProperty ;
+    rdfs:domain eda:Analyses ;
+    rdfs:range eda:ViolationAnalysis ;
+    rdfs:label "has violation analysis" .
+
+# Design structure properties defining circuit hierarchy and connectivity
+### Design structure properties
+
+# Property linking designs to their instance components
+eda:hasInstance a owl:ObjectProperty ;
+    rdfs:domain eda:Design ; ## TTD:Netlist
+    rdfs:range eda:Instance ;
+    rdfs:label "has instance" .
+
+# Property linking designs to their port interfaces
+eda:hasPort a owl:ObjectProperty ;
+    rdfs:domain eda:Design ; ## TDD:Netlist
+    rdfs:range eda:Port ;
+    rdfs:label "has port" .
+
+# Property linking designs to their net connectivity
+eda:hasNet a owl:ObjectProperty ; ## TDD:Netlist
+    rdfs:domain eda:Design ;
+    rdfs:range eda:Net ;
+    rdfs:label "has net" .
+
+# Property linking design elements to their pins
+eda:hasPin a owl:ObjectProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf (eda:Instance eda:Port eda:Net) ] ;
+    rdfs:range eda:Pin ;
+    rdfs:label "has pin" .
+
+# Property linking nets to their wire implementations
+eda:hasWire a owl:ObjectProperty ;
+    rdfs:domain eda:Net ;
+    rdfs:range eda:Wire ;
+    rdfs:label "has wire" .
+
+# Property linking nets to their via connections
+eda:hasVia a owl:ObjectProperty ;
+    rdfs:domain eda:Net ;
+    rdfs:range eda:Via ;
+    rdfs:label "has via" .
+
+# Property linking pins to nets they connect to
+eda:connectsTo a owl:ObjectProperty ;
+    rdfs:domain eda:Pin ;
+    rdfs:range eda:Net ;
+    rdfs:label "connects to" ;
+    rdfs:comment "Relates a pin to the net it belongs to." .
+
+# Property identifying the driving pin of a net
+eda:hasDriver a owl:ObjectProperty ;
+    rdfs:domain eda:Net ;
+    rdfs:range  eda:Pin ;
+    rdfs:label "has driver" ;
+    rdfs:comment "Driver pin of the net." .
+
+# Property identifying load pins connected to a net
+eda:hasLoad a owl:ObjectProperty ;
+    rdfs:domain eda:Net ;
+    rdfs:range  eda:Pin ;
+    rdfs:label "has load" ;
+    rdfs:comment "Load pins of the net." .
+
+# Property linking wires to nets they physically implement
+eda:realizesNet a owl:ObjectProperty ;
+    rdfs:domain eda:Wire ;
+    rdfs:range  eda:Net ;
+    rdfs:label "realizes net" ;
+    rdfs:comment "Wire that realizes a net physically." .
+
+# Inverse property linking nets to their physical wire implementations
+eda:isRealizedBy a owl:ObjectProperty ;
+    owl:inverseOf eda:realizesNet ;
+    rdfs:domain   eda:Net ;
+    rdfs:range    eda:Wire ;
+    rdfs:label "is realized by" .
+
+# Property specifying which metal layer a wire resides on
+eda:onLayer a owl:ObjectProperty ;
+    rdfs:domain eda:Wire ;
+    rdfs:range  eda:RoutingLayer ;
+    rdfs:label "on layer" ;
+    rdfs:comment "The metal layer this wire is on." .
+
+# Property linking vias to wires they belong to
+eda:partOfWire a owl:ObjectProperty ;
+    rdfs:domain eda:Via ;
+    rdfs:range  eda:Wire ;
+    rdfs:label "part of wire" ;
+    rdfs:comment "Via that belongs to a wire." .
+
+# Property defining via connections between metal layers
+eda:connectsLayers a owl:ObjectProperty ;
+    rdfs:domain eda:Via ;
+    rdfs:range  eda:RoutingLayer ;
+    rdfs:label "connects layers" ;
+    rdfs:comment "Via connects two metal layers." .
+
+# Property linking pins to instances they belong to
+eda:belongsToInstance a owl:ObjectProperty ;
+    rdfs:domain eda:Pin ;
+    rdfs:range eda:Instance ;
+    rdfs:label "belongs to instance" ;
+    owl:inverseOf eda:hasPin .
+
+# Library properties defining cell and template relationships
+### Library properties
+
+# Property linking libraries to their cell definitions
+eda:hasLibCell a owl:ObjectProperty ;
+    rdfs:domain eda:Library ;
+    rdfs:range eda:LibCell ;
+    rdfs:label "has library cell" .
+
+# Property linking libraries to their lookup table templates
+eda:hasTemplate a owl:ObjectProperty ;
+    rdfs:domain eda:Library ;
+    rdfs:range eda:Template ;
+    rdfs:label "has template" .
+
+# Property linking library cells to their pin definitions
+eda:hasLibPin a owl:ObjectProperty ;
+    rdfs:domain eda:LibCell ;
+    rdfs:range eda:LibPin ;
+    rdfs:label "has library pin" .
+
+# Property linking library cells to their timing/power arcs
+eda:hasLibArc a owl:ObjectProperty ;
+    rdfs:domain eda:LibCell ;
+    rdfs:range eda:LibArc ;
+    rdfs:label "has library arc" .
+
+# Property linking library cells to their leakage power specifications
+eda:hasLeakagePowerSpec a owl:ObjectProperty ;
+    rdfs:domain eda:LibCell ;
+    rdfs:range eda:LeakagePower ;
+    rdfs:label "has leakage power specification" .
+
+# Property linking library arcs to their lookup tables
+eda:hasLUT a owl:ObjectProperty ;
+    rdfs:domain eda:LibArc ;
+    rdfs:range eda:LUT ;
+    rdfs:label "has LUT" .
+
+# Analysis context properties linking results to analysis conditions
+### Analysis context properties
+
+# Property linking metrics/designs to analysis views
+eda:hasAnalysisView a owl:ObjectProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf (eda:Metric eda:Design) ] ;
+    rdfs:range eda:AnalysisView ;
+    rdfs:label "has Analysis View" ;
+    rdfs:comment "Links a result (Metric) or the design state to the specific Analysis View under which it was obtained/evaluated." .
+
+# Property linking libraries/analysis contexts to operating conditions
+eda:hasOperatingCondition a owl:ObjectProperty ;
+    rdfs:label "has operating condition" ;
+    rdfs:comment "Relates a Library or analysis context (like AnalysisView) to the operating condition used." ;
+    rdfs:domain [
+        a owl:Class ;
+        owl:unionOf (
+            eda:Library
+            eda:AnalysisView
+        )
+    ] ;
+    rdfs:range eda:OperatingCondition .
+
+# Metric properties linking stages to their performance measurements
+### Metric properties
+
+# Property linking stages to their metric measurements
+eda:hasMetric a owl:ObjectProperty ;
+    rdfs:domain eda:Stage ;
+    rdfs:range eda:Metric ;
+    rdfs:label "has Metric" .
+
+# Timing graph properties defining graph structure and relationships
+### Timing graph properties
+
+# Property linking timing graphs to their nodes
+eda:hasNode a owl:ObjectProperty ;
+    rdfs:domain eda:TimingGraph ;
+    rdfs:range eda:TimingNode ;
+    rdfs:label "has node" ;
+    rdfs:comment "Relates a timing graph to a timing node contained within it." .
+
+# Property linking timing graphs to their edges
+eda:hasEdge a owl:ObjectProperty ;
+    rdfs:domain eda:TimingGraph ;
+    rdfs:range eda:TimingEdge ;
+    rdfs:label "has edge" ;
+    rdfs:comment "Relates a timing graph to a timing edge contained within it." .
+
+# Property defining source node of timing edges
+eda:sourceNode a owl:ObjectProperty ;
+    rdfs:domain eda:TimingEdge ;
+    rdfs:range eda:TimingNode ;
+    rdfs:label "source node" ;
+    rdfs:comment "Relates a timing edge to its source node." .
+
+# Property defining sink node of timing edges
+eda:sinkNode a owl:ObjectProperty ;
+    rdfs:domain eda:TimingEdge ;
+    rdfs:range eda:TimingNode ;
+    rdfs:label "sink node" ;
+    rdfs:comment "Relates a timing edge to its sink node." .
+
+# Property linking timing nodes to design elements they represent
+eda:represents a owl:ObjectProperty ;
+    rdfs:domain eda:TimingNode ;
+    rdfs:range [ a owl:Class ; owl:unionOf(eda:SignalPin eda:SignalNet eda:SignalPort) ] ;
+    rdfs:label "represents" ;  
+    rdfs:comment "Links a timing node to the design element (pin, port, or net) it represents." .
+
+# Clock properties defining clock generation and grouping relationships
+### Clock properties
+
+# Property linking generated clocks to their source clocks
+eda:sourceClock a owl:ObjectProperty ;
+    rdfs:domain eda:GeneratedClock ;
+    rdfs:range eda:Clock ;
+    rdfs:label "source clock" ;
+    rdfs:comment "The master clock from which a generated clock is derived." .
+
+# Property linking clock groups to their member clocks
+eda:clocksInGroup a owl:ObjectProperty ;
+    rdfs:domain eda:ClockGroup ;
+    rdfs:range eda:Clock ;
+    rdfs:label "clocks in group" ;
+    rdfs:comment "Relates a clock group to its member clocks." .
+
+# Property defining source clock in clock relationships
+eda:fromClock a owl:ObjectProperty ;
+    rdfs:domain eda:ClockRelationship ;
+    rdfs:range eda:Clock ;
+    rdfs:label "from clock" ;
+    rdfs:comment "The source clock (or group) in a clock relationship constraint." .
+
+# Property defining destination clock in clock relationships
+eda:toClock a owl:ObjectProperty ;
+    rdfs:domain eda:ClockRelationship ;
+    rdfs:range eda:Clock ;
+    rdfs:label "to clock" ;
+    rdfs:comment "The destination clock (or group) in a clock relationship constraint." .
+
+# Technology properties linking technology artifacts to layer definitions
+### Technology properties
+
+# Property linking technology artifacts to routing layers
+eda:hasRoutingLayer a owl:ObjectProperty ;
+    rdfs:domain eda:TechnologyArtifact ;
+    rdfs:range eda:RoutingLayer ;
+    rdfs:label "has routing layer" .
+
+# Property linking technology artifacts to cut layers
+eda:hasCutLayer a owl:ObjectProperty ;
+    rdfs:domain eda:TechnologyArtifact ;
+    rdfs:range eda:CutLayer ;
+    rdfs:label "has cut layer" .
+
+# Property linking design elements to their geometric shapes
+eda:hasShape a owl:ObjectProperty ;
+    rdfs:domain [
+        a owl:Class ;
+        owl:unionOf (eda:LibCell eda:LibPin eda:Wire eda:Via eda:Port)
+    ] ;
+    rdfs:range eda:Shape ;
+    rdfs:label "has shape" .
+
+# Circuit graph properties linking graphs to their constituent elements
+### Circuit graph properties
+
+# Property linking circuit graphs to nets they represent
+eda:containsNet a owl:ObjectProperty ;
+    rdfs:domain eda:CircuitGraph ;
+    rdfs:range eda:Net ;
+    rdfs:label "contains net" ;
+    rdfs:comment "Relates a circuit graph to the nets represented within it." .
+
+# Property linking circuit graphs to instances they represent
+eda:containsInstance a owl:ObjectProperty ;
+    rdfs:domain eda:CircuitGraph ;
+    rdfs:range eda:Instance ;
+    rdfs:label "contains instance" ;
+    rdfs:comment "Relates a circuit graph to the instances represented within it." .
+
+# Property linking circuit graphs to pins they represent
+eda:containsPin a owl:ObjectProperty ;
+    rdfs:domain eda:CircuitGraph ;
+    rdfs:range eda:Pin ;
+    rdfs:label "contains pin" ;
+    rdfs:comment "Relates a circuit graph to the pins represented within it." .
+
+# Decision point and flow control properties for automated processes
+### Decision point and flow control properties
+
+# Property indicating potential iteration requirements between processes
+eda:requiresIteration a owl:ObjectProperty ;
+    rdfs:domain eda:EDAProcess ;
+    rdfs:range eda:EDAProcess ;
+    rdfs:label "requires iteration to" ;
+    rdfs:comment "Indicates that a process may need to loop back to a previous process if certain conditions (e.g., convergence) are not met." .
+
+# Property linking processes to their fallback strategies
+eda:hasFallback a owl:ObjectProperty ;
+    rdfs:domain eda:EDAProcess ;
+    rdfs:range eda:FallbackStrategy ;
+    rdfs:label "has fallback" ;
+    rdfs:comment "Relates a process to its fallback strategies." .
+
+# Heuristic rule properties linking rules to recommended actions
+### Heuristic rule properties
+
+# Property linking heuristic rules to actions they recommend
+eda:recommendsAction a owl:ObjectProperty ;
+    rdfs:domain eda:HeuristicRule ;
+    rdfs:range eda:AgentAction ;
+    rdfs:label "recommends action" ;
+    rdfs:comment "The action recommended by a heuristic rule when its condition is met." .
+
+# Tool command properties linking commands to abstract actions
+### Tool command properties
+
+# Property linking tool commands to agent actions they implement
+eda:implementsAction a owl:ObjectProperty ;
+    rdfs:domain eda:ToolCommand ;
+    rdfs:range eda:AgentAction ;
+    rdfs:label "implements action" ;
+    rdfs:comment "Indicates that a tool command provides a concrete implementation for an abstract agent action." .
+
+# System design properties defining component aggregation and relationships
+### System design properties
+
+# Property linking system designs to their constituent components
+eda:aggregates a owl:ObjectProperty ;
+    rdfs:label "aggregates" ;
+    rdfs:domain eda:SystemDesign ;
+    rdfs:range [ owl:unionOf (eda:Chiplet eda:Interposer eda:PackageSubstrate) ] ;
+    rdfs:comment "Relates a system design to its primary constituent components." .
+
+# Property linking chiplets to substrates they are mounted on
+eda:mountedOn a owl:ObjectProperty ;
+    rdfs:label "mounted on" ;
+    rdfs:domain eda:Chiplet ;
+    rdfs:range [ owl:unionOf (eda:Interposer eda:PackageSubstrate eda:BottomDie) ] ;
+    rdfs:comment "Indicates the substrate or die a chiplet is physically placed upon." .
+
+# Property linking interconnect elements to components they connect
+eda:connectsComponent a owl:ObjectProperty ;
+    rdfs:label "connects component" ;
+    rdfs:domain eda:InterconnectElement ;
+    rdfs:range [ owl:unionOf (eda:Chiplet eda:Interposer eda:PackageSubstrate) ] ;
+    rdfs:comment "Relates an interconnect element (like a bump) to a component (die or substrate) it is attached to." .
+
+# Inverse property linking components to interconnect elements
+eda:usesInterconnect a owl:ObjectProperty ;
+    rdfs:label "uses interconnect" ;
+    rdfs:domain [ owl:unionOf (eda:Chiplet eda:Interposer eda:PackageSubstrate) ] ;
+    rdfs:range eda:InterconnectElement ;
+    owl:inverseOf eda:connectsComponent ;
+    rdfs:comment "Relates a component to the interconnect elements used for its connections." .
+
+# Property linking interconnect elements to underfill materials
+eda:filledWith a owl:ObjectProperty ;
+    rdfs:label "filled with" ;
+    rdfs:domain eda:InterconnectElement ;
+    rdfs:range eda:Underfill ;
+    rdfs:comment "Indicates the underfill material used around an interconnect element." .
+
+# Property linking partitioning processes to resulting chiplets
+eda:partitionsInto a owl:ObjectProperty ;
+    rdfs:label "partitions into" ;
+    rdfs:domain eda:SystemPartitioning ;
+    rdfs:range eda:Chiplet ;
+    rdfs:comment "Relates the partitioning process to the resulting chiplets defines." .
+
+# Property linking chiplets to their external interfaces
+eda:hasInterface a owl:ObjectProperty ;
+    rdfs:label "has interface" ;
+    rdfs:domain eda:Chiplet ;
+    rdfs:range eda:ChipletInterface ;
+    rdfs:comment "Links a chiplet to its defined external interface." .
+
+# Property linking interfaces to their specific pins
+eda:hasInterfacePin a owl:ObjectProperty ;
+    rdfs:label "has interface pin" ;
+    rdfs:domain eda:ChipletInterface ;
+    rdfs:range eda:InterfacePin ;
+    rdfs:comment "Links an interface definition to its specific pins." .
+
+# Property linking interface pins to internal design pins
+eda:mapsToInternalPin a owl:ObjectProperty ;
+    rdfs:label "maps to internal pin" ;
+    rdfs:domain eda:InterfacePin ;
+    rdfs:range eda:Pin ;
+    rdfs:comment "Links an interface pin to the corresponding internal pin of the chiplet's design." .
+
+# Property indicating chiplet boundaries crossed by system nets
+eda:crossesBoundaryOf a owl:ObjectProperty ;
+    rdfs:label "crosses boundary of" ;
+    rdfs:domain eda:SystemLevelNet ;
+    rdfs:range eda:Chiplet ;
+    rdfs:comment "Indicates which chiplet boundaries a system-level net crosses." .
+
+# Property linking optimization processes to target interconnects
+eda:targetsInterconnect a owl:ObjectProperty ;
+    rdfs:label "targets interconnect" ;
+    rdfs:domain eda:InterconnectOptimization ;
+    rdfs:range eda:SystemLevelNet ;
+    rdfs:comment "Indicates that the optimization process focuses on inter-chiplet nets." .
+
+# Property linking instances to library cells they instantiate
+eda:realizesLibCell a owl:ObjectProperty ;
+    rdfs:label "realizes library cell" ;
+    rdfs:comment "Links an instance in the design to the library cell it instantiates." ;
+    rdfs:domain eda:Instance ;
+    rdfs:range eda:LibCell .
+
+# Property linking tools to artifacts they typically produce
+eda:generates a owl:ObjectProperty ;
+    rdfs:domain eda:Tool ;
+    rdfs:range eda:DesignArtifact ;
+    rdfs:label "generates" ;
+    rdfs:comment "Relates a tool to the artifact it typically produces." .
+
+# Property indicating causal relationships between parameters/metrics
+eda:impacts a owl:ObjectProperty ;
+    rdfs:label "impacts" ;
+    rdfs:comment "Indicates that one parameter, metric, or entity causally affects another." .
+
+# Transitive property indicating artifact derivation relationships
+eda:derivesFrom a owl:ObjectProperty, owl:TransitiveProperty ;
+    rdfs:domain eda:DesignArtifact ;
+    rdfs:range eda:DesignArtifact ;
+    rdfs:label "derives from" ;
+    rdfs:comment "Indicates the parent version from which this design version was derived." .
+
+# Datatype properties defining measurable attributes and characteristics
+###### Datatype Properties ######
+
+# Flow properties defining temporal and versioning information
+### Flow properties
+
+# Property defining execution timestamp for flows
+eda:timestamp a owl:DatatypeProperty ;
+    rdfs:domain eda:Flow ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "timestamp" .
+
+# Property defining version information for flows, artifacts, and tools
+eda:version a owl:DatatypeProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf (eda:Flow eda:DesignArtifact eda:Tool) ] ;
+    rdfs:range xsd:string ;
+    rdfs:label "version" .
+
+# Property defining execution runtime for flows in seconds
+eda:runtime a owl:DatatypeProperty ;
+    rdfs:domain eda:Flow ;
+    rdfs:range xsd:float ;
+    rdfs:label "runtime" ;
+    qudt:unit unit:Second .
+
+# Analysis view properties defining names and file paths
+### Analysis view properties
+
+# Property defining names for various design entities
+eda:name a owl:DatatypeProperty ;
+    rdfs:domain [
+         a owl:Class ;
+         owl:unionOf (
+            eda:AnalysisView
+            eda:Corner
+            eda:Mode
+            eda:Stage
+            eda:Design
+            eda:Instance
+            eda:Port
+            eda:Net
+            eda:Pin
+            eda:Library
+            eda:LibCell
+            eda:LibPin
+            eda:LibArc
+            eda:OperatingCondition
+            eda:Template) ] ;
+    rdfs:range xsd:string ;
+    rdfs:label "name" .
+
+# Property defining file path for RC extraction data
+eda:rcx_file a owl:DatatypeProperty ;
+    rdfs:domain eda:RCCorner ;
+    rdfs:range xsd:anyURI ;
+    rdfs:label "rcx file" .
+
+# Property defining file paths for library characterization data
+eda:library_files a owl:DatatypeProperty ;
+    rdfs:domain eda:LibCorner ;
+    rdfs:range xsd:anyURI ;
+    rdfs:label "library files" .
+
+# Stage properties defining stage identification and tool information
+### Stage properties
+
+# Property defining stage name identifier
+eda:stageName a owl:DatatypeProperty ;
+    rdfs:domain eda:Stage ;
+    rdfs:range xsd:string ;
+    rdfs:label "stage name" .
+
+# Property defining tool name used in stage
+eda:toolName a owl:DatatypeProperty ;
+    rdfs:domain eda:Stage ;
+    rdfs:range xsd:string ;
+    rdfs:label "tool name" .
+
+# Timing analysis properties defining slack and timing metrics
+### Timing analysis properties
+
+# Property defining total negative slack in nanoseconds
+eda:totalNegativeSlack a owl:DatatypeProperty ;
+    rdfs:domain eda:TimingAnalysis ;
+    rdfs:range xsd:float ;
+    rdfs:label "Total Negative Slack" ;
+    qudt:unit unit:NanoSecond .
+
+# Property defining worst negative slack in nanoseconds
+eda:worstNegativeSlack a owl:DatatypeProperty ;
+    rdfs:domain eda:TimingAnalysis ;
+    rdfs:range xsd:float ;
+    rdfs:label "Worst Negative Slack" ;
+    qudt:unit unit:NanoSecond .
+
+# Property defining worst slack (positive or negative) in nanoseconds
+eda:worstSlack a owl:DatatypeProperty ;
+    rdfs:domain eda:TimingAnalysis ;
+    rdfs:range xsd:float ;
+    rdfs:label "Worst Slack" ;
+    qudt:unit unit:NanoSecond .
+
+# Property defining arrival time of critical path in nanoseconds
+eda:arrivalTimeOfCriticalPath a owl:DatatypeProperty ;
+    rdfs:domain eda:TimingAnalysis ;
+    rdfs:range xsd:float ;
+    rdfs:label "arrival time of critical path" ;
+    qudt:unit unit:NanoSecond .
+
+# Property defining required time of critical path in nanoseconds
+eda:requiredTimeOfCriticalPath a owl:DatatypeProperty ;
+    rdfs:domain eda:TimingAnalysis ;
+    rdfs:range xsd:float ;
+    rdfs:label "required time of critical path" ;
+    qudt:unit unit:NanoSecond .
+
+# Property identifying worst endpoint in timing analysis
+eda:worstEndpoint a owl:DatatypeProperty ;
+    rdfs:domain eda:TimingAnalysis ;
+    rdfs:range xsd:string ;
+    rdfs:label "worst endpoint" .
+
+# Property counting violating endpoints in timing analysis
+eda:violatingEndpointCount a owl:DatatypeProperty ;
+    rdfs:domain eda:TimingAnalysis ;
+    rdfs:range xsd:int ;
+    rdfs:label "violating endpoint count" .
+
+
+# Path structure and ordering
+eda:PathPoint a owl:Class ;
+  rdfs:label "Path Point" ;
+  rdfs:comment "A pin visit within a TimingPath with cumulative/step timing." .
+
+eda:hasStartPoint a owl:ObjectProperty ;
+  rdfs:domain eda:TimingPath ;
+  rdfs:range eda:PathPoint ;
+  rdfs:label "has start point" .
+
+eda:hasEndPoint a owl:ObjectProperty ;
+  rdfs:domain eda:TimingPath ;
+  rdfs:range eda:PathPoint ;
+  rdfs:label "has end point" .
+
+eda:hasPathPoint a owl:ObjectProperty ;
+  rdfs:domain eda:TimingPath ;
+  rdfs:range eda:PathPoint ;
+  rdfs:label "has path point" .
+
+eda:nextPathPoint a owl:ObjectProperty ;
+  rdfs:domain eda:PathPoint ;
+  rdfs:range eda:PathPoint ;
+  rdfs:label "next path point" ;
+  owl:propertyDisjointWith eda:hasPathPoint .
+
+# Functional pins on path points (one pin per point)
+eda:pathPointPin a owl:ObjectProperty ;
+  rdfs:domain eda:PathPoint ;
+  rdfs:range eda:Pin ;
+  owl:cardinality "1"^^xsd:nonNegativeInteger .
+
+# Numeric attributes on points (units explicit)
+eda:incrementalDelay a owl:DatatypeProperty ;
+  rdfs:domain eda:PathPoint ;
+  rdfs:range xsd:double ;
+  qudt:unit unit:NanoSecond .
+
+eda:cumulativeArrival a owl:DatatypeProperty ;
+  rdfs:domain eda:PathPoint ;
+  rdfs:range xsd:double ;
+  qudt:unit unit:NanoSecond .
+
+eda:pathPointSlew a owl:DatatypeProperty ;
+  rdfs:domain eda:PathPoint ;
+  rdfs:range xsd:double ;
+  qudt:unit unit:NanoSecond .
+
+# Path segmentation and CPPR
+eda:LaunchPath a owl:Class .
+eda:CapturePath a owl:Class .
+eda:DataPath a owl:Class .
+eda:CommonClockPath a owl:Class .
+
+eda:hasLaunchPath a owl:ObjectProperty ;
+  rdfs:domain eda:TimingPath ;
+	rdfs:range eda:LaunchPath .
+
+eda:hasCapturePath a owl:ObjectProperty ;
+  rdfs:domain eda:TimingPath ;
+	rdfs:range eda:CapturePath .
+
+eda:hasDataPath a owl:ObjectProperty ;
+  rdfs:domain eda:TimingPath ;
+	rdfs:range eda:DataPath .
+
+eda:hasCommonClockPath a owl:ObjectProperty ;
+  rdfs:domain eda:TimingPath ;
+	rdfs:range eda:CommonClockPath .
+
+eda:cpprCredit a owl:DatatypeProperty ;
+  rdfs:domain eda:TimingPath ;
+	rdfs:range xsd:double ;
+  qudt:unit unit:NanoSecond .
+
+# Required times (pin scope, per analysis polarity)
+eda:setupRiseRequired a owl:DatatypeProperty ;
+	rdfs:domain eda:Pin ;
+	rdfs:range xsd:double ;
+	qudt:unit unit:NanoSecond .
+
+eda:setupFallRequired a owl:DatatypeProperty ;
+	rdfs:domain eda:Pin ;
+	rdfs:range xsd:double ;
+	qudt:unit unit:NanoSecond .
+
+eda:holdRiseRequired  a owl:DatatypeProperty ;
+	rdfs:domain eda:Pin ;
+	rdfs:range xsd:double ;
+	qudt:unit unit:NanoSecond .
+
+eda:holdFallRequired a owl:DatatypeProperty ;
+	rdfs:domain eda:Pin ;
+	rdfs:range xsd:double ;
+	qudt:unit unit:NanoSecond .
+
+# Slack (final numbers; computed externally)
+eda:slack a owl:DatatypeProperty ;
+	rdfs:domain eda:TimingPath ;
+	rdfs:range xsd:double ;
+	qudt:unit unit:NanoSecond .
+
+eda:arrivalTime a owl:DatatypeProperty ;
+	rdfs:domain eda:TimingPath ;
+	rdfs:range xsd:double ;
+	qudt:unit unit:NanoSecond .
+
+eda:requiredTime a owl:DatatypeProperty ;
+	rdfs:domain eda:TimingPath ;
+	rdfs:range xsd:double ;
+	qudt:unit unit:NanoSecond .
+
+eda:noOfGates a owl:DatatypeProperty ;
+	rdfs:domain eda:TimingPath ;
+	rdfs:range xsd:double ;
+	qudt:unit unit:NanoSecond .
+
+# Path type taxonomy
+eda:PathType a owl:Class .
+
+eda:RegToRegPath a owl:Class ;
+	rdfs:subClassOf eda:PathType .
+
+eda:InToRegPath a owl:Class ;
+	rdfs:subClassOf eda:PathType .
+
+eda:RegToOutPath a owl:Class ;
+	rdfs:subClassOf eda:PathType .
+
+eda:InToOutPath a owl:Class ;
+	rdfs:subClassOf eda:PathType .
+
+eda:hasPathType a owl:ObjectProperty ;
+	rdfs:domain eda:TimingPath ;
+	rdfs:range eda:PathType .
+
+
+# Power analysis properties defining power consumption metrics
+### Power analysis properties
+
+# Property defining internal power consumption in milliwatts
+eda:internalPower a owl:DatatypeProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf (eda:PowerAnalysis eda:Instance) ] ;
+    rdfs:range xsd:float ;
+    rdfs:label "internal power" ;
+    qudt:unit unit:MilliW .
+
+# Property defining leakage power consumption in milliwatts
+eda:leakagePower a owl:DatatypeProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf (eda:PowerAnalysis eda:Instance) ] ;
+    rdfs:range xsd:float ;
+    rdfs:label "leakage power" ;
+    qudt:unit unit:MilliW .
+
+# Property defining switching power consumption in milliwatts
+eda:switchingPower a owl:DatatypeProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf (eda:PowerAnalysis eda:Instance) ] ;
+    rdfs:range xsd:float ;
+    rdfs:label "switching power" ;
+    qudt:unit unit:MilliW .
+
+# Property defining macro power consumption in milliwatts
+eda:macroPower a owl:DatatypeProperty ;
+    rdfs:domain eda:PowerAnalysis ;
+    rdfs:range xsd:float ;
+    rdfs:label "macro power" ;
+    qudt:unit unit:MilliW .
+
+# Property defining total power consumption in milliwatts
+eda:totalPower a owl:DatatypeProperty ;
+    rdfs:domain eda:PowerAnalysis ;
+    rdfs:range xsd:float ;
+    rdfs:label "total power" ;
+    qudt:unit unit:MilliW .
+
+# Area analysis properties defining chip area and utilization metrics
+### Area analysis properties
+
+# Property defining core area in square micrometers
+eda:coreArea a owl:DatatypeProperty ;
+    rdfs:domain eda:AreaAnalysis ;
+    rdfs:range xsd:float ;
+    rdfs:label "core area" ;
+    qudt:unit unit:SquareMicron .
+
+# Property defining die area in square millimeters
+eda:dieArea a owl:DatatypeProperty ;
+    rdfs:domain eda:AreaAnalysis ;
+    rdfs:range xsd:float ;
+    rdfs:label "die area" ;
+    qudt:unit unit:SquareMillimeter .
+
+# Property defining total instance area in square micrometers
+eda:instsArea a owl:DatatypeProperty ;
+    rdfs:domain eda:AreaAnalysis ;
+    rdfs:range xsd:float ;
+    rdfs:label "instances area" ;
+    qudt:unit unit:SquareMicron .
+
+# Property defining macro area in square micrometers
+eda:macroArea a owl:DatatypeProperty ;
+    rdfs:domain eda:AreaAnalysis ;
+    rdfs:range xsd:float ;
+    rdfs:label "macro area" ;
+    qudt:unit unit:SquareMicron .
+
+# Property defining area utilization as fraction
+eda:utilization a owl:DatatypeProperty ;
+    rdfs:domain eda:AreaAnalysis ;
+    rdfs:range xsd:float ;
+    rdfs:label "utilization" .
+
+# Property defining buffer area in square micrometers
+eda:bufferArea a owl:DatatypeProperty ;
+    rdfs:domain eda:AreaAnalysis ;
+    rdfs:range xsd:float ;
+    rdfs:label "buffer area" ;
+    qudt:unit unit:SquareMicron .
+
+# Property defining combinational logic area in square micrometers
+eda:combinationalArea a owl:DatatypeProperty ;
+    rdfs:domain eda:AreaAnalysis ;
+    rdfs:range xsd:float ;
+    rdfs:label "combinational area" ;
+    qudt:unit unit:SquareMicron .
+
+# Property defining sequential logic area in square micrometers
+eda:sequentialArea a owl:DatatypeProperty ;
+    rdfs:domain eda:AreaAnalysis ;
+    rdfs:range xsd:float ;
+    rdfs:label "sequential area" ;
+    qudt:unit unit:SquareMicron .
+
+# Property defining inverter area in square micrometers
+eda:inverterArea a owl:DatatypeProperty ;
+    rdfs:domain eda:AreaAnalysis ;
+    rdfs:range xsd:float ;
+    rdfs:label "inverter area" ;
+    qudt:unit unit:SquareMicron .
+
+# Property defining filler cell area in square micrometers
+eda:fillerArea a owl:DatatypeProperty ;
+    rdfs:domain eda:AreaAnalysis ;
+    rdfs:range xsd:float ;
+    rdfs:label "filler area" ;
+    qudt:unit unit:SquareMicron .
+
+# Property defining total area in square micrometers
+eda:totalArea a owl:DatatypeProperty ;
+    rdfs:domain eda:AreaAnalysis ;
+    rdfs:range xsd:float ;
+    rdfs:label "total area" ;
+    qudt:unit unit:SquareMicron .
+
+# Violation analysis properties defining violation counts
+### Violation analysis properties
+
+# Property counting design rule check violations
+eda:drcViolationCount a owl:DatatypeProperty ;
+    rdfs:domain eda:ViolationAnalysis ;
+    rdfs:range xsd:int ;
+    rdfs:label "DRC violation count" .
+
+# Property counting antenna effect violations
+eda:antennaViolationCount a owl:DatatypeProperty ;
+    rdfs:domain eda:ViolationAnalysis ;
+    rdfs:range xsd:int ;
+    rdfs:label "antenna violation count" .
+
+# Property counting maximum capacitance violations
+eda:maxCapViolationCount a owl:DatatypeProperty ;
+    rdfs:domain eda:ViolationAnalysis ;
+    rdfs:range xsd:int ;
+    rdfs:label "maximum capacitance violation count" .
+
+# Property counting maximum slew rate violations
+eda:maxSlewViolationCount a owl:DatatypeProperty ;
+    rdfs:domain eda:ViolationAnalysis ;
+    rdfs:range xsd:int ;
+    rdfs:label "maximum slew violation count" .
+
+# Property counting maximum fanout violations
+eda:maxFanoutViolationCount a owl:DatatypeProperty ;
+    rdfs:domain eda:ViolationAnalysis ;
+    rdfs:range xsd:int ;
+    rdfs:label "maximum fanout violation count" .
+
+# Property counting short circuit violations
+eda:shortsViolationCount a owl:DatatypeProperty ;
+    rdfs:domain eda:ViolationAnalysis ;
+    rdfs:range xsd:int ;
+    rdfs:label "shorts violation count" .
+
+# Property counting unconnected nets
+eda:unconnectedNetsCount a owl:DatatypeProperty ;
+    rdfs:domain eda:ViolationAnalysis ;
+    rdfs:range xsd:int ;
+    rdfs:label "unconnected nets count" .
+
+# Property counting static IR drop violations
+eda:staticIrViolationCount a owl:DatatypeProperty ;
+    rdfs:domain eda:ViolationAnalysis ;
+    rdfs:range xsd:int ;
+    rdfs:label "static IR drop violation count" .
+
+# Property counting dynamic IR drop violations
+eda:dynamicIrViolationCount a owl:DatatypeProperty ;
+    rdfs:domain eda:ViolationAnalysis ;
+    rdfs:range xsd:int ;
+    rdfs:label "dynamic IR drop violation count" .
+
+# Property counting electromigration violations
+eda:emViolationCount a owl:DatatypeProperty ;
+    rdfs:domain eda:ViolationAnalysis ;
+    rdfs:range xsd:int ;
+    rdfs:label "electromigration violation count" .
+
+# Design properties defining design characteristics and port counts
+### Design properties
+
+# Property defining design name identifier
+eda:designName a owl:DatatypeProperty ;
+    rdfs:domain eda:Design ;
+    rdfs:range xsd:string ;
+    rdfs:label "design name" .
+
+# Property defining design type classification
+eda:designType a owl:DatatypeProperty ;
+    rdfs:domain eda:Design ;
+    rdfs:range xsd:string ;
+    rdfs:label "design type" .
+
+# Property counting input ports in design
+eda:numInputPorts a owl:DatatypeProperty ;
+    rdfs:domain eda:Design ;
+    rdfs:range xsd:int ;
+    rdfs:label "number of input ports" .
+
+# Property counting output ports in design
+eda:numOutputPorts a owl:DatatypeProperty ;
+    rdfs:domain eda:Design ;
+    rdfs:range xsd:int ;
+    rdfs:label "number of output ports" .
+
+# Netlist properties defining structural counts
+### Netlist properties
+
+# Property counting total instances in netlist
+eda:totalInstances a owl:DatatypeProperty ;
+    rdfs:domain eda:Netlist ;
+    rdfs:range xsd:integer ;
+    rdfs:label "total instances" .
+
+# Property counting total nets in netlist
+eda:totalNets a owl:DatatypeProperty ;
+    rdfs:domain eda:Netlist ;
+    rdfs:range xsd:integer ;
+    rdfs:label "total nets" .
+
+# Constraint properties defining timing and electrical constraints
+### Constraint properties
+
+# Property counting clocks in constraint set
+eda:clockCount a owl:DatatypeProperty ;
+    rdfs:domain eda:Constraints ;
+    rdfs:range xsd:int ;
+    rdfs:label "clock count" .
+
+# Property defining input delay constraints in nanoseconds
+eda:inputDelay a owl:DatatypeProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf (eda:Constraints eda:Port) ] ;
+    rdfs:range xsd:float ;
+    rdfs:label "input delay" ;
+    qudt:unit unit:NanoSecond .
+
+# Property defining output delay constraints in nanoseconds
+eda:outputDelay a owl:DatatypeProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf (eda:Constraints eda:Port) ] ;
+    rdfs:range xsd:float ;
+    rdfs:label "output delay" ;
+    qudt:unit unit:NanoSecond .
+
+# Property defining maximum transition time constraints in nanoseconds
+eda:maxTransition a owl:DatatypeProperty ;
+    rdfs:domain eda:Constraints ;
+    rdfs:range xsd:float ;
+    rdfs:label "max transition" ;
+    qudt:unit unit:NanoSecond .
+
+# Property defining maximum fanout constraints
+eda:maxFanout a owl:DatatypeProperty ;
+    rdfs:domain eda:Constraints ;
+    rdfs:range xsd:float ;
+    rdfs:label "max fanout" .
+
+# Property defining maximum capacitance constraints in femtofarads
+eda:maxCapacitance a owl:DatatypeProperty ;
+    rdfs:domain eda:Constraints ;
+    rdfs:range xsd:float ;
+    rdfs:label "max capacitance" ;
+    qudt:unit unit:FemtoFarad .
+
+# Clock properties defining clock characteristics and timing
+### Clock properties
+
+# Property defining clock name identifier
+eda:clockName a owl:DatatypeProperty ;
+    rdfs:domain eda:Clock ;
+    rdfs:range xsd:string ;
+    rdfs:label "clock name" .
+
+# Property defining clock port name
+eda:clockPortName a owl:DatatypeProperty ;
+    rdfs:domain eda:Clock ;
+    rdfs:range xsd:string ;
+    rdfs:label "clock port name" .
+
+# Property defining clock period in nanoseconds
+eda:clockPeriod a owl:DatatypeProperty ;
+    rdfs:domain eda:Clock ;
+    rdfs:range xsd:float ;
+    rdfs:label "clock period" ;
+    qudt:unit unit:NanoSecond .
+
+# Property defining clock uncertainty in nanoseconds
+eda:clockUncertainty a owl:DatatypeProperty ;
+    rdfs:domain eda:Clock ;
+    rdfs:range xsd:float ;
+    rdfs:label "clock uncertainty" ;
+    qudt:unit unit:NanoSecond .
+
+# Property defining clock latency in nanoseconds
+eda:clockLatency a owl:DatatypeProperty ;
+    rdfs:domain eda:Clock ;
+    rdfs:range xsd:float ;
+    rdfs:label "clock latency" ;
+    qudt:unit unit:NanoSecond .
+
+# Instance properties defining instance characteristics and placement
+### Instance properties
+
+# Property defining instance name identifier
+eda:instName a owl:DatatypeProperty ;
+    rdfs:domain eda:Instance ;
+    rdfs:range xsd:string ;
+    rdfs:label "instance name" .
+
+# Property defining library cell name for instance
+eda:libcellName a owl:DatatypeProperty ;
+    rdfs:domain eda:Instance ;
+    rdfs:range xsd:string ;
+    rdfs:label "libcell name" .
+
+# Property defining lower-left X coordinate in micrometers
+eda:llx a owl:DatatypeProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf (eda:Instance eda:Port eda:Wire eda:Via) ] ;
+    rdfs:range xsd:float ;
+    rdfs:label "Lower Left X" ;
+    qudt:unit unit:MicroM .
+
+# Property defining lower-left Y coordinate in micrometers
+eda:lly a owl:DatatypeProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf (eda:Instance eda:Port eda:Wire eda:Via) ] ;
+    rdfs:range xsd:float ;
+    rdfs:label "Lower Left Y" ;
+    qudt:unit unit:MicroM .
+
+# Property defining upper-right X coordinate in micrometers
+eda:urx a owl:DatatypeProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf (eda:Instance eda:Port eda:Wire eda:Via) ] ;
+    rdfs:range xsd:float ;
+    rdfs:label "Upper Right X" ;
+    qudt:unit unit:MicroM .
+
+# Property defining upper-right Y coordinate in micrometers
+eda:ury a owl:DatatypeProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf (eda:Instance eda:Port eda:Wire eda:Via) ] ;
+    rdfs:range xsd:float ;
+    rdfs:label "Upper Right Y" ;
+    qudt:unit unit:MicroM .
+
+# Boolean property indicating sequential logic functionality
+eda:isSequential a owl:DatatypeProperty ;
+    rdfs:domain eda:Instance ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "is sequential" .
+
+# Boolean property indicating filler cell usage
+eda:isFiller a owl:DatatypeProperty ;
+    rdfs:domain eda:Instance ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "is filler" .
+
+# Boolean property indicating buffer functionality
+eda:isBuffer a owl:DatatypeProperty ;
+    rdfs:domain eda:Instance ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "is buffer" .
+
+# Boolean property indicating inverter functionality
+eda:isInverter a owl:DatatypeProperty ;
+    rdfs:domain eda:Instance ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "is inverter" .
+
+# Boolean property indicating diode functionality
+eda:isDiode a owl:DatatypeProperty ;
+    rdfs:domain eda:Instance ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "is diode" .
+
+# Property counting input pins of instance
+eda:numberOfInputs a owl:DatatypeProperty ;
+    rdfs:domain eda:Instance ;
+    rdfs:range xsd:int ;
+    rdfs:label "number of inputs" .
+
+# Property counting output pins of instance
+eda:numberOfOutputs a owl:DatatypeProperty ;
+    rdfs:domain eda:Instance ;
+    rdfs:range xsd:int ;
+    rdfs:label "number of outputs" .
+
+# Port properties defining port characteristics and electrical parameters
+### Port properties
+
+# Property defining port name identifier
+eda:portName a owl:DatatypeProperty ;
+    rdfs:domain eda:Port ;
+    rdfs:range xsd:string ;
+    rdfs:label "port name" .
+
+# Property defining direction (input/output/inout) for ports and pins
+eda:direction a owl:DatatypeProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf (eda:Port eda:Pin eda:LibPin) ] ;
+    rdfs:range xsd:string ;
+    rdfs:label "direction" .
+
+# Property defining type classification for various design elements
+eda:type a owl:DatatypeProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf (eda:Port eda:Pin eda:LibPin eda:CutLayer) ] ;
+    rdfs:range xsd:string ;
+    rdfs:label "type" .
+
+# Property defining connected net name for ports and pins
+eda:netName a owl:DatatypeProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf (eda:Port eda:Pin) ] ;
+    rdfs:range xsd:string ;
+    rdfs:label "net name" .
+
+# Property defining load capacitance in femtofarads
+eda:loadCapacitance a owl:DatatypeProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf (eda:Port eda:Pin) ] ;
+    rdfs:range xsd:float ;
+    rdfs:label "load capacitance" ;
+    qudt:unit unit:FemtoFarad .
+
+# Net properties defining net characteristics and electrical parameters
+### Net properties
+
+# Boolean property indicating special net designation
+eda:isSpecial a owl:DatatypeProperty ;
+    rdfs:domain eda:Net ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "is special" .
+
+# Property defining net length in micrometers
+eda:netLength a owl:DatatypeProperty ;
+    rdfs:domain eda:Net ;
+    rdfs:range xsd:float ;
+    rdfs:label "net length" ;
+    qudt:unit unit:MicroM .
+
+# Property defining estimated half-perimeter wirelength in micrometers
+eda:estimatedHpwl a owl:DatatypeProperty ;
+    rdfs:domain eda:Net ;
+    rdfs:range xsd:float ;
+    rdfs:label "estimated HPWL" ;
+    qudt:unit unit:MicroM .
+
+# Property counting wires implementing the net
+eda:numWires a owl:DatatypeProperty ;
+    rdfs:domain eda:Net ;
+    rdfs:range xsd:integer ;
+    rdfs:label "number of wires" .
+
+# Property counting fanout connections of the net
+eda:numFanout a owl:DatatypeProperty ;
+    rdfs:domain eda:Net ;
+    rdfs:range xsd:integer ;
+    rdfs:label "number of fanout" .
+
+# Property defining net resistance in ohms
+eda:netResistance a owl:DatatypeProperty ;
+    rdfs:domain eda:Net ;
+    rdfs:range xsd:float ;
+    rdfs:label "net resistance" ;
+    qudt:unit unit:Ohm .
+
+# Property defining net capacitance in femtofarads
+eda:netCapacitance a owl:DatatypeProperty ;
+    rdfs:domain eda:Net ;
+    rdfs:range xsd:float ;
+    rdfs:label "net capacitance" ;
+    qudt:unit unit:FemtoFarad .
+
+# Property defining total coupling capacitance in femtofarads
+eda:totalCouplingCapacitance a owl:DatatypeProperty ;
+    rdfs:domain eda:Net ;
+    rdfs:range xsd:float ;
+    rdfs:label "total coupling capacitance" ;
+    qudt:unit unit:FemtoFarad .
+
+# Wire and via properties defining physical implementation characteristics
+### Wire and Via properties
+
+# Property defining layer name for wires, vias, and layers
+eda:layerName a owl:DatatypeProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf (eda:Wire eda:Via eda:Layer) ] ;
+    rdfs:range xsd:string ;
+    rdfs:label "layer name" .
+
+# Property defining RUDY (Routing Utilization Density) metric
+eda:rudy a owl:DatatypeProperty ;
+    rdfs:domain eda:Wire ;
+    rdfs:range xsd:float ;
+    rdfs:label "RUDY" ;
+    rdfs:comment "Routing Utilization Density metric." .
+
+# Property defining resistance in ohms for wires and vias
+eda:resistance a owl:DatatypeProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf (eda:Wire eda:Via) ] ;
+    rdfs:range xsd:float ;
+    rdfs:label "resistance" ;
+    qudt:unit unit:Ohm .
+
+# Property defining capacitance in femtofarads for various elements
+eda:capacitance a owl:DatatypeProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf (eda:Wire eda:Via eda:Pin eda:LibPin) ] ;
+    rdfs:range xsd:float ;
+    rdfs:label "capacitance" ;
+    qudt:unit unit:FemtoFarad .
+
+# Pin properties defining pin characteristics and timing parameters
+### Pin properties
+
+# Property defining pin name identifier
+eda:pinName a owl:DatatypeProperty ;
+    rdfs:domain eda:Pin ;
+    rdfs:range xsd:string ;
+    rdfs:label "pin name" .
+
+# Property defining pin X coordinate in micrometers
+eda:pinX a owl:DatatypeProperty ;
+    rdfs:domain eda:Pin ;
+    rdfs:range xsd:float ;
+    rdfs:label "pin X" ;
+    qudt:unit unit:MicroM .
+
+# Property defining pin Y coordinate in micrometers
+eda:pinY a owl:DatatypeProperty ;
+    rdfs:domain eda:Pin ;
+    rdfs:range xsd:float ;
+    rdfs:label "pin Y" ;
+    qudt:unit unit:MicroM .
+
+# Boolean property indicating clock pin functionality
+eda:isClockPin a owl:DatatypeProperty ;
+    rdfs:domain eda:Pin ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "is clock pin" .
+
+# Boolean property indicating timing startpoint designation
+eda:isStartpoint a owl:DatatypeProperty ;
+    rdfs:domain eda:Pin ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "is startpoint" .
+
+# Boolean property indicating timing endpoint designation
+eda:isEndpoint a owl:DatatypeProperty ;
+    rdfs:domain eda:Pin ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "is endpoint" .
+
+# Property defining parent instance name for pin
+eda:instName a owl:DatatypeProperty ;
+    rdfs:domain eda:Pin ;
+    rdfs:range xsd:string ;
+    rdfs:label "instance name" .
+
+# Property defining setup analysis rise slew in nanoseconds
+eda:setupRiseSlew a owl:DatatypeProperty ;
+    rdfs:domain eda:Pin ;
+    rdfs:range xsd:float ;
+    rdfs:label "setup rise slew" ;
+    qudt:unit unit:NanoSecond .
+
+# Property defining setup analysis fall slew in nanoseconds
+eda:setupFallSlew a owl:DatatypeProperty ;
+    rdfs:domain eda:Pin ;
+    rdfs:range xsd:float ;
+    rdfs:label "setup fall slew" ;
+    qudt:unit unit:NanoSecond .
+
+# Property defining hold analysis rise slew in nanoseconds
+eda:holdRiseSlew a owl:DatatypeProperty ;
+    rdfs:domain eda:Pin ;
+    rdfs:range xsd:float ;
+    rdfs:label "hold rise slew" ;
+    qudt:unit unit:NanoSecond .
+
+# Property defining hold analysis fall slew in nanoseconds
+eda:holdFallSlew a owl:DatatypeProperty ;
+    rdfs:domain eda:Pin ;
+    rdfs:range xsd:float ;
+    rdfs:label "hold fall slew" ;
+    qudt:unit unit:NanoSecond .
+
+# Property defining worst slew across all analyses in nanoseconds
+eda:worstSlew a owl:DatatypeProperty ;
+    rdfs:domain eda:Pin ;
+    rdfs:range xsd:float ;
+    rdfs:label "worst slew" ;
+    qudt:unit unit:NanoSecond .
+
+# Property defining setup analysis rise slack in nanoseconds
+eda:setupRiseSlack a owl:DatatypeProperty ;
+    rdfs:domain eda:Pin ;
+    rdfs:range xsd:float ;
+    rdfs:label "setup rise slack" ;
+    qudt:unit unit:NanoSecond .
+
+# Property defining setup analysis fall slack in nanoseconds
+eda:setupFallSlack a owl:DatatypeProperty ;
+    rdfs:domain eda:Pin ;
+    rdfs:range xsd:float ;
+    rdfs:label "setup fall slack" ;
+    qudt:unit unit:NanoSecond .
+
+# Property defining hold analysis rise slack in nanoseconds
+eda:holdRiseSlack a owl:DatatypeProperty ;
+    rdfs:domain eda:Pin ;
+    rdfs:range xsd:float ;
+    rdfs:label "hold rise slack" ;
+    qudt:unit unit:NanoSecond .
+
+# Property defining hold analysis fall slack in nanoseconds
+eda:holdFallSlack a owl:DatatypeProperty ;
+    rdfs:domain eda:Pin ;
+    rdfs:range xsd:float ;
+    rdfs:label "hold fall slack" ;
+    qudt:unit unit:NanoSecond .
+
+# Property defining setup analysis rise arrival time in nanoseconds
+eda:setupRiseArrival a owl:DatatypeProperty ;
+    rdfs:domain eda:Pin ;
+    rdfs:range xsd:float ;
+    rdfs:label "setup rise arrival" ;
+    qudt:unit unit:NanoSecond .
+
+# Property defining setup analysis fall arrival time in nanoseconds
+eda:setupFallArrival a owl:DatatypeProperty ;
+    rdfs:domain eda:Pin ;
+    rdfs:range xsd:float ;
+    rdfs:label "setup fall arrival" ;
+    qudt:unit unit:NanoSecond .
+
+# Property defining hold analysis rise arrival time in nanoseconds
+eda:holdRiseArrival a owl:DatatypeProperty ;
+    rdfs:domain eda:Pin ;
+    rdfs:range xsd:float ;
+    rdfs:label "hold rise arrival" ;
+    qudt:unit unit:NanoSecond .
+
+# Property defining hold analysis fall arrival time in nanoseconds
+eda:holdFallArrival a owl:DatatypeProperty ;
+    rdfs:domain eda:Pin ;
+    rdfs:range xsd:float ;
+    rdfs:label "hold fall arrival" ;
+    qudt:unit unit:NanoSecond .
+
+# Property defining input capacitance in femtofarads
+eda:inputCapacitance a owl:DatatypeProperty ;
+    rdfs:domain eda:Pin ;
+    rdfs:range xsd:float ;
+    rdfs:label "input capacitance" ;
+    qudt:unit unit:FemtoFarad .
+
+# Property defining IR drop voltage in volts
+eda:irDrop a owl:DatatypeProperty ;
+    rdfs:domain eda:Pin ;
+    rdfs:range xsd:float ;
+    rdfs:label "IR drop" ;
+    qudt:unit unit:Volt .
+
+# Property defining switching activity factor
+eda:switchingActivity a owl:DatatypeProperty ;
+    rdfs:domain eda:Pin ;
+    rdfs:range xsd:float ;
+    rdfs:label "switching activity" .
+
+# Library properties defining library metadata and characteristics
+### Library properties
+
+# Property defining library name identifier
+eda:libraryName a owl:DatatypeProperty ;
+    rdfs:domain eda:Library ;
+    rdfs:range xsd:string ;
+    rdfs:label "library name" .
+
+# Property defining creation/modification date for libraries and designs
+eda:date a owl:DatatypeProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf (eda:Library eda:Design) ] ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "date" .
+
+# Property defining library revision identifier
+eda:revision a owl:DatatypeProperty ;
+    rdfs:domain eda:Library ;
+    rdfs:range xsd:string ;
+    rdfs:label "revision" .
+
+# Property defining delay model type used in library
+eda:delayModel a owl:DatatypeProperty ;
+    rdfs:domain eda:Library ;
+    rdfs:range xsd:string ;
+    rdfs:label "delay model" .
+
+# Property defining capacitive load unit for library
+eda:capacitiveLoadUnit a owl:DatatypeProperty ;
+    rdfs:domain eda:Library ;
+    rdfs:range xsd:string ;
+    rdfs:label "capacitive load unit" .
+
+# Property defining current unit for library
+eda:currentUnit a owl:DatatypeProperty ;
+    rdfs:domain eda:Library ;
+    rdfs:range xsd:string ;
+    rdfs:label "current unit" .
+
+# Property defining leakage power unit for library
+eda:leakagePowerUnit a owl:DatatypeProperty ;
+    rdfs:domain eda:Library ;
+    rdfs:range xsd:string ;
+    rdfs:label "leakage power unit" .
+
+# Property defining pulling resistance unit for library
+eda:pullingResistanceUnit a owl:DatatypeProperty ;
+    rdfs:domain eda:Library ;
+    rdfs:range xsd:string ;
+    rdfs:label "pulling resistance unit" .
+
+# Property defining time unit for library
+eda:timeUnit a owl:DatatypeProperty ;
+    rdfs:domain eda:Library ;
+    rdfs:range xsd:string ;
+    rdfs:label "time unit" .
+
+# Property defining voltage unit for library
+eda:voltageUnit a owl:DatatypeProperty ;
+    rdfs:domain eda:Library ;
+    rdfs:range xsd:string ;
+    rdfs:label "voltage unit" .
+
+# Property defining default cell leakage power value
+eda:defaultCellLeakagePower a owl:DatatypeProperty ;
+    rdfs:domain eda:Library ;
+    rdfs:range xsd:float ;
+    rdfs:label "default cell leakage power" .
+
+# Property defining default fanout load value
+eda:defaultFanoutLoad a owl:DatatypeProperty ;
+    rdfs:domain eda:Library ;
+    rdfs:range xsd:float ;
+    rdfs:label "default fanout load" .
+
+# Property defining default maximum transition time
+eda:defaultMaxTransition a owl:DatatypeProperty ;
+    rdfs:domain eda:Library ;
+    rdfs:range xsd:float ;
+    rdfs:label "default max transition" .
+
+# Property defining default output pin capacitance
+eda:defaultOutputPinCap a owl:DatatypeProperty ;
+    rdfs:domain eda:Library ;
+    rdfs:range xsd:float ;
+    rdfs:label "default output pin capacitance" .
+
+# Property defining in-place swap mode for library
+eda:inPlaceSwapMode a owl:DatatypeProperty ;
+    rdfs:domain eda:Library ;
+    rdfs:range xsd:string ;
+    rdfs:label "in place swap mode" .
+
+# Property defining input threshold percentage for fall transitions
+eda:inputThresholdPctFall a owl:DatatypeProperty ;
+    rdfs:domain eda:Library ;
+    rdfs:range xsd:float ;
+    rdfs:label "input threshold percent fall" .
+
+# Property defining input threshold percentage for rise transitions
+eda:inputThresholdPctRise a owl:DatatypeProperty ;
+    rdfs:domain eda:Library ;
+    rdfs:range xsd:float ;
+    rdfs:label "input threshold percent rise" .
+
+# Property defining nominal process condition
+eda:nomProcess a owl:DatatypeProperty ;
+    rdfs:domain eda:Library ;
+    rdfs:range xsd:string ;
+    rdfs:label "nominal process" .
+
+# Property defining nominal temperature in degrees Celsius
+eda:nomTemperature a owl:DatatypeProperty ;
+    rdfs:domain eda:Library ;
+    rdfs:range xsd:float ;
+    rdfs:label "nominal temperature" ;
+    qudt:unit unit:DegreeCelsius .
+
+# Property defining nominal voltage in volts
+eda:nomVoltage a owl:DatatypeProperty ;
+    rdfs:domain eda:Library ;
+    rdfs:range xsd:float ;
+    rdfs:label "nominal voltage" ;
+    qudt:unit unit:Volt .
+
+# Property defining output threshold percentage for fall transitions
+eda:outputThresholdPctFall a owl:DatatypeProperty ;
+    rdfs:domain eda:Library ;
+    rdfs:range xsd:float ;
+    rdfs:label "output threshold percent fall" .
+
+# Property defining output threshold percentage for rise transitions
+eda:outputThresholdPctRise a owl:DatatypeProperty ;
+    rdfs:domain eda:Library ;
+    rdfs:range xsd:float ;
+    rdfs:label "output threshold percent rise" .
+
+# Property defining slew derate factor from library
+eda:slewDerateFromLibrary a owl:DatatypeProperty ;
+    rdfs:domain eda:Library ;
+    rdfs:range xsd:float ;
+    rdfs:label "slew derate from library" .
+
+# Property defining slew lower threshold percentage for fall transitions
+eda:slewLowerThresholdPctFall a owl:DatatypeProperty ;
+    rdfs:domain eda:Library ;
+    rdfs:range xsd:float ;
+    rdfs:label "slew lower threshold percent fall" .
+
+# Property defining slew lower threshold percentage for rise transitions
+eda:slewLowerThresholdPctRise a owl:DatatypeProperty ;
+    rdfs:domain eda:Library ;
+    rdfs:range xsd:float ;
+    rdfs:label "slew lower threshold percent rise" .
+
+# Property defining slew upper threshold percentage for fall transitions
+eda:slewUpperThresholdPctFall a owl:DatatypeProperty ;
+    rdfs:domain eda:Library ;
+    rdfs:range xsd:float ;
+    rdfs:label "slew upper threshold percent fall" .
+
+# Property defining slew upper threshold percentage for rise transitions
+eda:slewUpperThresholdPctRise a owl:DatatypeProperty ;
+    rdfs:domain eda:Library ;
+    rdfs:range xsd:float ;
+    rdfs:label "slew upper threshold percent rise" .
+
+# Property defining default operating condition name
+eda:defaultOperatingCondition a owl:DatatypeProperty ;
+    rdfs:domain eda:Library ;
+    rdfs:range xsd:string ;
+    rdfs:label "default operating condition" .
+
+# Operating condition properties defining PVT (Process, Voltage, Temperature) conditions
+### Operating condition properties
+
+# Property defining process corner factor or name
+eda:process a owl:DatatypeProperty ;
+    rdfs:domain eda:OperatingCondition ;
+    rdfs:range xsd:string ;
+    rdfs:label "process corner factor/name" .
+
+# Property defining operating temperature in degrees Celsius
+eda:temperature a owl:DatatypeProperty ;
+    rdfs:domain eda:OperatingCondition ;
+    rdfs:range xsd:float ;
+    rdfs:label "temperature" ;
+    qudt:unit unit:DegreeCelsius .
+
+# Property defining operating voltage in volts
+eda:voltage a owl:DatatypeProperty ;
+    rdfs:domain eda:OperatingCondition ;
+    rdfs:range xsd:float ;
+    rdfs:label "voltage" ;
+    qudt:unit unit:Volt .
+
+# LibCell properties defining library cell characteristics
+### LibCell properties
+
+# Property defining library cell area in square micrometers
+eda:area a owl:DatatypeProperty ;
+    rdfs:domain eda:LibCell ;
+    rdfs:range xsd:float ;
+    rdfs:label "area" ;
+    qudt:unit unit:SquareMicron .
+
+# Property defining library cell logical function
+eda:function a owl:DatatypeProperty ;
+    rdfs:domain eda:LibCell ;
+    rdfs:range xsd:string ;
+    rdfs:label "function" .
+
+# Property defining width in micrometers for cells and layers
+eda:width a owl:DatatypeProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf (eda:LibCell eda:Layer) ] ;
+    rdfs:range xsd:float ;
+    rdfs:label "width" ;
+    qudt:unit unit:MicroM .
+
+# Property defining library cell height in micrometers
+eda:height a owl:DatatypeProperty ;
+    rdfs:domain eda:LibCell ;
+    rdfs:range xsd:float ;
+    rdfs:label "height" ;
+    qudt:unit unit:MicroM .
+
+# Property defining library cell symmetry characteristics
+eda:symmetry a owl:DatatypeProperty ;
+    rdfs:domain eda:LibCell ;
+    rdfs:range xsd:string ;
+    rdfs:label "symmetry" .
+
+# LeakagePower properties defining power characteristics under specific conditions
+### LeakagePower properties
+
+# Property defining leakage power value
+eda:value a owl:DatatypeProperty ;
+    rdfs:domain eda:LeakagePower ;
+    rdfs:range xsd:float ;
+    rdfs:label "value" .
+
+# Property defining related power/ground pin for leakage power
+eda:relatedPgPin a owl:DatatypeProperty ;
+    rdfs:domain eda:LeakagePower ;
+    rdfs:range xsd:string ;
+    rdfs:label "related pg pin" .
+
+# Property defining condition when leakage power applies
+eda:when a owl:DatatypeProperty ;
+    rdfs:domain eda:LeakagePower ;
+    rdfs:range xsd:string ;
+    rdfs:label "when condition" .
+
+# LibPin properties defining library pin characteristics and constraints
+### LibPin properties
+
+# Property defining maximum capacitance for library pin in femtofarads
+eda:maxCapacitance a owl:DatatypeProperty ;
+    rdfs:domain eda:LibPin ;
+    rdfs:range xsd:float ;
+    rdfs:label "max capacitance" ;
+    qudt:unit unit:FemtoFarad .
+
+# Property defining maximum transition time for library pin in nanoseconds
+eda:maxTransition a owl:DatatypeProperty ;
+    rdfs:domain eda:LibPin ;
+    rdfs:range xsd:float ;
+    rdfs:label "max transition" ;
+    qudt:unit unit:NanoSecond .
+
+# Property defining related ground pin for library pin
+eda:relatedGroundPin a owl:DatatypeProperty ;
+    rdfs:domain eda:LibPin ;
+    rdfs:range xsd:string ;
+    rdfs:label "related ground pin" .
+
+# Property defining related power pin for library pin
+eda:relatedPowerPin a owl:DatatypeProperty ;
+    rdfs:domain eda:LibPin ;
+    rdfs:range xsd:string ;
+    rdfs:label "related power pin" .
+
+# Property defining output voltage for library pin in volts
+eda:outputVoltage a owl:DatatypeProperty ;
+    rdfs:domain eda:LibPin ;
+    rdfs:range xsd:float ;
+    rdfs:label "output voltage" ;
+    qudt:unit unit:Volt .
+
+# Shape properties defining geometric characteristics
+### Shape properties
+
+# Property defining layer name for shapes, wires, and vias
+eda:layer a owl:DatatypeProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf (eda:Shape eda:Wire eda:Via) ] ;
+    rdfs:range xsd:string ;
+    rdfs:label "layer" .
+
+# Property defining rectangle coordinates as list
+eda:rect a owl:DatatypeProperty ;
+    rdfs:domain eda:Shape ;
+    rdfs:range rdf:List ;
+    rdfs:label "rectangle coordinates" .
+
+# LibArc properties defining timing and power arc characteristics
+### LibArc properties
+
+# Property defining input library pin name for arc
+eda:inputLibPin a owl:DatatypeProperty ;
+    rdfs:domain eda:LibArc ;
+    rdfs:range xsd:string ;
+    rdfs:label "input library pin" .
+
+# Property defining output library pin name for arc
+eda:outputLibPin a owl:DatatypeProperty ;
+    rdfs:domain eda:LibArc ;
+    rdfs:range xsd:string ;
+    rdfs:label "output library pin" .
+
+# LUT properties defining lookup table characteristics
+### LUT properties
+
+# Property defining lookup table type
+eda:lutType a owl:DatatypeProperty ;
+    rdfs:domain eda:LUT ;
+    rdfs:range xsd:string ;
+    rdfs:label "LUT type" .
+
+# Property defining template name for lookup table
+eda:templateName a owl:DatatypeProperty ;
+    rdfs:domain eda:LUT ;
+    rdfs:range xsd:string ;
+    rdfs:label "template name" .
+
+# Property defining lookup table values as string
+eda:values a owl:DatatypeProperty ;
+    rdfs:domain eda:LUT ;
+    rdfs:range xsd:string ;
+    rdfs:label "values" .
+
+# Template properties defining lookup table index structure
+### Template properties
+
+# Property defining first index array for template
+eda:index1Array a owl:DatatypeProperty ;
+    rdfs:domain eda:Template ;
+    rdfs:range xsd:string ;
+    rdfs:label "index 1 array" .
+
+# Property defining second index array for template
+eda:index2Array a owl:DatatypeProperty ;
+    rdfs:domain eda:Template ;
+    rdfs:range xsd:string ;
+    rdfs:label "index 2 array" .
+
+# TechLEF properties defining technology LEF file characteristics
+### TechLEF properties
+
+# Property defining technology node specification
+eda:techNode a owl:DatatypeProperty ;
+    rdfs:domain eda:TechLEF ;
+    rdfs:range xsd:string ;
+    rdfs:label "technology node" .
+
+# Property defining LEF file format version
+eda:lefVersion a owl:DatatypeProperty ;
+    rdfs:domain eda:TechLEF ;
+    rdfs:range xsd:string ;
+    rdfs:label "LEF version" .
+
+# Property defining database units per micron
+eda:dbuUnits a owl:DatatypeProperty ;
+    rdfs:domain eda:TechLEF ;
+    rdfs:range xsd:integer ;
+    rdfs:label "database units per micron" .
+
+# Layer properties defining metal layer characteristics and constraints
+### Layer properties
+
+# Property defining preferred routing direction for layer
+eda:preferredRoutingDirection a owl:DatatypeProperty ;
+    rdfs:domain eda:RoutingLayer ;
+    rdfs:range xsd:string ;
+    rdfs:label "preferred routing direction" .
+
+# Property defining routing pitch in nanometers
+eda:pitch a owl:DatatypeProperty ;
+    rdfs:domain eda:RoutingLayer ;
+    rdfs:range xsd:float ;
+    rdfs:label "pitch" ;
+    qudt:unit unit:NanoM .
+
+# Property defining minimum spacing in nanometers
+eda:spacing a owl:DatatypeProperty ;
+    rdfs:domain eda:Layer ;
+    rdfs:range xsd:float ;
+    rdfs:label "minimum spacing" ;
+    qudt:unit unit:NanoM .
+
+# Property defining routing offset in nanometers
+eda:offset a owl:DatatypeProperty ;
+    rdfs:domain eda:RoutingLayer ;
+    rdfs:range xsd:float ;
+    rdfs:label "offset" ;
+    qudt:unit unit:NanoM .
+
+# Property defining minimum metal density requirement
+eda:minDensity a owl:DatatypeProperty ;
+    rdfs:domain eda:RoutingLayer ;
+    rdfs:range xsd:float ;
+    rdfs:label "minimum density" .
+
+# Property defining maximum metal density constraint
+eda:maxDensity a owl:DatatypeProperty ;
+    rdfs:domain eda:RoutingLayer ;
+    rdfs:range xsd:float ;
+    rdfs:label "maximum density" .
+
+# Arc properties defining timing arc delay characteristics
+### Arc properties
+
+# Property defining edge type for timing arcs
+eda:edgeType a owl:DatatypeProperty ;
+    rdfs:domain eda:Arc ;
+    rdfs:range xsd:string ;
+    rdfs:label "edge type" .
+
+# Property defining maximum rise arc delay in nanoseconds
+eda:maxRiseArcDelay a owl:DatatypeProperty ;
+    rdfs:domain eda:Arc ;
+    rdfs:range xsd:float ;
+    rdfs:label "max rise arc delay" ;
+    qudt:unit unit:NanoSecond .
+
+# Property defining minimum rise arc delay in nanoseconds
+eda:minRiseArcDelay a owl:DatatypeProperty ;
+    rdfs:domain eda:Arc ;
+    rdfs:range xsd:float ;
+    rdfs:label "min rise arc delay" ;
+    qudt:unit unit:NanoSecond .
+
+# Property defining maximum fall arc delay in nanoseconds
+eda:maxFallArcDelay a owl:DatatypeProperty ;
+    rdfs:domain eda:Arc ;
+    rdfs:range xsd:float ;
+    rdfs:label "max fall arc delay" ;
+    qudt:unit unit:NanoSecond .
+
+# Property defining minimum fall arc delay in nanoseconds
+eda:minFallArcDelay a owl:DatatypeProperty ;
+    rdfs:domain eda:Arc ;
+    rdfs:range xsd:float ;
+    rdfs:label "min fall arc delay" ;
+    qudt:unit unit:NanoSecond .
+
+# Property defining worst case arc delay in nanoseconds
+eda:worstArcDelay a owl:DatatypeProperty ;
+    rdfs:domain eda:Arc ;
+    rdfs:range xsd:float ;
+    rdfs:label "worst arc delay" ;
+    qudt:unit unit:NanoSecond .
+
+# Timing graph properties defining timing node and edge characteristics
+### Timing graph properties
+
+# Property defining arrival time at timing node in nanoseconds
+eda:arrivalTime a owl:DatatypeProperty ;
+    rdfs:domain eda:TimingNode ;
+    rdfs:range xsd:float ;
+    rdfs:label "arrival time" ;
+    qudt:unit unit:NanoSecond .
+
+# Property defining required time at timing node in nanoseconds
+eda:requiredTime a owl:DatatypeProperty ;
+    rdfs:domain eda:TimingNode ;
+    rdfs:range xsd:float ;
+    rdfs:label "required time" ;
+    qudt:unit unit:NanoSecond .
+
+# Property defining slack at timing node in nanoseconds
+eda:slack a owl:DatatypeProperty ;
+    rdfs:domain eda:TimingNode ;
+    rdfs:range xsd:float ;
+    rdfs:label "slack" ;
+    qudt:unit unit:NanoSecond .
+
+# Property defining delay value for timing edge in nanoseconds
+eda:delayValue a owl:DatatypeProperty ;
+    rdfs:domain eda:TimingEdge ;
+    rdfs:range xsd:float ;
+    rdfs:label "delay value" ;
+    qudt:unit unit:NanoSecond .
+
+# Property defining rise delay for timing edge in nanoseconds
+eda:riseDelay a owl:DatatypeProperty ;
+    rdfs:domain eda:TimingEdge ;
+    rdfs:range xsd:float ;
+    rdfs:label "rise delay" ;
+    qudt:unit unit:NanoSecond .
+
+# Property defining fall delay for timing edge in nanoseconds
+eda:fallDelay a owl:DatatypeProperty ;
+    rdfs:domain eda:TimingEdge ;
+    rdfs:range xsd:float ;
+    rdfs:label "fall delay" ;
+    qudt:unit unit:NanoSecond .
+
+# Clock relationship properties defining clock timing characteristics
+### Clock relationship properties
+
+# Property defining clock period in nanoseconds
+eda:period a owl:DatatypeProperty ;
+    rdfs:domain eda:Clock ;
+    rdfs:range xsd:float ;
+    rdfs:label "period" ;
+    qudt:unit unit:NanoSecond .
+
+# Property defining clock waveform specification
+eda:waveform a owl:DatatypeProperty ;
+    rdfs:domain eda:Clock ;
+    rdfs:range xsd:string ;
+    rdfs:label "waveform" .
+
+# Property defining clock duty cycle as fraction
+eda:dutyCycle a owl:DatatypeProperty ;
+    rdfs:domain eda:Clock ;
+    rdfs:range xsd:float ;
+    rdfs:label "duty cycle" .
+
+# Boolean property indicating clock signal inversion
+eda:isInverted a owl:DatatypeProperty ;
+    rdfs:domain eda:Clock ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "is inverted" .
+
+# Property defining frequency division factor for generated clocks
+eda:divisionFactor a owl:DatatypeProperty ;
+    rdfs:domain eda:GeneratedClock ;
+    rdfs:range xsd:integer ;
+    rdfs:label "division factor" .
+
+# Property defining frequency multiplication factor for generated clocks
+eda:multiplicationFactor a owl:DatatypeProperty ;
+    rdfs:domain eda:GeneratedClock ;
+    rdfs:range xsd:integer ;
+    rdfs:label "multiplication factor" .
+
+# Property defining phase shift for clock in nanoseconds
+eda:phaseShift a owl:DatatypeProperty ;
+    rdfs:domain eda:Clock ;
+    rdfs:range xsd:float ;
+    rdfs:label "phase shift" ;
+    qudt:unit unit:NanoSecond .
+
+# Clock constraint properties defining clock latency and uncertainty
+### Clock constraint properties
+
+# Property defining source latency in nanoseconds
+eda:sourceLatency a owl:DatatypeProperty ;
+    rdfs:domain eda:ClockLatency ;
+    rdfs:range xsd:float ;
+    rdfs:label "source latency" ;
+    qudt:unit unit:NanoSecond .
+
+# Property defining network latency in nanoseconds
+eda:networkLatency a owl:DatatypeProperty ;
+    rdfs:domain eda:ClockLatency ;
+    rdfs:range xsd:float ;
+    rdfs:label "network latency" ;
+    qudt:unit unit:NanoSecond .
+
+# Property defining clock skew component in nanoseconds
+eda:clockSkew a owl:DatatypeProperty ;
+    rdfs:domain eda:ClockUncertainty ;
+    rdfs:range xsd:float ;
+    rdfs:label "clock skew component" ;
+    qudt:unit unit:NanoSecond .
+
+# Property defining clock jitter component in nanoseconds
+eda:clockJitter a owl:DatatypeProperty ;
+    rdfs:domain eda:ClockUncertainty ;
+    rdfs:range xsd:float ;
+    rdfs:label "clock jitter component" ;
+    qudt:unit unit:NanoSecond .
+
+# Property defining setup uncertainty in nanoseconds
+eda:setupUncertainty a owl:DatatypeProperty ;
+    rdfs:domain eda:ClockUncertainty ;
+    rdfs:range xsd:float ;
+    rdfs:label "setup uncertainty" ;
+    qudt:unit unit:NanoSecond .
+
+# Property defining hold uncertainty in nanoseconds
+eda:holdUncertainty a owl:DatatypeProperty ;
+    rdfs:domain eda:ClockUncertainty ;
+    rdfs:range xsd:float ;
+    rdfs:label "hold uncertainty" ;
+    qudt:unit unit:NanoSecond .
+
+# Path properties defining multi-cycle path characteristics
+### Path properties
+
+# Property defining cycle count for multi-cycle paths
+eda:cycleCount a owl:DatatypeProperty ;
+    rdfs:domain eda:MultiCyclePath ;
+    rdfs:range xsd:integer ;
+    rdfs:label "cycle count" .
+
+
+
+### sources, propagation, gating
+eda:ClockSource a owl:Class .
+
+eda:PLL a owl:Class ;
+	rdfs:subClassOf eda:ClockSource .
+
+eda:Oscillator a owl:Class ;
+	rdfs:subClassOf eda:ClockSource .
+
+eda:ExternalClockSource a owl:Class ;
+	rdfs:subClassOf eda:ClockSource .
+
+eda:ClockPropagationMode a owl:Class .
+
+eda:IdealClockMode a owl:Class ;
+	rdfs:subClassOf eda:ClockPropagationMode .
+
+eda:PropagatedClockMode a owl:Class ;
+	rdfs:subClassOf eda:ClockPropagationMode .
+
+eda:ClockGatingCell a owl:Class ;
+	rdfs:subClassOf eda:Instance .
+
+eda:hasClockSource a owl:ObjectProperty ;
+	rdfs:domain eda:Clock ;
+	rdfs:range eda:ClockSource .
+
+eda:clockPropagationMode a owl:ObjectProperty ;
+	rdfs:domain eda:Clock ;
+	rdfs:range eda:ClockPropagationMode .
+
+
+### Variations
+eda:VariationMode a owl:Class ;
+	rdfs:subClassOf eda:Mode .
+
+eda:OCV  a owl:Class ;
+	rdfs:subClassOf eda:VariationMode .
+
+eda:AOCV a owl:Class ;
+	rdfs:subClassOf eda:VariationMode .
+
+eda:POCV a owl:Class ;
+	rdfs:subClassOf eda:VariationMode .
+
+eda:SOCV a owl:Class ;
+	rdfs:subClassOf eda:VariationMode .
+
+eda:usesVariationMode a owl:ObjectProperty ;
+	rdfs:domain eda:TimingAnalysis ;
+	rdfs:range eda:VariationMode .
+
+
+eda:TimingScenario a owl:Class .
+
+eda:hasOperatingCondition a owl:ObjectProperty ;
+	rdfs:domain eda:TimingScenario ;
+	rdfs:range eda:OperatingCondition .
+
+eda:hasRCCorner a owl:ObjectProperty ;
+	rdfs:domain eda:TimingScenario ;
+	rdfs:range eda:RCCorner .
+
+eda:scenarioConstraints a owl:ObjectProperty ;
+	rdfs:domain eda:TimingScenario ;
+	rdfs:range eda:SDC .
+
+eda:analyzedInScenario a owl:ObjectProperty ;
+	rdfs:domain eda:TimingAnalysis ;
+	rdfs:range eda:TimingScenario .
+
+# PVT (explicit units)
+eda:processCorner a owl:DatatypeProperty ;
+	rdfs:domain eda:OperatingCondition ;
+	rdfs:range xsd:string .
+
+
+### Derate facts
+eda:Derate a owl:Class ;
+  rdfs:comment "A single derate entry scoped to scenario, target kind, polarity, and edge." .
+
+eda:derateValue a owl:DatatypeProperty ;
+	rdfs:domain eda:Derate ;
+	rdfs:range xsd:double .
+
+eda:derateForScenario a owl:ObjectProperty ;
+	rdfs:domain eda:Derate ;
+	rdfs:range eda:TimingScenario .
+
+# 'cell' | 'net' | 'clock'
+eda:derateTargetKind a owl:DatatypeProperty ;
+	rdfs:domain eda:Derate ;
+	rdfs:range xsd:string .
+
+# 'early' | 'late'
+eda:deratePolarity a owl:DatatypeProperty ;
+	rdfs:domain eda:Derate ;
+	rdfs:range xsd:string .
+
+# 'rise' | 'fall' | 'both'
+eda:derateEdge a owl:DatatypeProperty ;
+	rdfs:domain eda:Derate ;
+	rdfs:range xsd:string .
+
+# for AOCV depth
+eda:derateDepth a owl:DatatypeProperty ;
+	rdfs:domain eda:Derate ;
+	rdfs:range xsd:integer .
+
+# um for AOCV distance
+eda:derateDistance a owl:DatatypeProperty ;
+	rdfs:domain eda:Derate ;
+	rdfs:range xsd:double .
+
+
+# Decision and flow control properties for process convergence
+### Decision and flow control properties
+
+# Property defining convergence criteria for processes
+eda:convergenceCriteria a owl:DatatypeProperty ;
+    rdfs:domain eda:EDAProcess ;
+    rdfs:range xsd:string ;
+    rdfs:label "convergence criteria" .
+
+# Heuristic rule properties defining agent action conditions and outcomes
+### Heuristic rule properties
+
+# Property defining precondition for agent actions
+eda:hasPrecondition a owl:DatatypeProperty ;
+    rdfs:domain eda:AgentAction ;
+    rdfs:range xsd:string ;
+    rdfs:label "has precondition" .
+
+# Property defining expected outcome for agent actions
+eda:hasExpectedOutcome a owl:DatatypeProperty ;
+    rdfs:domain eda:AgentAction ;
+    rdfs:range xsd:string ;
+    rdfs:label "has expected outcome" .
+
+# Property defining when heuristic rules apply
+eda:appliesWhen a owl:DatatypeProperty ;
+    rdfs:domain eda:HeuristicRule ;
+    rdfs:range xsd:string ;
+    rdfs:label "applies when" .
+
+# Success metric properties defining threshold values
+### Success metric properties
+
+# Property defining threshold value for success metrics
+eda:hasThreshold a owl:DatatypeProperty ;
+    rdfs:domain eda:SuccessMetric ;
+    rdfs:range xsd:float ;
+    rdfs:label "has threshold" .
+
+# Tool command properties defining command syntax
+### Tool command properties
+
+# Property defining command syntax for tool commands
+eda:commandSyntax a owl:DatatypeProperty ;
+    rdfs:domain eda:ToolCommand ;
+    rdfs:range xsd:string ;
+    rdfs:label "command syntax" .
+
+# Resource properties defining computational requirements
+### Resource properties
+
+# Property defining memory requirements in gigabytes
+eda:requiresMemory a owl:DatatypeProperty ;
+    rdfs:domain eda:EDAProcess ;
+    rdfs:range xsd:float ;
+    rdfs:label "requires memory" ;
+    qudt:unit unit:GigaBYTE .
+
+# Property defining estimated runtime in minutes
+eda:estimatedRuntime a owl:DatatypeProperty ;
+    rdfs:domain eda:EDAProcess ;
+    rdfs:range xsd:float ;
+    rdfs:label "estimated runtime" ;
+    qudt:unit unit:MinuteTime .
+
+# Error properties defining error patterns and recovery strategies
+### Error properties
+
+# Property defining error pattern for error conditions
+eda:hasErrorPattern a owl:DatatypeProperty ;
+    rdfs:domain eda:ErrorCondition ;
+    rdfs:range xsd:string ;
+    rdfs:label "has error pattern" .
+
+# Property defining recovery strategy for error conditions
+eda:hasRecoveryStrategy a owl:DatatypeProperty ;
+    rdfs:domain eda:ErrorCondition ;
+    rdfs:range xsd:string ;
+    rdfs:label "has recovery strategy" .
+
+# Design pattern properties defining problem-solution mappings
+### Design pattern properties
+
+# Property defining problem solved by design pattern
+eda:solvesProblem a owl:DatatypeProperty ;
+    rdfs:domain eda:DesignPattern ;
+    rdfs:range xsd:string ;
+    rdfs:label "solves problem" .
+
+# Property defining steps in design pattern
+eda:patternSteps a owl:DatatypeProperty ;
+    rdfs:domain eda:DesignPattern ;
+    rdfs:range xsd:string ;
+    rdfs:label "pattern steps" .
+
+# System-level properties defining inter-chiplet and thermal characteristics
+### System-level properties
+
+# Property defining inter-chiplet delay in picoseconds
+eda:interChipletDelay a owl:DatatypeProperty ;
+    rdfs:label "inter-chiplet delay" ;
+    rdfs:domain eda:SystemLevelNet ;
+    rdfs:range xsd:float ;
+    qudt:unit unit:PicoSecond ;
+    rdfs:comment "Delay associated specifically with the portion of a net connecting different chiplets." .
+
+# Property defining maximum temperature in degrees Celsius
+eda:maxTemperature a owl:DatatypeProperty ;
+    rdfs:label "maximum temperature" ;
+    rdfs:domain eda:ThermalMetric ;
+    rdfs:range xsd:float ;
+    qudt:unit unit:DegreeCelsius ;
+    rdfs:comment "Maximum temperature observed or allowed in a component or region." .
+
+# Property defining junction temperature in degrees Celsius
+eda:junctionTemperature a owl:DatatypeProperty ;
+    rdfs:label "junction temperature" ;
+    rdfs:domain eda:ThermalMetric ;
+    rdfs:range xsd:float ;
+    qudt:unit unit:DegreeCelsius ;
+    rdfs:comment "Temperature at the semiconductor junction within a chiplet." .
+
+# Property defining thermal resistance in Kelvin per Watt
+eda:thermalResistance a owl:DatatypeProperty ;
+    rdfs:label "thermal resistance" ;
+    rdfs:domain [ owl:unionOf (eda:InterconnectElement eda:Material eda:Chiplet eda:Interposer eda:PackageSubstrate) ] ;
+    rdfs:range xsd:float ;
+    qudt:unit unit:KelvinPerWatt ;
+    rdfs:comment "Thermal resistance property of a component or material influencing heat dissipation." .
+
+# Property defining system-level IR drop in millivolts
+eda:systemIRDrop a owl:DatatypeProperty ;
+    rdfs:label "system IR drop" ;
+    rdfs:domain eda:PowerDeliveryNetworkMetric ;
+    rdfs:range xsd:float ;
+    qudt:unit unit:MilliVolt ;
+    rdfs:comment "Voltage drop across the power delivery network spanning multiple components." .
+
+# Disjointness axioms ensuring logical separation between ontology classes
+###### Disjointness Axioms ######
+
+# Process disjointness ensuring logical and physical design phases are distinct
+### Process Disjointness
+eda:LogicalDesign owl:disjointWith eda:PhysicalDesign .
+eda:Verification owl:disjointWith eda:LogicalSynthesis, eda:PhysicalDesign .
+eda:LogicalSynthesis owl:disjointWith eda:PhysicalDesign .
+
+# Subprocess disjointness ensuring physical design steps are distinct
+### Subprocess Disjointness
+eda:Floorplanning owl:disjointWith eda:Placement, eda:Routing, eda:ClockTreeSynthesis, eda:ParasiticExtraction, eda:OPC .
+eda:Placement owl:disjointWith eda:Routing, eda:ClockTreeSynthesis, eda:ParasiticExtraction, eda:OPC .
+eda:Routing owl:disjointWith eda:ClockTreeSynthesis, eda:ParasiticExtraction, eda:OPC .
+eda:ClockTreeSynthesis owl:disjointWith eda:ParasiticExtraction, eda:OPC .
+eda:ParasiticExtraction owl:disjointWith eda:OPC .
+
+# Verification subprocess disjointness ensuring verification methods are distinct
+### Verification Subprocess Disjointness
+eda:Simulation owl:disjointWith eda:FormalVerification, eda:DesignRuleChecking, eda:TimingSignoff, eda:LayoutVsSchematic .
+eda:FormalVerification owl:disjointWith eda:DesignRuleChecking, eda:TimingSignoff, eda:LayoutVsSchematic .
+eda:DesignRuleChecking owl:disjointWith eda:TimingSignoff, eda:LayoutVsSchematic .
+eda:TimingSignoff owl:disjointWith eda:LayoutVsSchematic .
+
+# Design artifact disjointness ensuring artifact types are mutually exclusive
+### Design Artifact Disjointness
+eda:RTL owl:disjointWith eda:Netlist, eda:Layout, eda:GDSII, eda:Mask, eda:SDC, eda:VerificationReport, eda:CircuitGraph .
+eda:Netlist owl:disjointWith eda:Layout, eda:GDSII, eda:Mask, eda:SDC, eda:VerificationReport, eda:CircuitGraph .
+eda:Layout owl:disjointWith eda:Mask, eda:SDC, eda:VerificationReport, eda:CircuitGraph .
+eda:GDSII owl:disjointWith eda:Mask, eda:SDC, eda:VerificationReport, eda:CircuitGraph .
+eda:Mask owl:disjointWith eda:SDC, eda:VerificationReport, eda:CircuitGraph .
+eda:SDC owl:disjointWith eda:VerificationReport, eda:CircuitGraph .
+eda:VerificationReport owl:disjointWith eda:CircuitGraph .
+
+# Design element disjointness ensuring circuit components are distinct
+### Design Element Disjointness
+eda:Instance owl:disjointWith eda:Net, eda:Pin, eda:Port, eda:Wire, eda:Via .
+eda:Net owl:disjointWith eda:Pin, eda:Port, eda:Wire, eda:Via .
+eda:Pin owl:disjointWith eda:Port, eda:Wire, eda:Via .
+eda:Port owl:disjointWith eda:Wire, eda:Via .
+eda:Wire owl:disjointWith eda:Via .
+
+# Pin type disjointness ensuring signal and power pins are distinct
+### Pin Type Disjointness
+eda:SignalPin owl:disjointWith eda:PowerPin .
+
+# Analysis disjointness ensuring different analysis types are distinct
+### Analysis Disjointness
+eda:TimingMetric owl:disjointWith eda:PowerMetric, eda:AreaMetric .
+eda:PowerMetric owl:disjointWith eda:AreaMetric .
+
+# Corner type disjointness ensuring different corner types are distinct
+### Corner Type Disjointness
+eda:ProcessCorner owl:disjointWith eda:VoltageCorner, eda:TemperatureCorner .
+eda:VoltageCorner owl:disjointWith eda:TemperatureCorner .
+eda:RCCorner owl:disjointWith eda:LibCorner .
+
+# Timing component disjointness ensuring timing concepts are logically separate
+### Timing Component Disjointness
+eda:TimingGraph owl:disjointWith eda:TimingPath, eda:Clock .
+eda:TimingNode owl:disjointWith eda:TimingEdge .
+eda:StartPoint owl:disjointWith eda:EndPoint, eda:IntermediatePoint .
+eda:EndPoint owl:disjointWith eda:IntermediatePoint .
+
+# Inverse properties defining bidirectional relationships
+###### Inverse Properties ######
+
+# Inverse property for consumes relationship
+eda:isConsumedBy a owl:ObjectProperty ;
+    owl:inverseOf eda:consumes .
+
+# Inverse property for produces relationship
+eda:isProducedBy a owl:ObjectProperty ;
+    owl:inverseOf eda:produces .
+
+# Inverse property for usesTool relationship
+eda:isUsedBy a owl:ObjectProperty ;
+    owl:inverseOf eda:usesTool .
+
+# Inverse property for hasNet relationship
+eda:belongsToDesign a owl:ObjectProperty ;
+    owl:inverseOf eda:hasNet .
+
+# Inverse property for hasStage relationship
+eda:isStageOf a owl:ObjectProperty ;
+    owl:inverseOf eda:hasStage .
+
+# Aliases and abbreviations for commonly used timing metrics
+######## aliases, abbreviations #########
+
+# Alias for worstSlack - commonly referred to as WS
+eda:ws a owl:DatatypeProperty ;
+    owl:equivalentProperty eda:worstSlack ;
+    rdfs:domain eda:TimingAnalysis ;
+    rdfs:range xsd:float ;
+    rdfs:label "WS (Worst Slack)" ;
+    rdfs:comment "Alias for worstSlack - represents the worst slack value in timing analysis." ;
+    qudt:unit unit:NanoSecond .
+
+# Alias for worstNegativeSlack - commonly referred to as WNS
+eda:wns a owl:DatatypeProperty ;
+    owl:equivalentProperty eda:worstNegativeSlack ;
+    rdfs:domain eda:TimingAnalysis ;
+    rdfs:range xsd:float ;
+    rdfs:label "WNS (Worst Negative Slack)" ;
+    rdfs:comment "Alias for worstNegativeSlack - represents the worst negative slack value in timing analysis." ;
+    qudt:unit unit:NanoSecond .
+
+# Alias for totalNegativeSlack - commonly referred to as TNS
+eda:tns a owl:DatatypeProperty ;
+    owl:equivalentProperty eda:totalNegativeSlack ;
+    rdfs:domain eda:TimingAnalysis ;
+    rdfs:range xsd:float ;
+    rdfs:label "TNS (Total Negative Slack)" ;
+    rdfs:comment "Alias for totalNegativeSlack - represents the total negative slack value in timing analysis." ;
+    qudt:unit unit:NanoSecond .
+
+# Machine learning card definitions for model and dataset representation
+######### ML Card definitions ##########
+
+# MLCard class representing machine learning model metadata
+ml:MLCard a owl:Class ;
+    rdfs:label "MLCard" ;
+    rdfs:comment "A class representing a machine learning model card" .
+
+# Property defining model name for ML cards
+ml:model a owl:DatatypeProperty ;
+    rdfs:domain ml:MLCard ;
+    rdfs:label "model" ;
+    rdfs:comment "The model name" ;
+    rdfs:range xsd:string .
+
+# Property defining model version for ML cards
+ml:version a owl:DatatypeProperty ;
+    rdfs:domain ml:MLCard ;
+    rdfs:label "version" ;
+    rdfs:comment "The version of the model" ;
+    rdfs:range xsd:string .
+
+# Property defining model architecture for ML cards
+ml:architecture a owl:DatatypeProperty ;
+    rdfs:domain ml:MLCard ;
+    rdfs:label "architecture" ;
+    rdfs:comment "The architecture of the model" ;
+    rdfs:range xsd:string .
+
+# Property defining loss function used in model training
+ml:lossFunction a owl:DatatypeProperty ;
+    rdfs:domain ml:MLCard ;
+    rdfs:label "lossFunction" ;
+    rdfs:comment "The loss function used in the model" ;
+    rdfs:range xsd:string .
+
+# Property defining optimizer used in model training
+ml:optimizer a owl:DatatypeProperty ;
+    rdfs:domain ml:MLCard ;
+    rdfs:label "optimizer" ;
+    rdfs:comment "The optimizer used in the model" ;
+    rdfs:range xsd:string .
+
+# Property defining batch size used during training
+ml:batchSize a owl:DatatypeProperty ;
+    rdfs:domain ml:MLCard ;
+    rdfs:label "batchSize" ;
+    rdfs:comment "The batch size used during training" ;
+    rdfs:range xsd:int .
+
+# Property defining learning rate used during training
+ml:learningRate a owl:DatatypeProperty ;
+    rdfs:domain ml:MLCard ;
+    rdfs:label "learningRate" ;
+    rdfs:comment "The learning rate used during training" ;
+    rdfs:range xsd:float .
+
+# Property defining number of training epochs
+ml:epochs a owl:DatatypeProperty ;
+    rdfs:domain ml:MLCard ;
+    rdfs:label "epochs" ;
+    rdfs:comment "The number of epochs used for training" ;
+    rdfs:range xsd:int .
+
+# Property defining dropout rate used during training
+ml:dropoutRate a owl:DatatypeProperty ;
+    rdfs:domain ml:MLCard ;
+    rdfs:label "dropoutRate" ;
+    rdfs:comment "The dropout rate used during training" ;
+    rdfs:range xsd:float .
+
+# Property defining model inference latency
+ml:inferenceLatency a owl:DatatypeProperty ;
+    rdfs:domain ml:MLCard ;
+    rdfs:label "inferenceLatency" ;
+    rdfs:comment "The latency of the model during inference" ;
+    rdfs:range xsd:float .
+
+# Property defining model memory footprint
+ml:memoryFootprint a owl:DatatypeProperty ;
+    rdfs:domain ml:MLCard ;
+    rdfs:label "memoryFootprint" ;
+    rdfs:comment "The memory footprint of the model" ;
+    rdfs:range xsd:float .
+
+# Property defining training accuracy achieved by model
+ml:trainingAccuracy a owl:DatatypeProperty ;
+    rdfs:domain ml:MLCard ;
+    rdfs:label "trainingAccuracy" ;
+    rdfs:comment "The training accuracy of the model" ;
+    rdfs:range xsd:float .
+
+# Property defining test accuracy achieved by model
+ml:testAccuracy a owl:DatatypeProperty ;
+    rdfs:domain ml:MLCard ;
+    rdfs:label "testAccuracy" ;
+    rdfs:comment "The test accuracy of the model" ;
+    rdfs:range xsd:float .
+
+# Dataset class as subclass of MLCard for training and testing data
+ml:Dataset a owl:Class ;
+    rdfs:subClassOf ml:MLCard ;
+    rdfs:label "Dataset" ;
+    rdfs:comment "A class representing a dataset used for training and testing" .
+
+# Property defining dataset type classification
+ml:datasetType a owl:DatatypeProperty ;
+    rdfs:domain ml:Dataset ;
+    rdfs:label "datasetType" ;
+    rdfs:comment "The type of the dataset" ;
+    rdfs:range xsd:string .
+
+# Property defining dataset version identifier
+ml:datasetVersion a owl:DatatypeProperty ;
+    rdfs:domain ml:Dataset ;
+    rdfs:label "datasetVersion" ;
+    rdfs:comment "The version of the dataset" ;
+    rdfs:range xsd:string .
+
+# Property defining dataset description
+ml:description a owl:DatatypeProperty ;
+    rdfs:domain ml:Dataset ;
+    rdfs:label "description" ;
+    rdfs:comment "The description of the dataset" ;
+    rdfs:range xsd:string .
+
+# Property defining dataset source information
+ml:source a owl:DatatypeProperty ;
+    rdfs:domain ml:Dataset ;
+    rdfs:label "source" ;
+    rdfs:comment "The source of the dataset" ;
+    rdfs:range xsd:string .
+
+# Property defining dataset size
+ml:size a owl:DatatypeProperty ;
+    rdfs:domain ml:Dataset ;
+    rdfs:label "size" ;
+    rdfs:comment "The size of the dataset" ;
+    rdfs:range xsd:float .
+
+# Extraction tool for parasitic R and C extraction
+### Extraction tools
+eda:ParasiticExtractionTool a owl:Class ;
+    rdfs:subClassOf eda:Tool ;
+    rdfs:label "Parasitic Extraction Tool" ;
+    rdfs:comment "A tool that extracts parasitic resistance and capacitance from layout." ;
+    eda:produces eda:Netlist .
+
+# File format superclass and subclasses for EDA data representation
+### File Format Superclass
+eda:FileFormat a owl:Class ;
+    rdfs:subClassOf eda:DesignArtifact ;
+    rdfs:label "File Format" ;
+    rdfs:comment "A specific file format used in EDA processes to represent design or technology data." ;
+    owl:disjointWith eda:RTL, eda:Netlist, eda:Layout, eda:Mask, eda:TimingGraph, eda:CircuitGraph .
+
+# LEF file format for library and technology exchange
+eda:LEFFile a owl:Class ;
+    rdfs:subClassOf eda:TechLEF ;
+    rdfs:label "LEF File" ;
+    rdfs:comment "Library Exchange Format file defining abstract physical layout for cells and technology." ;
+    eda:isInputTo eda:Placement, eda:Routing ;
+    eda:isOutputOf eda:TechnologyMapping ;
+    eda:isSupportedBy eda:CadenceInnovus, eda:SynopsysICCompiler, eda:MentorCalibre ;
+    owl:disjointWith eda:DEFFile, eda:SDCFile, eda:SPEFFile, eda:GDSIIFile, eda:LIBFile, eda:VerilogFile .
+
+# DEF file format for design exchange with placement and routing
+eda:DEFFile a owl:Class ;
+    rdfs:subClassOf eda:Layout ;
+    rdfs:label "DEF File" ;
+    rdfs:comment "Design Exchange Format file describing physical layout, including placement and routing." ;
+    eda:isInputTo eda:Routing, eda:ParasiticExtraction, eda:DesignRuleChecking ;
+    eda:isOutputOf eda:Placement, eda:Routing ;
+    eda:isSupportedBy eda:CadenceInnovus, eda:SynopsysICCompiler, eda:OpenROAD ;
+    eda:dependsOn eda:LEFFile ;
+    owl:disjointWith eda:SDCFile, eda:SPEFFile, eda:GDSIIFile, eda:LIBFile, eda:VerilogFile .
+
+# SDC file format for timing constraints specification
+eda:SDCFile a owl:Class ;
+    rdfs:subClassOf eda:SDC ;
+    rdfs:label "SDC File" ;
+    rdfs:comment "Synopsys Design Constraints file specifying timing constraints for synthesis and timing analysis." ;
+    eda:isInputTo eda:LogicalSynthesis, eda:TimingSignoff, eda:ClockTreeSynthesis ;
+    eda:isOutputOf eda:LogicalDesign ;
+    eda:isSupportedBy eda:SynopsysDesignCompiler, eda:CadenceGenus, eda:SynopsysPrimeTime ;
+    owl:disjointWith eda:SPEFFile, eda:GDSIIFile, eda:LIBFile, eda:VerilogFile .
+
+# SPEF file format for parasitic data exchange
+eda:SPEFFile a owl:Class ;
+    rdfs:subClassOf eda:FileFormat ;
+    rdfs:label "SPEF File" ;
+    rdfs:comment "Standard Parasitic Exchange Format file capturing interconnect parasitic data." ;
+    eda:isInputTo eda:TimingSignoff, eda:PowerAnalysis ;
+    eda:isOutputOf eda:ParasiticExtraction ;
+    eda:isSupportedBy eda:SynopsysPrimeTime, eda:CadenceTempus, eda:MentorCalibre ;
+    owl:disjointWith eda:GDSIIFile, eda:LIBFile, eda:VerilogFile .
+
+# GDSII file format for final layout and mask generation
+eda:GDSIIFile a owl:Class ;
+    rdfs:subClassOf eda:GDSII ;
+    rdfs:label "GDSII File" ;
+    rdfs:comment "Graphic Data System II file for final layout data used in mask generation." ;
+    eda:isInputTo eda:Patterning, eda:DesignRuleChecking, eda:OPC ;
+    eda:isOutputOf eda:PhysicalDesign ;
+    eda:isSupportedBy eda:CadenceVirtuoso, eda:MentorCalibre, eda:KLayout ;
+    eda:usedInManufacturingStep eda:Patterning ;
+    owl:disjointWith eda:LIBFile, eda:VerilogFile .
+
+# LIB file format for liberty timing and power characterization
+eda:LIBFile a owl:Class ;
+    rdfs:subClassOf eda:TechnologyLibrary ;
+    rdfs:label "LIB File" ;
+    rdfs:comment "Liberty Format file characterizing timing, power, and noise for cells." ;
+    eda:isInputTo eda:LogicalSynthesis, eda:TimingSignoff ;
+    eda:isOutputOf eda:TechnologyMapping ;
+    eda:isSupportedBy eda:SynopsysDesignCompiler, eda:CadenceGenus, eda:SynopsysPrimeTime ;
+    owl:disjointWith eda:VerilogFile .
+
+# Verilog file format for HDL design specification
+eda:VerilogFile a owl:Class ;
+    rdfs:subClassOf eda:RTL ;
+    rdfs:label "Verilog File" ;
+    rdfs:comment "Verilog HDL file for design specification and simulation." ;
+    eda:isInputTo eda:LogicalSynthesis, eda:Simulation, eda:FormalVerification ;
+    eda:isOutputOf eda:LogicalDesign ;
+    eda:isSupportedBy eda:SynopsysVCS, eda:CadenceIncisive, eda:MentorQuesta .
+
+# VHDL file format for alternative HDL design specification
+eda:VHDLFile a owl:Class ;
+    rdfs:subClassOf eda:RTL ;
+    rdfs:label "VHDL File" ;
+    rdfs:comment "VHDL file for design specification and simulation." ;
+    eda:isInputTo eda:LogicalSynthesis, eda:Simulation, eda:FormalVerification ;
+    eda:isOutputOf eda:LogicalDesign ;
+    eda:isSupportedBy eda:MentorQuesta, eda:CadenceIncisive, eda:SynopsysVCS .
+
+# SPF file format for legacy parasitic data (replaced by SPEF)
+eda:SPFFile a owl:Class ;
+    rdfs:subClassOf eda:FileFormat ;
+    rdfs:label "SPF File" ;
+    rdfs:comment "Standard Parasitic Format file for parasitic data, largely replaced by SPEF." ;
+    eda:isInputTo eda:TimingSignoff ;
+    eda:isOutputOf eda:ParasiticExtraction ;
+    eda:isSupportedBy eda:SynopsysPrimeTime, eda:CadenceTempus ;
+    owl:disjointWith eda:OASISFile, eda:UPFFile, eda:CPFFile .
+
+# OASIS file format for compact layout representation
+eda:OASISFile a owl:Class ;
+    rdfs:subClassOf eda:GDSII ;
+    rdfs:label "OASIS File" ;
+    rdfs:comment "Open Artwork System Interchange Standard file, a compact layout format for mask preparation." ;
+    eda:isInputTo eda:Patterning, eda:DesignRuleChecking ;
+    eda:isOutputOf eda:PhysicalDesign ;
+    eda:isSupportedBy eda:MentorCalibre, eda:SynopsysICValidator, eda:KLayout ;
+    eda:usedInManufacturingStep eda:Patterning .
+
+# UPF file format for unified power format specification
+eda:UPFFile a owl:Class ;
+    rdfs:subClassOf eda:FileFormat ;
+    rdfs:label "UPF File" ;
+    rdfs:comment "Unified Power Format file specifying power intent for low-power design." ;
+    eda:isInputTo eda:LogicalSynthesis, eda:PowerAnalysis ;
+    eda:isOutputOf eda:LogicalDesign ;
+    eda:isSupportedBy eda:SynopsysDesignCompiler, eda:CadenceGenus, eda:SynopsysPrimePower .
+
+# CPF file format for common power format (alternative to UPF)
+eda:CPFFile a owl:Class ;
+    rdfs:subClassOf eda:FileFormat ;
+    rdfs:label "CPF File" ;
+    rdfs:comment "Common Power Format file for low-power design, alternative to UPF." ;
+    eda:isInputTo eda:LogicalSynthesis, eda:PowerAnalysis ;
+    eda:isOutputOf eda:LogicalDesign ;
+    eda:isSupportedBy eda:CadenceGenus, eda:SynopsysDesignCompiler, eda:CadenceConformal .
+
+# SDF file format for standard delay format back-annotation
+eda:SDFFile a owl:Class ;
+    rdfs:subClassOf eda:FileFormat ;
+    rdfs:label "SDF File" ;
+    rdfs:comment "Standard Delay Format file for back-annotated delay information." ;
+    eda:isInputTo eda:Simulation, eda:TimingSignoff ;
+    eda:isOutputOf eda:TimingSignoff ;
+    eda:isSupportedBy eda:SynopsysVCS, eda:CadenceIncisive, eda:SynopsysPrimeTime .
+
+# VCD file format for simulation waveform recording
+eda:VCDFile a owl:Class ;
+    rdfs:subClassOf eda:VerificationReport ;
+    rdfs:label "VCD File" ;
+    rdfs:comment "Value Change Dump file recording signal changes during simulation." ;
+    eda:isInputTo eda:PowerAnalysis ;
+    eda:isOutputOf eda:Simulation ;
+    eda:isSupportedBy eda:SynopsysVCS, eda:CadenceIncisive, eda:MentorQuesta .
+
+# FSDB file format for fast signal database (Synopsys proprietary)
+eda:FSDBFile a owl:Class ;
+    rdfs:subClassOf eda:VerificationReport ;
+    rdfs:label "FSDB File" ;
+    rdfs:comment "Fast Signal Database file for simulation waveforms (Synopsys proprietary)." ;
+    eda:isInputTo eda:PowerAnalysis ;
+    eda:isOutputOf eda:Simulation ;
+    eda:isSupportedBy eda:SynopsysVerdi, eda:CadenceSimVision .
+
+# SAIF file format for switching activity interchange
+eda:SAIFFile a owl:Class ;
+    rdfs:subClassOf eda:FileFormat ;
+    rdfs:label "SAIF File" ;
+    rdfs:comment "Switching Activity Interchange Format file for power estimation." ;
+    eda:isInputTo eda:PowerAnalysis ;
+    eda:isOutputOf eda:Simulation ;
+    eda:isSupportedBy eda:SynopsysPrimePower, eda:CadenceJoules .
+
+# ECO file format for engineering change orders
+eda:ECOFile a owl:Class ;
+    rdfs:subClassOf eda:FileFormat ;
+    rdfs:label "ECO File" ;
+    rdfs:comment "Engineering Change Order file for incremental design changes." ;
+    eda:isInputTo eda:LogicalSynthesis, eda:PhysicalDesign ;
+    eda:isOutputOf eda:FormalVerification ;
+    eda:isSupportedBy eda:SynopsysFormality, eda:CadenceConformal, eda:CadenceInnovus .
+
+# DRC file format for design rule check reports
+eda:DRCFile a owl:Class ;
+    rdfs:subClassOf eda:VerificationReport ;
+    rdfs:label "DRC File" ;
+    rdfs:comment "Design Rule Check file for physical verification of layout rules." ;
+    eda:isOutputOf eda:DesignRuleChecking ;
+    eda:isSupportedBy eda:MentorCalibre, eda:SynopsysICValidator, eda:CadencePVS ;
+    eda:usedInManufacturingStep eda:MetrologyAndInspection .
+
+# LVS file format for layout vs schematic verification reports
+eda:LVSFile a owl:Class ;
+    rdfs:subClassOf eda:VerificationReport ;
+    rdfs:label "LVS File" ;
+    rdfs:comment "Layout vs. Schematic file verifying layout matches netlist." ;
+    eda:isOutputOf eda:LayoutVsSchematic ;
+    eda:isSupportedBy eda:MentorCalibre, eda:SynopsysICValidator, eda:CadencePVS ;
+    eda:usedInManufacturingStep eda:MetrologyAndInspection .
+
+# PGD file format for power grid data
+eda:PGDFile a owl:Class ;
+    rdfs:subClassOf eda:FileFormat ;
+    rdfs:label "PGD File" ;
+    rdfs:comment "Power Grid Data file describing power grid connectivity." ;
+    eda:isInputTo eda:PowerAnalysis ;
+    eda:isOutputOf eda:PhysicalDesign ;
+    eda:isSupportedBy eda:CadenceVoltus, eda:SynopsysPrimeRail .
+
+# CDL file format for circuit description language
+eda:CDLFile a owl:Class ;
+    rdfs:subClassOf eda:Netlist ;
+    rdfs:label "CDL File" ;
+    rdfs:comment "Circuit Description Language file for LVS, often for analog designs." ;
+    eda:isInputTo eda:LayoutVsSchematic ;
+    eda:isOutputOf eda:LogicalSynthesis ;
+    eda:isSupportedBy eda:MentorCalibre, eda:CadencePVS .
+
+# SPICE file format for analog circuit simulation
+eda:SPICEFile a owl:Class ;
+    rdfs:subClassOf eda:Netlist ;
+    rdfs:label "SPICE File" ;
+    rdfs:comment "SPICE file describing analog circuits for simulation." ;
+    eda:isInputTo eda:Simulation ;
+    eda:isOutputOf eda:LogicalDesign ;
+    eda:isSupportedBy eda:SynopsysHSPICE, eda:CadenceSpectre, eda:MentorEldo .
+
+# Object properties defining file format relationships and dependencies
+### Object Properties
+
+# Property relating file formats to processes they serve as input
+eda:isInputTo a owl:ObjectProperty ;
+    rdfs:domain eda:FileFormat ;
+    rdfs:range eda:EDAProcess ;
+    rdfs:label "is input to" ;
+    rdfs:comment "Relates a file format to the EDA process it serves as input for." ;
+    owl:inverseOf eda:consumes .
+
+# Property relating file formats to processes that produce them
+eda:isOutputOf a owl:ObjectProperty ;
+    rdfs:domain eda:FileFormat ;
+    rdfs:range eda:EDAProcess ;
+    rdfs:label "is output of" ;
+    rdfs:comment "Relates a file format to the EDA process that produces it." ;
+    owl:inverseOf eda:produces .
+
+# Property relating file formats to tools that can process them
+eda:isSupportedBy a owl:ObjectProperty ;
+    rdfs:domain eda:FileFormat ;
+    rdfs:range eda:Tool ;
+    rdfs:label "is supported by" ;
+    rdfs:comment "Relates a file format to the tools that can process it." ;
+    owl:inverseOf eda:usesTool .
+
+# Property relating file formats to other formats they require
+eda:dependsOn a owl:ObjectProperty ;
+    rdfs:domain eda:FileFormat ;
+    rdfs:range eda:FileFormat ;
+    rdfs:label "depends on" ;
+    rdfs:comment "Relates a file format to another file format it requires." .
+
+# Property relating file formats to manufacturing steps they support
+eda:usedInManufacturingStep a owl:ObjectProperty ;
+    rdfs:domain eda:FileFormat ;
+    rdfs:range eda:SemiconductorManufacturingProcess ;
+    rdfs:label "used in manufacturing step" ;
+    rdfs:comment "Relates a file format to the semiconductor manufacturing process it supports." .
+
+# Datatype properties defining file format characteristics
+### Datatype Properties
+
+# Property defining file extension for formats
+eda:fileExtension a owl:DatatypeProperty ;
+    rdfs:domain eda:FileFormat ;
+    rdfs:range xsd:string ;
+    rdfs:label "file extension" ;
+    rdfs:comment "The file extension associated with the file format (e.g., '.lef', '.def')." .
+
+# Property defining format version specification
+eda:formatVersion a owl:DatatypeProperty ;
+    rdfs:domain eda:FileFormat ;
+    rdfs:range xsd:string ;
+    rdfs:label "format version" ;
+    rdfs:comment "The version of the file format specification." .
+
+# Tool instances representing specific EDA software applications
+### Tool Instances
+
+# Cadence Innovus tool for placement and routing
+eda:CadenceInnovus a eda:PlacementTool, eda:RoutingTool ;
+    rdfs:label "Cadence Innovus" ;
+    eda:generates eda:DEFFile, eda:GDSIIFile .
+
+# Synopsys IC Compiler tool for placement and routing
+eda:SynopsysICCompiler a eda:PlacementTool, eda:RoutingTool ;
+    rdfs:label "Synopsys IC Compiler" ;
+    eda:generates eda:DEFFile, eda:GDSIIFile .
+
+# OpenROAD open-source placement and routing tool
+eda:OpenROAD a eda:PlacementTool, eda:RoutingTool ;
+    rdfs:label "OpenROAD" ;
+    eda:generates eda:DEFFile .
+
+# Synopsys Design Compiler synthesis tool
+eda:SynopsysDesignCompiler a eda:SynthesisTool ;
+    rdfs:label "Synopsys Design Compiler" ;
+    eda:generates eda:VerilogFile, eda:CDLFile .
+
+# Cadence Genus synthesis tool
+eda:CadenceGenus a eda:SynthesisTool ;
+    rdfs:label "Cadence Genus" ;
+    eda:generates eda:VerilogFile, eda:CDLFile .
+
+# Synopsys PrimeTime static timing analysis tool
+eda:SynopsysPrimeTime a eda:STATool ;
+    rdfs:label "Synopsys PrimeTime" ;
+    eda:generates eda:SDFFile .
+
+# Cadence Tempus static timing analysis tool
+eda:CadenceTempus a eda:STATool ;
+    rdfs:label "Cadence Tempus" ;
+    eda:generates eda:SDFFile .
+
+# Mentor Calibre physical verification tool
+eda:MentorCalibre a eda:Tool ;
+    rdfs:label "Mentor Calibre" ;
+    eda:generates eda:DRCFile, eda:LVSFile, eda:GDSIIFile, eda:OASISFile .
+
+# Cadence Virtuoso custom IC design tool
+eda:CadenceVirtuoso a eda:Tool ;
+    rdfs:label "Cadence Virtuoso" ;
+    eda:generates eda:GDSIIFile .
+
+# KLayout open-source layout editor
+eda:KLayout a eda:Tool ;
+    rdfs:label "KLayout" ;
+    eda:generates eda:GDSIIFile, eda:OASISFile .
+
+# Synopsys VCS simulation tool
+eda:SynopsysVCS a eda:Tool ;
+    rdfs:label "Synopsys VCS" ;
+    eda:generates eda:VCDFile, eda:SAIFFile .
+
+# Cadence Incisive simulation tool
+eda:CadenceIncisive a eda:Tool ;
+    rdfs:label "Cadence Incisive" ;
+    eda:generates eda:VCDFile, eda:SAIFFile .
+
+# Mentor Questa simulation tool
+eda:MentorQuesta a eda:Tool ;
+    rdfs:label "Mentor Questa" ;
+    eda:generates eda:VCDFile, eda:SAIFFile .
+
+# Synopsys Verdi debug tool
+eda:SynopsysVerdi a eda:Tool ;
+    rdfs:label "Synopsys Verdi" ;
+    eda:generates eda:FSDBFile .
+
+# Cadence SimVision waveform viewer
+eda:CadenceSimVision a eda:Tool ;
+    rdfs:label "Cadence SimVision" ;
+    eda:generates eda:FSDBFile .
+
+# Synopsys PrimePower power analysis tool
+eda:SynopsysPrimePower a eda:Tool ;
+    rdfs:label "Synopsys PrimePower" ;
+    eda:generates eda:SAIFFile .
+
+# Cadence Joules power analysis tool
+eda:CadenceJoules a eda:Tool ;
+    rdfs:label "Cadence Joules" ;
+    eda:generates eda:SAIFFile .
+
+# Synopsys Formality formal verification tool
+eda:SynopsysFormality a eda:Tool ;
+    rdfs:label "Synopsys Formality" ;
+    eda:generates eda:ECOFile .
+
+# Cadence Conformal formal verification tool
+eda:CadenceConformal a eda:Tool ;
+    rdfs:label "Cadence Conformal" ;
+    eda:generates eda:ECOFile .
+
+# Synopsys IC Validator physical verification tool
+eda:SynopsysICValidator a eda:Tool ;
+    rdfs:label "Synopsys IC Validator" ;
+    eda:generates eda:DRCFile, eda:LVSFile .
+
+# Cadence PVS physical verification tool
+eda:CadencePVS a eda:Tool ;
+    rdfs:label "Cadence PVS" ;
+    eda:generates eda:DRCFile, eda:LVSFile .
+
+# Cadence Voltus power integrity analysis tool
+eda:CadenceVoltus a eda:Tool ;
+    rdfs:label "Cadence Voltus" ;
+    eda:generates eda:PGDFile .
+
+# Synopsys PrimeRail power integrity analysis tool
+eda:SynopsysPrimeRail a eda:Tool ;
+    rdfs:label "Synopsys PrimeRail" ;
+    eda:generates eda:PGDFile .
+
+# Synopsys HSPICE analog circuit simulator
+eda:SynopsysHSPICE a eda:Tool ;
+    rdfs:label "Synopsys HSPICE" ;
+    eda:generates eda:SPICEFile .
+
+# Cadence Spectre analog circuit simulator
+eda:CadenceSpectre a eda:Tool ;
+    rdfs:label "Cadence Spectre" ;
+    eda:generates eda:SPICEFile .
+
+# Mentor Eldo analog circuit simulator
+eda:MentorEldo a eda:Tool ;
+    rdfs:label "Mentor Eldo" ;
+    eda:generates eda:SPICEFile .
+
+# Cardinality constraints ensuring proper file format dependencies and usage
+### Cardinality Constraints
+
+# Constraint: LEF files are required for DEF processing
+eda:DEFFile rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty eda:dependsOn ;
+    owl:someValuesFrom eda:LEFFile ;
+    owl:minCardinality "1"^^xsd:nonNegativeInteger
+] .
+
+# Constraint: Timing signoff requires at least one SDC and one SPEF file
+eda:TimingSignoff rdfs:subClassOf [
+		a owl:Restriction ;
+		owl:onProperty eda:consumes ;
+		owl:someValuesFrom eda:SDCFile ;
+		owl:minCardinality "1"^^xsd:nonNegativeInteger
+	] , [
+		a owl:Restriction ;
+		owl:onProperty eda:consumes ;
+		owl:someValuesFrom eda:SPEFFile ;
+		owl:minCardinality "1"^^xsd:nonNegativeInteger
+] .
+
+# Constraint: GDSII files are consumed by exactly one patterning process
+eda:GDSIIFile rdfs:subClassOf [
+		a owl:Restriction ;
+		owl:onProperty eda:isInputTo ;
+		owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+		owl:onClass eda:Patterning
+] .
+
+# Axiom ensuring consistency between consumes and isInputTo properties
+### Axioms for Reasoning
+[] a owl:Axiom ;
+    owl:annotatedSource eda:consumes ;
+    owl:annotatedTarget eda:isInputTo ;
+    owl:annotatedProperty owl:inverseOf ;
+    rdfs:comment "Ensures that consumes and isInputTo are consistently linked." .
+
+# Comprehensive disjointness declarations for all file format types
+# File formats are distinct from each other
+eda:LEFFile owl:disjointWith eda:DEFFile, eda:SDCFile, eda:SPEFFile, eda:GDSIIFile, eda:LIBFile, eda:VerilogFile, eda:VHDLFile, eda:SPFFile, eda:OASISFile, eda:UPFFile, eda:CPFFile, eda:SDFFile, eda:VCDFile, eda:FSDBFile, eda:SAIFFile, eda:ECOFile, eda:DRCFile, eda:LVSFile, eda:PGDFile, eda:CDLFile, eda:SPICEFile .

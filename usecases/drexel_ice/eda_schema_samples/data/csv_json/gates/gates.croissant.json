@@ -1,0 +1,289 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "sc": "https://schema.org/",
+    "cr": "http://mlcommons.org/croissant/",
+    "dct": "http://purl.org/dc/terms/",
+    "conformsTo": "dct:conformsTo",
+    "recordSet": "cr:recordSet",
+    "field": "cr:field",
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "source": "cr:source",
+    "extract": "cr:extract",
+    "fileObject": "cr:fileObject",
+    "column": "cr:column"
+  },
+  "@type": "sc:Dataset",
+  "name": "gates_dataset",
+  "description": "Dataset containing gates metrics across different phases",
+  "datePublished": "2025-08-03",
+  "version": "1.0.0",
+  "license": "MIT",
+  "citation": "Gates Dataset",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "url": "https://example.com/gates_dataset",
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "gates.csv",
+      "name": "gates.csv",
+      "contentUrl": "./eda_schema_samples/data/csv_json/gates/table.csv",
+      "encodingFormat": "text/csv",
+      "md5": "7db9891f6f2130d7ed7b11abc806fa0b",
+      "sha256": "840ef584a98b34db4a67bf6b8201cb7f304beb9727f053c13c7e5b9cc1b10fd3"
+    }
+  ],
+  "recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "@id": "gates_records",
+      "name": "gates_records",
+      "description": "Gates records",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "gates_records/circuit",
+          "name": "circuit",
+          "description": "Circuit",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "gates.csv"
+            },
+            "extract": {
+              "column": "circuit"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "gates_records/netlist_id",
+          "name": "netlist_id",
+          "description": "Netlist id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "gates.csv"
+            },
+            "extract": {
+              "column": "netlist_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "gates_records/phase",
+          "name": "phase",
+          "description": "Phase",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "gates.csv"
+            },
+            "extract": {
+              "column": "phase"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "gates_records/name",
+          "name": "name",
+          "description": "Name",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "gates.csv"
+            },
+            "extract": {
+              "column": "name"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "gates_records/standard_cell",
+          "name": "standard_cell",
+          "description": "Standard cell",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "gates.csv"
+            },
+            "extract": {
+              "column": "standard_cell"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "gates_records/no_of_fanins",
+          "name": "no_of_fanins",
+          "description": "No of fanins",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "gates.csv"
+            },
+            "extract": {
+              "column": "no_of_fanins"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "gates_records/no_of_fanouts",
+          "name": "no_of_fanouts",
+          "description": "No of fanouts",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "gates.csv"
+            },
+            "extract": {
+              "column": "no_of_fanouts"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "gates_records/llx",
+          "name": "llx",
+          "description": "Llx",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "gates.csv"
+            },
+            "extract": {
+              "column": "llx"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "gates_records/lly",
+          "name": "lly",
+          "description": "Lly",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "gates.csv"
+            },
+            "extract": {
+              "column": "lly"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "gates_records/urx",
+          "name": "urx",
+          "description": "Urx",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "gates.csv"
+            },
+            "extract": {
+              "column": "urx"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "gates_records/ury",
+          "name": "ury",
+          "description": "Ury",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "gates.csv"
+            },
+            "extract": {
+              "column": "ury"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "gates_records/is_sequential",
+          "name": "is_sequential",
+          "description": "Is sequential",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "gates.csv"
+            },
+            "extract": {
+              "column": "is_sequential"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "gates_records/is_filler",
+          "name": "is_filler",
+          "description": "Is filler",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "gates.csv"
+            },
+            "extract": {
+              "column": "is_filler"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "gates_records/is_inverter",
+          "name": "is_inverter",
+          "description": "Is inverter",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "gates.csv"
+            },
+            "extract": {
+              "column": "is_inverter"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "gates_records/is_buffer",
+          "name": "is_buffer",
+          "description": "Is buffer",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "gates.csv"
+            },
+            "extract": {
+              "column": "is_buffer"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "gates_records/is_diode",
+          "name": "is_diode",
+          "description": "Is diode",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "gates.csv"
+            },
+            "extract": {
+              "column": "is_diode"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

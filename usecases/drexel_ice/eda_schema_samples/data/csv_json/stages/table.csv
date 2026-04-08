@@ -1,0 +1,8 @@
+circuit,netlist_id,phase,stageName
+gcd,id-000001,floorplan,floorplan
+gcd,id-000001,global_place,global_place
+gcd,id-000001,place_resized,place_resized
+gcd,id-000001,detailed_place,detailed_place
+gcd,id-000001,cts,cts
+gcd,id-000001,global_route,global_route
+gcd,id-000001,detailed_route,detailed_route

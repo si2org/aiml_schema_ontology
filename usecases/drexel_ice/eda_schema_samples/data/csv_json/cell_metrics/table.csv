@@ -1,0 +1,8 @@
+circuit,netlist_id,phase,no_of_combinational_cells,no_of_sequential_cells,no_of_buffers,no_of_inverters,no_of_fillers,no_of_tap_cells,no_of_diodes,no_of_macros,no_of_total_cells
+gcd,id-000001,floorplan,172,41,0,20,0,99,0,0,312
+gcd,id-000001,global_place,172,41,0,20,0,99,0,0,312
+gcd,id-000001,place_resized,225,41,53,20,0,99,0,0,365
+gcd,id-000001,detailed_place,225,41,53,20,0,99,0,0,365
+gcd,id-000001,cts,299,41,61,20,0,99,0,0,439
+gcd,id-000001,global_route,313,41,126,20,0,99,0,0,453
+gcd,id-000001,detailed_route,313,41,126,20,652,99,0,0,1105

@@ -1,0 +1,16 @@
+{
+    "mcpServers": {
+        "EDA_ontology_mono": {
+            "command": "micromamba",
+            "args": [
+                "run", "-n", "work", "python",
+                "server.py", "--file", "../../ontology/eda_ontology.ttl"
+            ],
+            "env": {
+                "STARTUP_DELAY": "1",
+                "MAMBA_EXE": "/opt/homebrew/bin/micromamba",
+                "MAMBA_ROOT_PREFIX": "/Users/ivan/micromamba"
+            }
+        }
+    }
+}

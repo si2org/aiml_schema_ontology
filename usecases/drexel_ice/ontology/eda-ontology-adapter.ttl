@@ -1,0 +1,85 @@
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix eda: <http://example.org/eda#> .
+@prefix eda-adapter: <http://example.org/eda-adapter#> .
+
+# ============================================================================
+# Adapter Ontology: EDA Instance Primary ID Extension
+# ============================================================================
+# Purpose: Add primaryId property to eda:Instance without modifying core
+# Pattern: Import core ontology, extend via property attachment
+# ============================================================================
+
+<http://example.org/eda-adapter> a owl:Ontology ;
+    rdfs:label "EDA Instance Adapter Ontology" ;
+    rdfs:comment "Extends core EDA ontology to add primaryId property to Instance class without modifying the core." ;
+    owl:versionInfo "1.0" ;
+#   owl:imports <http://example.org/eda>
+    owl:imports <./eda-ontology-final.ttl>
+	.  # Import core ontology
+
+
+# ============================================================================
+# Property Extension: Primary Identifier for Instance
+# ============================================================================
+
+eda:primaryId a owl:AnnotationProperty ;
+    rdfs:label "primary identifier" ;
+    rdfs:comment "Designates the property that serves as the primary identifier for a class. Applied to eda:Instance to specify eda:instName as the primary key." ;
+    rdfs:domain owl:Class ;
+    rdfs:range rdf:Property .
+
+# ============================================================================
+# Adapter Axiom: Attach primaryId to Instance
+# ============================================================================
+
+eda:Instance eda:primaryId eda:instName .
+eda:Net      eda:primaryId eda:netName .
+eda:Pin      eda:primaryId eda:pinName .
+eda:sourceNode   eda:primaryId eda:sourcePinName .
+eda:SinkNode     eda:primaryId eda:sinkPinName .
+
+
+### removed from the core 
+eda:edgeType a owl:DatatypeProperty ;
+    rdfs:domain eda:TimingEdge ;
+    rdfs:range xsd:bool ;
+    rdfs:label "edge type" .
+
+
+# ============================================================================
+# Rationale and Usage Notes
+# ============================================================================
+# 
+# [Axiom] eda:Instance as imported class receives new annotation property
+# [Derivation] Properties attached via annotation do not modify core schema
+# Tools consuming this adapter see primaryId without core changes
+# 
+# Usage Pattern:
+#   1. Core ontology defines eda:Instance without primaryId
+#   2. Adapter imports core, adds annotation axiom
+#   3. Consumers import adapter (which transitively imports core)
+#   4. Result: eda:Instance has eda:primaryId eda:instName
+# 
+# Migration Strategy:
+#   - Core ontology remains stable (no primaryId assertion)
+#   - Multiple adapters can coexist for different identifier schemes
+#   - Tooling imports adapter based on context requirements
+# 
+# Alternative Patterns Considered:
+#   A. Subclass: eda-adapter:Instance rdfs:subClassOf eda:Instance
+#      Rejected: Forces migration of all instance data to new class
+#   
+#   B. Equivalence: eda-adapter:Instance owl:equivalentClass eda:Instance
+#      Rejected: Creates reasoning overhead without semantic benefit
+#   
+#   C. Property restriction: eda:Instance rdfs:subClassOf [restriction on primaryId]
+#      Rejected: Modifies class definition, violates adapter separation
+# 
+# The pattern maintains ontology modularity
+# ============================================================================
+
+

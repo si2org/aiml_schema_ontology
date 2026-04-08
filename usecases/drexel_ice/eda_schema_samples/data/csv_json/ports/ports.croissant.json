@@ -1,0 +1,169 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "sc": "https://schema.org/",
+    "cr": "http://mlcommons.org/croissant/",
+    "dct": "http://purl.org/dc/terms/",
+    "conformsTo": "dct:conformsTo",
+    "recordSet": "cr:recordSet",
+    "field": "cr:field",
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "source": "cr:source",
+    "extract": "cr:extract",
+    "fileObject": "cr:fileObject",
+    "column": "cr:column"
+  },
+  "@type": "sc:Dataset",
+  "name": "ports_dataset",
+  "description": "Dataset containing ports metrics across different phases",
+  "datePublished": "2025-08-03",
+  "version": "1.0.0",
+  "license": "MIT",
+  "citation": "Ports Dataset",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "url": "https://example.com/ports_dataset",
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "ports.csv",
+      "name": "ports.csv",
+      "contentUrl": "./eda_schema_samples/data/csv_json/ports/table.csv",
+      "encodingFormat": "text/csv",
+      "md5": "c1583238bfb7dbb07ac4747f8299eea0",
+      "sha256": "bc21bc2246190d15849dd861a92fc130460f68feba9333589c127f6f7d17ac11"
+    }
+  ],
+  "recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "@id": "ports_records",
+      "name": "ports_records",
+      "description": "Ports records",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "ports_records/circuit",
+          "name": "circuit",
+          "description": "Circuit",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "ports.csv"
+            },
+            "extract": {
+              "column": "circuit"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "ports_records/netlist_id",
+          "name": "netlist_id",
+          "description": "Netlist id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "ports.csv"
+            },
+            "extract": {
+              "column": "netlist_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "ports_records/phase",
+          "name": "phase",
+          "description": "Phase",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "ports.csv"
+            },
+            "extract": {
+              "column": "phase"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "ports_records/name",
+          "name": "name",
+          "description": "Name",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "ports.csv"
+            },
+            "extract": {
+              "column": "name"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "ports_records/direction",
+          "name": "direction",
+          "description": "Direction",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "ports.csv"
+            },
+            "extract": {
+              "column": "direction"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "ports_records/x",
+          "name": "x",
+          "description": "X",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "ports.csv"
+            },
+            "extract": {
+              "column": "x"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "ports_records/y",
+          "name": "y",
+          "description": "Y",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "ports.csv"
+            },
+            "extract": {
+              "column": "y"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "ports_records/load_capacitance",
+          "name": "load_capacitance",
+          "description": "Load capacitance",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "ports.csv"
+            },
+            "extract": {
+              "column": "load_capacitance"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

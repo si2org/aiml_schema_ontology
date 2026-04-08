@@ -1,0 +1,1 @@
+{"nodes": ["req_msg[22]", "_326_/A1", "_326_/Y", "_327_/B1", "_327_/Y", "_403_/D"], "node_types": ["TIMINPPATHPIN", "TIMINPPATHPIN", "TIMINPPATHPIN", "TIMINPPATHPIN", "TIMINPPATHPIN", "TIMINPPATHPIN"], "edges": [["req_msg[22]", "_326_/A1"], ["_326_/A1", "_326_/Y"], ["_326_/Y", "_327_/B1"], ["_327_/B1", "_327_/Y"], ["_327_/Y", "_403_/D"]]}

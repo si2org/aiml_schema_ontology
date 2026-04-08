@@ -1,0 +1,14 @@
+Column map: {'sourcePinName': 'src', 'sinkPinName': 'tar'}
+
+
+Column map: {'edgeType': 'is_net', 'delayValue': 'arc_delay'}
+
+
+Final dataset created for ML model training and is available as a dataframe and saved in CSV.
+Training the model using the dataset.
+Mean Absolute Error (MAE): 5.789279706082391e-12
+Mean Squared Error (MSE): 5.369348573541022e-23
+Root Mean Squared Error (RMSE): 7.327583894805314e-12
+Max Error :  2.5501212517028955e-11
+Maximum Error %: 315.62959842681215
+Mean Error %: 35.773235428066

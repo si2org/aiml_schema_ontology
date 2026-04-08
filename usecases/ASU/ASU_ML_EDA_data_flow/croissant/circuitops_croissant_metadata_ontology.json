@@ -1,0 +1,536 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "@base": "./",
+    "sc": "https://schema.org/",
+    "cr": "http://mlcommons.org/croissant/",
+    "dct": "http://purl.org/dc/terms/",
+    "@language": "en",
+    "contentUrl": { "@id": "sc:contentUrl", "@type": "sc:URL" },
+    "conformsTo": "dct:conformsTo",
+    "recordSet": "cr:recordSet",
+    "field": "cr:field",
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "source": "cr:source",
+    "extract": "cr:extract",
+    "fileObject": "cr:fileObject",
+    "column": "cr:column"
+  },
+  "@type": "sc:Dataset",
+  "@id": "circuitops_dataset",
+  "name": "CircuitOps Dataset",
+  "description": "A dataset containing structured circuit design data.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "url": "https://example.com/circuitops_dataset",
+  "distribution": [ 
+    {
+      "@type": "cr:FileObject",
+      "@id": "DesignFile",
+      "name": "design_properties.csv",
+      "contentUrl": "../designs/gcd/design_properties.csv",
+      "encodingFormat": "text/csv",
+      "md5": "bf84a63c03debf9f0512737cb343fff2",
+      "sha256": "a4d43dffbb79971e2b95e37cc9da4954f40c8d0278e66cd0d67ffb024c18f4df"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "NetFile",
+      "name": "net_properties.csv",
+      "contentUrl": "../designs/gcd/net_properties.csv",
+      "encodingFormat": "text/csv",
+      "md5": "853a03fbdcccccf8230f22f2640c1264",
+      "sha256": "3336dcb44e3d8b5c5585c83fe0e52c39110ef41e0f67d6f2aa58e76862356603"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "InstanceFile",
+      "name": "inst_properties.csv",
+      "contentUrl": "../designs/gcd/inst_properties.csv",
+      "encodingFormat": "text/csv",
+      "md5": "a528dde24c4cb5f28f64cc23c3931057",
+      "sha256": "1f545da7eb928ce7f23f69785dd782131f6f0d3f1711197a93031edfdf878e77"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "PinFile",
+      "name": "pin_properties.csv",
+      "contentUrl": "../designs/gcd/pin_properties.csv",
+      "encodingFormat": "text/csv",
+      "md5": "86d6da23dc5dae18f2d19e52939903a9",
+      "sha256": "10b6aca21af60e1b0921fe64d412234bf651d63ef67918561c907cc09a705338"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "LibCellFile",
+      "name": "libcell_properties.csv",
+      "contentUrl": "../designs/gcd/libcell_properties.csv",
+      "encodingFormat": "text/csv",
+      "md5": "dc89b4d8b1a345ec1d43a6bc60e9e5c1",
+      "sha256": "439e776e20b4f85e575276634d38b686b46418de168a433ec0baa22b4c48aa47"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "TimingEdgeFile",
+      "name": "pin_pin_edge.csv",
+      "contentUrl": "../designs/gcd/pin_pin_edge.csv",
+      "encodingFormat": "text/csv",
+      "md5": "1451fe7dbed3a57d1a68d4fa9ece66ba",
+      "sha256": "967d1f818930659c32511aa5abae7289495b05f63644c27a493001266d28599f"
+    }
+  ],
+  "recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "@id": "DesignRecords",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "DesignRecords/design_name",
+	  "name": "design_name",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": { "@id": "DesignFile" },
+            "extract": { "column": "design_name" }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "DesignRecords/total_insts",
+	  "name": "total_insts",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": { "@id": "DesignFile" },
+            "extract": { "column": "total_insts" }
+          }
+        },
+	{
+          "@type": "cr:Field",
+          "@id": "DesignRecords/total_nets",
+	  "name": "total_nets",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": { "@id": "DesignFile" },
+            "extract": { "column": "total_nets" }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "NetRecords",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "NetRecords/net_name",
+	  "name": "netName",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": { "@id": "NetFile" },
+            "extract": { "column": "net_name" }
+          }
+        },
+	{
+          "@type": "cr:Field",
+          "@id": "NetRecords/net_length",
+	  "name": "netLength",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": { "@id": "NetFile" },
+            "extract": { "column": "net_length" }
+          }
+        },
+	{
+          "@type": "cr:Field",
+          "@id": "NetRecords/num_fanout",
+	  "name": "num_fanout",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": { "@id": "NetFile" },
+            "extract": { "column": "num_fanout" }
+          }
+        },
+	{
+          "@type": "cr:Field",
+          "@id": "NetRecords/resistance",
+	  "name": "netResistance",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": { "@id": "NetFile" },
+            "extract": { "column": "resistance" }
+          }
+        },
+	{
+          "@type": "cr:Field",
+          "@id": "NetRecords/capacitance",
+	  "name": "netCapacitance",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": { "@id": "NetFile" },
+            "extract": { "column": "capacitance" }
+          }
+        },
+	{
+          "@type": "cr:Field",
+          "@id": "NetRecords/coupling_capacitance",
+	  "name": "coupling_capacitance",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": { "@id": "NetFile" },
+            "extract": { "column": "coupling_capacitance" }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "InstanceRecords",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "InstanceRecords/inst_name",
+	  "name": "instName",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": { "@id": "InstanceFile" },
+            "extract": { "column": "cell_name" }
+          }
+        },
+	{
+          "@type": "cr:Field",
+          "@id": "InstanceRecords/libcell_name",
+	  "name": "libcellName",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": { "@id": "InstanceFile" },
+            "extract": { "column": "libcell_name" }
+          },
+	  "references": { "@id": "LibCell/name" }
+        },
+	{
+          "@type": "cr:Field",
+          "@id": "InstanceRecords/llx",
+	  "name": "llx",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": { "@id": "InstanceFile" },
+            "extract": { "column": "llx" }
+          }
+        },
+	{
+          "@type": "cr:Field",
+          "@id": "InstanceRecords/lly",
+	  "name": "lly",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": { "@id": "InstanceFile" },
+            "extract": { "column": "lly" }
+          }
+        },
+	{
+          "@type": "cr:Field",
+          "@id": "InstanceRecords/urx",
+	  "name": "urx",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": { "@id": "InstanceFile" },
+            "extract": { "column": "urx" }
+          }
+        },
+	{
+          "@type": "cr:Field",
+          "@id": "InstanceRecords/ury",
+	  "name": "ury",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": { "@id": "InstanceFile" },
+            "extract": { "column": "ury" }
+          }
+        },
+	{
+          "@type": "cr:Field",
+          "@id": "InstanceRecords/is_seq",
+	  "name": "is_seq",
+          "dataType": "sc:Boolean",
+          "source": {
+            "fileObject": { "@id": "InstanceFile" },
+            "extract": { "column": "is_seq" }
+          }
+        },
+	{
+          "@type": "cr:Field",
+          "@id": "InstanceRecords/is_filler",
+	  "name": "is_filler",
+          "dataType": "sc:Boolean",
+          "source": {
+            "fileObject": { "@id": "InstanceFile" },
+            "extract": { "column": "is_filler" }
+          }
+        },
+	{
+          "@type": "cr:Field",
+          "@id": "InstanceRecords/is_buf",
+	  "name": "is_buf",
+          "dataType": "sc:Boolean",
+          "source": {
+            "fileObject": { "@id": "InstanceFile" },
+            "extract": { "column": "is_buf" }
+          }
+        },
+	{
+          "@type": "cr:Field",
+          "@id": "InstanceRecords/is_inv",
+	  "name": "is_inv",
+          "dataType": "sc:Boolean",
+          "source": {
+            "fileObject": { "@id": "InstanceFile" },
+            "extract": { "column": "is_inv" }
+          }
+        },
+	{
+          "@type": "cr:Field",
+          "@id": "InstanceRecords/leakage_power",
+	  "name": "leakage_power",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": { "@id": "InstanceFile" },
+            "extract": { "column": "leakage_power" }
+          }
+        },
+	{
+          "@type": "cr:Field",
+          "@id": "InstanceRecords/switching_power",
+	  "name": "switching_power",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": { "@id": "InstanceFile" },
+            "extract": { "column": "switching_power" }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "PinRecords",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "PinRecords/pinName",
+	  "name": "pinName",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": { "@id": "PinFile" },
+            "extract": { "column": "pin_name" }
+          }
+        },
+	{
+          "@type": "cr:Field",
+          "@id": "PinRecords/worstSlew",
+	  "name": "worstSlew",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": { "@id": "PinFile" },
+            "extract": { "column": "pin_max_slew" }
+          }
+        },
+	{
+          "@type": "cr:Field",
+          "@id": "PinRecords/loadCapacitance",
+	  "name": "loadCapacitance",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": { "@id": "PinFile" },
+            "extract": { "column": "load_capacitance" }
+          }
+        },
+	{
+          "@type": "cr:Field",
+          "@id": "PinRecords/inputCapacitance",
+	  "name": "inputCapacitance",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": { "@id": "PinFile" },
+            "extract": { "column": "input_capacitance" }
+          }
+        },
+	{
+          "@type": "cr:Field",
+          "@id": "PinRecords/pin_x",
+	  "name": "pinX",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": { "@id": "PinFile" },
+            "extract": { "column": "x" }
+          }
+        },
+	{
+          "@type": "cr:Field",
+          "@id": "PinRecords/pin_y",
+	  "name": "pinY",
+          "dataType": "sc:Boolean",
+          "source": {
+            "fileObject": { "@id": "PinFile" },
+            "extract": { "column": "y" }
+          }
+        },
+	{
+          "@type": "cr:Field",
+          "@id": "PinRecords/dir",
+	  "name": "direction",
+          "dataType": "sc:Boolean",
+          "source": {
+            "fileObject": { "@id": "PinFile" },
+            "extract": { "column": "dir" }
+          }
+        },
+	{
+          "@type": "cr:Field",
+          "@id": "PinRecords/is_in_clk",
+	  "name": "is_in_clk",
+          "dataType": "sc:Boolean",
+          "source": {
+            "fileObject": { "@id": "PinFile" },
+            "extract": { "column": "is_in_clk" }
+          }
+        },
+	{
+          "@type": "cr:Field",
+          "@id": "PinRecords/is_port",
+	  "name": "is_in_clk",
+          "dataType": "sc:Boolean",
+          "source": {
+            "fileObject": { "@id": "PinFile" },
+            "extract": { "column": "is_in_clk" }
+          }
+        },
+	{
+          "@type": "cr:Field",
+          "@id": "PinRecords/is_startpoint",
+	  "name": "is_startpoint",
+          "dataType": "sc:Boolean",
+          "source": {
+            "fileObject": { "@id": "PinFile" },
+            "extract": { "column": "is_startpoint" }
+          }
+        },
+	{
+          "@type": "cr:Field",
+          "@id": "PinRecords/is_endpoint",
+	  "name": "is_endpoint",
+          "dataType": "sc:Boolean",
+          "source": {
+            "fileObject": { "@id": "PinFile" },
+            "extract": { "column": "is_endpoint" }
+          }
+        },
+	{
+          "@type": "cr:Field",
+          "@id": "PinRecords/inst_name",
+	  "name": "instName",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": { "@id": "PinFile" },
+            "extract": { "column": "cell_name" }
+          },
+	  "references": { "@id": "Instance/inst_name" }
+        },
+	{
+          "@type": "cr:Field",
+          "@id": "PinRecords/net_name",
+	  "name": "netName",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": { "@id": "PinFile" },
+            "extract": { "column": "net_name" }
+          }
+        },
+	{
+          "@type": "cr:Field",
+          "@id": "PinRecords/setupRiseArrival",
+	  "name": "setupRiseArrival",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": { "@id": "PinFile" },
+            "extract": { "column": "pin_rise_arr" }
+          }
+        },
+	{
+          "@type": "cr:Field",
+          "@id": "PinRecords/setupFallArrival",
+	  "name": "setupFallArrival",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": { "@id": "PinFile" },
+            "extract": { "column": "pin_fall_arr" }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "LibCellRecords",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "LibCellRecords/name",
+	  "name": "libcellName",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": { "@id": "LibCellFile" },
+            "extract": { "column": "libcell_name" }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "TimingEdgeRecords",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "TimingEdgeRecords/src",
+	  "name": "sourcePinName",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": { "@id": "TimingEdgeFile" },
+            "extract": { "column": "src" }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "TimingEdgeRecords/tar",
+	  "name": "sinkPinName",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": { "@id": "TimingEdgeFile" },
+            "extract": { "column": "tar" }
+          }
+        },
+	{
+          "@type": "cr:Field",
+          "@id": "TimingEdgeRecords/is_net",
+	  "name": "edgeType",
+          "dataType": "sc:Boolean",
+          "source": {
+            "fileObject": { "@id": "TimingEdgeFile" },
+            "extract": { "column": "is_net" }
+          }
+        },
+	{
+          "@type": "cr:Field",
+          "@id": "TimingEdgeRecords/arc_delay",
+	  "name": "delayValue",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": { "@id": "TimingEdgeFile" },
+            "extract": { "column": "arc_delay" }
+          }
+        }
+      ]
+    }
+  ]
+}
+
+

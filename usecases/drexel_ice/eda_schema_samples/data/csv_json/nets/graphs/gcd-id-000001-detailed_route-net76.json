@@ -1,0 +1,1 @@
+{"nodes": ["net76_0", "net76_1", "net76_2", "net76_3", "net76_4"], "node_types": ["WIRE", "WIRE", "WIRE", "WIRE", "WIRE"], "edges": [["net76_0", "net76_1"], ["net76_1", "net76_0"], ["net76_1", "net76_2"], ["net76_2", "net76_1"], ["net76_2", "net76_3"], ["net76_3", "net76_2"], ["net76_3", "net76_4"], ["net76_4", "net76_3"]]}

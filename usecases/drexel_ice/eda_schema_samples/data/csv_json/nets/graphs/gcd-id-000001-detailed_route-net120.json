@@ -1,0 +1,1 @@
+{"nodes": ["net120_0", "net120_1"], "node_types": ["WIRE", "WIRE"], "edges": [["net120_0", "net120_1"], ["net120_1", "net120_0"]]}

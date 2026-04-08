@@ -1,0 +1,2 @@
+model,version,architecture,loss_function,optimizer,batch_size,learning_rate,epochs,dropout_rate,inference_latency,memory_footprint,training_accuracy,test_accuracy
+RandomForestRegressor,1.0.0,Ensemble of Decision Trees,,Randomized Search/Tree-based Growth,,,,,,,,64.22676457193398

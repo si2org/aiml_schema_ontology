@@ -1,0 +1,154 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "sc": "https://schema.org/",
+    "cr": "http://mlcommons.org/croissant/",
+    "dct": "http://purl.org/dc/terms/",
+    "conformsTo": "dct:conformsTo",
+    "recordSet": "cr:recordSet",
+    "field": "cr:field",
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "source": "cr:source",
+    "extract": "cr:extract",
+    "fileObject": "cr:fileObject",
+    "column": "cr:column"
+  },
+  "@type": "sc:Dataset",
+  "name": "nets_graph_dataset",
+  "description": "Dataset containing nets_graph metrics across different phases",
+  "datePublished": "2025-08-03",
+  "version": "1.0.0",
+  "license": "MIT",
+  "citation": "Nets_graph Dataset",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "url": "https://example.com/nets_graph_dataset",
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "nets_graph.csv",
+      "name": "nets_graph.csv",
+      "contentUrl": "./eda_schema_samples/data/csv_json/nets/graph_table.csv",
+      "encodingFormat": "text/csv",
+      "md5": "f678e33056a29ea2befd50e7f28fbf1d",
+      "sha256": "1c09d16c6c7916f9d67f1e3c68f3edc45c4e1fae1f1d06ba5679fac9b3daec70"
+    }
+  ],
+  "recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "@id": "nets_graph_records",
+      "name": "nets_graph_records",
+      "description": "Nets_graph records",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "nets_graph_records/circuit",
+          "name": "circuit",
+          "description": "Circuit",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "nets_graph.csv"
+            },
+            "extract": {
+              "column": "circuit"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "nets_graph_records/netlist_id",
+          "name": "netlist_id",
+          "description": "Netlist id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "nets_graph.csv"
+            },
+            "extract": {
+              "column": "netlist_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "nets_graph_records/phase",
+          "name": "phase",
+          "description": "Phase",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "nets_graph.csv"
+            },
+            "extract": {
+              "column": "phase"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "nets_graph_records/net_source",
+          "name": "net_source",
+          "description": "Net source",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "nets_graph.csv"
+            },
+            "extract": {
+              "column": "net_source"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "nets_graph_records/target",
+          "name": "target",
+          "description": "Target",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "nets_graph.csv"
+            },
+            "extract": {
+              "column": "target"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "nets_graph_records/source_type",
+          "name": "source_type",
+          "description": "Source type",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "nets_graph.csv"
+            },
+            "extract": {
+              "column": "source_type"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "nets_graph_records/target_type",
+          "name": "target_type",
+          "description": "Target type",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "nets_graph.csv"
+            },
+            "extract": {
+              "column": "target_type"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

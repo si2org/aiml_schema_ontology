@@ -1,0 +1,319 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "sc": "https://schema.org/",
+    "cr": "http://mlcommons.org/croissant/",
+    "dct": "http://purl.org/dc/terms/",
+    "conformsTo": "dct:conformsTo",
+    "recordSet": "cr:recordSet",
+    "field": "cr:field",
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "source": "cr:source",
+    "extract": "cr:extract",
+    "fileObject": "cr:fileObject",
+    "column": "cr:column"
+  },
+  "@type": "sc:Dataset",
+  "name": "standard_cells_dataset",
+  "description": "Dataset containing standard_cells metrics across different phases",
+  "datePublished": "2025-08-03",
+  "version": "1.0.0",
+  "license": "MIT",
+  "citation": "Standard_cells Dataset",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "url": "https://example.com/standard_cells_dataset",
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "standard_cells.csv",
+      "name": "standard_cells.csv",
+      "contentUrl": "./eda_schema_samples/data/csv_json/standard_cells/table.csv",
+      "encodingFormat": "text/csv",
+      "md5": "f6c14df507a2f109158ee389c7b36826",
+      "sha256": "f3ae815cf3761e9a7f76170251bc0ef8b6034c6fedd4bc2fadf0716228aeb8eb"
+    }
+  ],
+  "recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "@id": "standard_cells_records",
+      "name": "standard_cells_records",
+      "description": "Standard_cells records",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "standard_cells_records/name",
+          "name": "name",
+          "description": "Name",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "standard_cells.csv"
+            },
+            "extract": {
+              "column": "name"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "standard_cells_records/width",
+          "name": "width",
+          "description": "Width",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "standard_cells.csv"
+            },
+            "extract": {
+              "column": "width"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "standard_cells_records/height",
+          "name": "height",
+          "description": "Height",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "standard_cells.csv"
+            },
+            "extract": {
+              "column": "height"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "standard_cells_records/no_of_input_pins",
+          "name": "no_of_input_pins",
+          "description": "No of input pins",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "standard_cells.csv"
+            },
+            "extract": {
+              "column": "no_of_input_pins"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "standard_cells_records/no_of_output_pins",
+          "name": "no_of_output_pins",
+          "description": "No of output pins",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "standard_cells.csv"
+            },
+            "extract": {
+              "column": "no_of_output_pins"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "standard_cells_records/is_sequential",
+          "name": "is_sequential",
+          "description": "Is sequential",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "standard_cells.csv"
+            },
+            "extract": {
+              "column": "is_sequential"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "standard_cells_records/is_inverter",
+          "name": "is_inverter",
+          "description": "Is inverter",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "standard_cells.csv"
+            },
+            "extract": {
+              "column": "is_inverter"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "standard_cells_records/is_buffer",
+          "name": "is_buffer",
+          "description": "Is buffer",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "standard_cells.csv"
+            },
+            "extract": {
+              "column": "is_buffer"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "standard_cells_records/drive_strength",
+          "name": "drive_strength",
+          "description": "Drive strength",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "standard_cells.csv"
+            },
+            "extract": {
+              "column": "drive_strength"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "standard_cells_records/input_capacitance_min",
+          "name": "input_capacitance_min",
+          "description": "Input capacitance min",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "standard_cells.csv"
+            },
+            "extract": {
+              "column": "input_capacitance_min"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "standard_cells_records/input_capacitance_max",
+          "name": "input_capacitance_max",
+          "description": "Input capacitance max",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "standard_cells.csv"
+            },
+            "extract": {
+              "column": "input_capacitance_max"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "standard_cells_records/input_capacitance_mean",
+          "name": "input_capacitance_mean",
+          "description": "Input capacitance mean",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "standard_cells.csv"
+            },
+            "extract": {
+              "column": "input_capacitance_mean"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "standard_cells_records/output_capacitance_min",
+          "name": "output_capacitance_min",
+          "description": "Output capacitance min",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "standard_cells.csv"
+            },
+            "extract": {
+              "column": "output_capacitance_min"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "standard_cells_records/output_capacitance_max",
+          "name": "output_capacitance_max",
+          "description": "Output capacitance max",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "standard_cells.csv"
+            },
+            "extract": {
+              "column": "output_capacitance_max"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "standard_cells_records/output_capacitance_mean",
+          "name": "output_capacitance_mean",
+          "description": "Output capacitance mean",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "standard_cells.csv"
+            },
+            "extract": {
+              "column": "output_capacitance_mean"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "standard_cells_records/leakage_power_min",
+          "name": "leakage_power_min",
+          "description": "Leakage power min",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "standard_cells.csv"
+            },
+            "extract": {
+              "column": "leakage_power_min"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "standard_cells_records/leakage_power_max",
+          "name": "leakage_power_max",
+          "description": "Leakage power max",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "standard_cells.csv"
+            },
+            "extract": {
+              "column": "leakage_power_max"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "standard_cells_records/leakage_power_provided",
+          "name": "leakage_power_provided",
+          "description": "Leakage power provided",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "standard_cells.csv"
+            },
+            "extract": {
+              "column": "leakage_power_provided"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

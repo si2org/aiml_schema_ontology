@@ -1,0 +1,8 @@
+Column map: {'sourcePinName': 'src', 'sinkPinName': 'tar'}
+
+
+Column map: {'edgeType': 'is_net', 'delayValue': 'arc_delay'}
+
+
+Final features dataset saved to preroute_delay_predictor_features.csv.
+Training Machine Learning Model

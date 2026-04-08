@@ -1,0 +1,229 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "sc": "https://schema.org/",
+    "cr": "http://mlcommons.org/croissant/",
+    "dct": "http://purl.org/dc/terms/",
+    "conformsTo": "dct:conformsTo",
+    "recordSet": "cr:recordSet",
+    "field": "cr:field",
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "source": "cr:source",
+    "extract": "cr:extract",
+    "fileObject": "cr:fileObject",
+    "column": "cr:column"
+  },
+  "@type": "sc:Dataset",
+  "name": "cell_metrics_dataset",
+  "description": "Dataset containing cell_metrics metrics across different phases",
+  "datePublished": "2025-08-03",
+  "version": "1.0.0",
+  "license": "MIT",
+  "citation": "Cell_metrics Dataset",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "url": "https://example.com/cell_metrics_dataset",
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "cell_metrics.csv",
+      "name": "cell_metrics.csv",
+      "contentUrl": "./eda_schema_samples/data/csv_json/cell_metrics/table.csv",
+      "encodingFormat": "text/csv",
+      "md5": "ecff0b5d5dd7c1a3b154603cac61632e",
+      "sha256": "5162c1c5280bb7683a130284434fceace5f413f49a92e271dcdae9f8ae4d53de"
+    }
+  ],
+  "recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "@id": "cell_metrics_records",
+      "name": "cell_metrics_records",
+      "description": "Cell_metrics records",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "cell_metrics_records/circuit",
+          "name": "circuit",
+          "description": "Circuit",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "cell_metrics.csv"
+            },
+            "extract": {
+              "column": "circuit"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "cell_metrics_records/netlist_id",
+          "name": "netlist_id",
+          "description": "Netlist id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "cell_metrics.csv"
+            },
+            "extract": {
+              "column": "netlist_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "cell_metrics_records/phase",
+          "name": "phase",
+          "description": "Phase",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "cell_metrics.csv"
+            },
+            "extract": {
+              "column": "phase"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "cell_metrics_records/no_of_combinational_cells",
+          "name": "no_of_combinational_cells",
+          "description": "No of combinational cells",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "cell_metrics.csv"
+            },
+            "extract": {
+              "column": "no_of_combinational_cells"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "cell_metrics_records/no_of_sequential_cells",
+          "name": "no_of_sequential_cells",
+          "description": "No of sequential cells",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "cell_metrics.csv"
+            },
+            "extract": {
+              "column": "no_of_sequential_cells"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "cell_metrics_records/no_of_buffers",
+          "name": "no_of_buffers",
+          "description": "No of buffers",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "cell_metrics.csv"
+            },
+            "extract": {
+              "column": "no_of_buffers"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "cell_metrics_records/no_of_inverters",
+          "name": "no_of_inverters",
+          "description": "No of inverters",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "cell_metrics.csv"
+            },
+            "extract": {
+              "column": "no_of_inverters"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "cell_metrics_records/no_of_fillers",
+          "name": "no_of_fillers",
+          "description": "No of fillers",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "cell_metrics.csv"
+            },
+            "extract": {
+              "column": "no_of_fillers"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "cell_metrics_records/no_of_tap_cells",
+          "name": "no_of_tap_cells",
+          "description": "No of tap cells",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "cell_metrics.csv"
+            },
+            "extract": {
+              "column": "no_of_tap_cells"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "cell_metrics_records/no_of_diodes",
+          "name": "no_of_diodes",
+          "description": "No of diodes",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "cell_metrics.csv"
+            },
+            "extract": {
+              "column": "no_of_diodes"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "cell_metrics_records/no_of_macros",
+          "name": "no_of_macros",
+          "description": "No of macros",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "cell_metrics.csv"
+            },
+            "extract": {
+              "column": "no_of_macros"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "cell_metrics_records/no_of_total_cells",
+          "name": "no_of_total_cells",
+          "description": "No of total cells",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "cell_metrics.csv"
+            },
+            "extract": {
+              "column": "no_of_total_cells"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

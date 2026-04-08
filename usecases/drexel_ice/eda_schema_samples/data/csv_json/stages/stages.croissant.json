@@ -1,0 +1,109 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "sc": "https://schema.org/",
+    "cr": "http://mlcommons.org/croissant/",
+    "dct": "http://purl.org/dc/terms/",
+    "conformsTo": "dct:conformsTo",
+    "recordSet": "cr:recordSet",
+    "field": "cr:field",
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "source": "cr:source",
+    "extract": "cr:extract",
+    "fileObject": "cr:fileObject",
+    "column": "cr:column"
+  },
+  "@type": "sc:Dataset",
+  "name": "stages_dataset",
+  "description": "Dataset containing stages metrics across different phases",
+  "datePublished": "2025-08-03",
+  "version": "1.0.0",
+  "license": "MIT",
+  "citation": "Stages Dataset",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "url": "https://example.com/stages_dataset",
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "stages.csv",
+      "name": "stages.csv",
+      "contentUrl": "./eda_schema_samples/data/csv_json/stages/table.csv",
+      "encodingFormat": "text/csv",
+      "md5": "03d6b33414011d0258e0c4c6d4232520",
+      "sha256": "18d3fce2f1220db50e23b566988bcfd7b96ffa08812724b6d1507d63e6b8bd4b"
+    }
+  ],
+  "recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "@id": "stages_records",
+      "name": "stages_records",
+      "description": "Stages records",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "stages_records/circuit",
+          "name": "circuit",
+          "description": "Circuit",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "stages.csv"
+            },
+            "extract": {
+              "column": "circuit"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "stages_records/netlist_id",
+          "name": "netlist_id",
+          "description": "Netlist id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "stages.csv"
+            },
+            "extract": {
+              "column": "netlist_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "stages_records/phase",
+          "name": "phase",
+          "description": "Phase",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "stages.csv"
+            },
+            "extract": {
+              "column": "phase"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "stages_records/stageName",
+          "name": "stageName",
+          "description": "Stagename",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "stages.csv"
+            },
+            "extract": {
+              "column": "stageName"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

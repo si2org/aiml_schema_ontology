@@ -1,0 +1,1 @@
+{"nodes": ["_378_/Q", "output36/A", "output36/X", "req_rdy"], "node_types": ["TIMINPPATHPIN", "TIMINPPATHPIN", "TIMINPPATHPIN", "TIMINPPATHPIN"], "edges": [["_378_/Q", "output36/A"], ["output36/A", "output36/X"], ["output36/X", "req_rdy"]]}

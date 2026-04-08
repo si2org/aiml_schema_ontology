@@ -1,0 +1,1 @@
+{"nodes": ["_410_/Q", "_347_/B1", "_347_/Y", "_348_/B1", "_348_/Y", "_410_/D"], "node_types": ["TIMINPPATHPIN", "TIMINPPATHPIN", "TIMINPPATHPIN", "TIMINPPATHPIN", "TIMINPPATHPIN", "TIMINPPATHPIN"], "edges": [["_410_/Q", "_347_/B1"], ["_347_/B1", "_347_/Y"], ["_347_/Y", "_348_/B1"], ["_348_/B1", "_348_/Y"], ["_348_/Y", "_410_/D"]]}

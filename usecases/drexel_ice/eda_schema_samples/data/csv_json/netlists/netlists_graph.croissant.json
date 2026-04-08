@@ -1,0 +1,154 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "sc": "https://schema.org/",
+    "cr": "http://mlcommons.org/croissant/",
+    "dct": "http://purl.org/dc/terms/",
+    "conformsTo": "dct:conformsTo",
+    "recordSet": "cr:recordSet",
+    "field": "cr:field",
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "source": "cr:source",
+    "extract": "cr:extract",
+    "fileObject": "cr:fileObject",
+    "column": "cr:column"
+  },
+  "@type": "sc:Dataset",
+  "name": "netlists_graph_dataset",
+  "description": "Dataset containing netlists_graph metrics across different phases",
+  "datePublished": "2025-08-03",
+  "version": "1.0.0",
+  "license": "MIT",
+  "citation": "Netlists_graph Dataset",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "url": "https://example.com/netlists_graph_dataset",
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "netlists_graph.csv",
+      "name": "netlists_graph.csv",
+      "contentUrl": "./eda_schema_samples/data/csv_json/netlists/graph_table.csv",
+      "encodingFormat": "text/csv",
+      "md5": "7e4b57fe188a1d2b085c9e854e3bd6c6",
+      "sha256": "d96a8ee291c41e5683763db318b2baa0b78fe719a16deda7ea6ab0b50fba3f78"
+    }
+  ],
+  "recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "@id": "netlists_graph_records",
+      "name": "netlists_graph_records",
+      "description": "Netlists_graph records",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "netlists_graph_records/circuit",
+          "name": "circuit",
+          "description": "Circuit",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "netlists_graph.csv"
+            },
+            "extract": {
+              "column": "circuit"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "netlists_graph_records/netlist_id",
+          "name": "netlist_id",
+          "description": "Netlist id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "netlists_graph.csv"
+            },
+            "extract": {
+              "column": "netlist_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "netlists_graph_records/phase",
+          "name": "phase",
+          "description": "Phase",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "netlists_graph.csv"
+            },
+            "extract": {
+              "column": "phase"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "netlists_graph_records/source",
+          "name": "source",
+          "description": "Source",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "netlists_graph.csv"
+            },
+            "extract": {
+              "column": "source"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "netlists_graph_records/target",
+          "name": "target",
+          "description": "Target",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "netlists_graph.csv"
+            },
+            "extract": {
+              "column": "target"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "netlists_graph_records/source_type",
+          "name": "source_type",
+          "description": "Source type",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "netlists_graph.csv"
+            },
+            "extract": {
+              "column": "source_type"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "netlists_graph_records/target_type",
+          "name": "target_type",
+          "description": "Target type",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "netlists_graph.csv"
+            },
+            "extract": {
+              "column": "target_type"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

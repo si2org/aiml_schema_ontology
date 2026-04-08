@@ -1,0 +1,289 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "sc": "https://schema.org/",
+    "cr": "http://mlcommons.org/croissant/",
+    "dct": "http://purl.org/dc/terms/",
+    "conformsTo": "dct:conformsTo",
+    "recordSet": "cr:recordSet",
+    "field": "cr:field",
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "source": "cr:source",
+    "extract": "cr:extract",
+    "fileObject": "cr:fileObject",
+    "column": "cr:column"
+  },
+  "@type": "sc:Dataset",
+  "name": "wires_dataset",
+  "description": "Dataset containing wires metrics across different phases",
+  "datePublished": "2025-08-03",
+  "version": "1.0.0",
+  "license": "MIT",
+  "citation": "Wires Dataset",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "url": "https://example.com/wires_dataset",
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "wires.csv",
+      "name": "wires.csv",
+      "contentUrl": "./eda_schema_samples/data/csv_json/wires/table.csv",
+      "encodingFormat": "text/csv",
+      "md5": "a41e9cd893f9b394adeb980c33d640d4",
+      "sha256": "3b4c5088d3c343f887702f91bc8b14d016dc87d7ad9a93ff9c8422db114bed2a"
+    }
+  ],
+  "recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "@id": "wires_records",
+      "name": "wires_records",
+      "description": "Wires records",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "wires_records/circuit",
+          "name": "circuit",
+          "description": "Circuit",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "wires.csv"
+            },
+            "extract": {
+              "column": "circuit"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "wires_records/netlist_id",
+          "name": "netlist_id",
+          "description": "Netlist id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "wires.csv"
+            },
+            "extract": {
+              "column": "netlist_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "wires_records/phase",
+          "name": "phase",
+          "description": "Phase",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "wires.csv"
+            },
+            "extract": {
+              "column": "phase"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "wires_records/net_name",
+          "name": "net_name",
+          "description": "Net name",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "wires.csv"
+            },
+            "extract": {
+              "column": "net_name"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "wires_records/name",
+          "name": "name",
+          "description": "Name",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "wires.csv"
+            },
+            "extract": {
+              "column": "name"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "wires_records/length",
+          "name": "length",
+          "description": "Length",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "wires.csv"
+            },
+            "extract": {
+              "column": "length"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "wires_records/layer",
+          "name": "layer",
+          "description": "Layer",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "wires.csv"
+            },
+            "extract": {
+              "column": "layer"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "wires_records/x1",
+          "name": "x1",
+          "description": "X1",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "wires.csv"
+            },
+            "extract": {
+              "column": "x1"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "wires_records/y1",
+          "name": "y1",
+          "description": "Y1",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "wires.csv"
+            },
+            "extract": {
+              "column": "y1"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "wires_records/x2",
+          "name": "x2",
+          "description": "X2",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "wires.csv"
+            },
+            "extract": {
+              "column": "x2"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "wires_records/y2",
+          "name": "y2",
+          "description": "Y2",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "wires.csv"
+            },
+            "extract": {
+              "column": "y2"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "wires_records/x",
+          "name": "x",
+          "description": "X",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "wires.csv"
+            },
+            "extract": {
+              "column": "x"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "wires_records/y",
+          "name": "y",
+          "description": "Y",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "wires.csv"
+            },
+            "extract": {
+              "column": "y"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "wires_records/rudy",
+          "name": "rudy",
+          "description": "Rudy",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "wires.csv"
+            },
+            "extract": {
+              "column": "rudy"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "wires_records/resistance",
+          "name": "resistance",
+          "description": "Resistance",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "wires.csv"
+            },
+            "extract": {
+              "column": "resistance"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "wires_records/capacitance",
+          "name": "capacitance",
+          "description": "Capacitance",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "wires.csv"
+            },
+            "extract": {
+              "column": "capacitance"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

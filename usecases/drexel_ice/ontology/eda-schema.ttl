@@ -1,0 +1,906 @@
+@prefix eda: <http://example.org/eda#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+
+
+### Entity: StandardCell
+eda:StandardCell a owl:Class ;
+    rdfs:label "StandardCell" ;
+    rdfs:comment "StandardCell description." .
+
+eda:name a owl:DatatypeProperty ;
+    rdfs:domain eda:StandardCell ;
+    rdfs:range xsd:string ;
+    rdfs:label "name" .
+
+eda:width a owl:DatatypeProperty ;
+    rdfs:domain eda:StandardCell ;
+    rdfs:range xsd:float ;
+    rdfs:label "width" .
+
+eda:height a owl:DatatypeProperty ;
+    rdfs:domain eda:StandardCell ;
+    rdfs:range xsd:float ;
+    rdfs:label "height" .
+
+eda:no_of_input_pins a owl:DatatypeProperty ;
+    rdfs:domain eda:StandardCell ;
+    rdfs:range xsd:int ;
+    rdfs:label "no of input pins" .
+
+eda:no_of_output_pins a owl:DatatypeProperty ;
+    rdfs:domain eda:StandardCell ;
+    rdfs:range xsd:int ;
+    rdfs:label "no of output pins" .
+
+eda:is_sequential a owl:DatatypeProperty ;
+    rdfs:domain eda:StandardCell ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "is sequential" .
+
+eda:is_inverter a owl:DatatypeProperty ;
+    rdfs:domain eda:StandardCell ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "is inverter" .
+
+eda:is_buffer a owl:DatatypeProperty ;
+    rdfs:domain eda:StandardCell ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "is buffer" .
+
+eda:drive_strength a owl:DatatypeProperty ;
+    rdfs:domain eda:StandardCell ;
+    rdfs:range xsd:float ;
+    rdfs:label "drive strength" .
+
+eda:input_capacitance_min a owl:DatatypeProperty ;
+    rdfs:domain eda:StandardCell ;
+    rdfs:range xsd:float ;
+    rdfs:label "input capacitance min" .
+
+eda:input_capacitance_max a owl:DatatypeProperty ;
+    rdfs:domain eda:StandardCell ;
+    rdfs:range xsd:float ;
+    rdfs:label "input capacitance max" .
+
+eda:output_capacitance_min a owl:DatatypeProperty ;
+    rdfs:domain eda:StandardCell ;
+    rdfs:range xsd:float ;
+    rdfs:label "output capacitance min" .
+
+eda:output_capacitance_max a owl:DatatypeProperty ;
+    rdfs:domain eda:StandardCell ;
+    rdfs:range xsd:float ;
+    rdfs:label "output capacitance max" .
+
+eda:leakage_power_min a owl:DatatypeProperty ;
+    rdfs:domain eda:StandardCell ;
+    rdfs:range xsd:float ;
+    rdfs:label "leakage power min" .
+
+eda:leakage_power_max a owl:DatatypeProperty ;
+    rdfs:domain eda:StandardCell ;
+    rdfs:range xsd:float ;
+    rdfs:label "leakage power max" .
+
+
+### Entity: Gate
+eda:Instance a owl:Class ;
+    rdfs:label "Gate" ;
+    rdfs:comment "Represents a logic gate with physical and functional properties." .
+
+eda:name a owl:DatatypeProperty ;
+    rdfs:domain eda:Instance ;
+    rdfs:range xsd:string ;
+    rdfs:label "name" .
+
+eda:llx a owl:DatatypeProperty ;
+    rdfs:domain eda:Instance ;
+    rdfs:range xsd:float ;
+    rdfs:label "llx" .
+
+eda:lly a owl:DatatypeProperty ;
+    rdfs:domain eda:Instance ;
+    rdfs:range xsd:float ;
+    rdfs:label "lly" .
+
+eda:urx a owl:DatatypeProperty ;
+    rdfs:domain eda:Instance ;
+    rdfs:range xsd:float ;
+    rdfs:label "urx" .
+
+eda:ury a owl:DatatypeProperty ;
+    rdfs:domain eda:Instance ;
+    rdfs:range xsd:float ;
+    rdfs:label "ury" .
+
+eda:is_sequential a owl:DatatypeProperty ;
+    rdfs:domain eda:Instance ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "is sequential" .
+
+eda:is_filler a owl:DatatypeProperty ;
+    rdfs:domain eda:Instance ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "is filler" .
+
+eda:is_inverter a owl:DatatypeProperty ;
+    rdfs:domain eda:Instance ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "is inverter" .
+
+eda:is_buffer a owl:DatatypeProperty ;
+    rdfs:domain eda:Instance ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "is buffer" .
+
+eda:is_diode a owl:DatatypeProperty ;
+    rdfs:domain eda:Instance ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "is diode" .
+
+eda:no_of_fanins a owl:DatatypeProperty ;
+    rdfs:domain eda:Instance ;
+    rdfs:range xsd:int ;
+    rdfs:label "no of fanins" .
+
+eda:no_of_fanouts a owl:DatatypeProperty ;
+    rdfs:domain eda:Instance ;
+    rdfs:range xsd:int ;
+    rdfs:label "no of fanouts" .
+
+eda:standard_cell a owl:ObjectProperty ;
+    rdfs:domain eda:Instance ;
+    rdfs:range eda:StandardCell ;
+    rdfs:label "standard cell" .
+
+
+### Entity: Port
+eda:Port a owl:Class ;
+    rdfs:label "Port" ;
+    rdfs:comment "Port description." .
+
+eda:name a owl:DatatypeProperty ;
+    rdfs:domain eda:Port ;
+    rdfs:range xsd:string ;
+    rdfs:label "name" .
+
+eda:direction a owl:DatatypeProperty ;
+    rdfs:domain eda:Port ;
+    rdfs:range xsd:string ;
+    rdfs:label "direction" .
+
+eda:x a owl:DatatypeProperty ;
+    rdfs:domain eda:Port ;
+    rdfs:range xsd:float ;
+    rdfs:label "x" .
+
+eda:y a owl:DatatypeProperty ;
+    rdfs:domain eda:Port ;
+    rdfs:range xsd:float ;
+    rdfs:label "y" .
+
+eda:capacitance a owl:DatatypeProperty ;
+    rdfs:domain eda:Port ;
+    rdfs:range xsd:float ;
+    rdfs:label "capacitance" .
+
+
+### Entity: Wire
+eda:Wire a owl:Class ;
+    rdfs:label "Wire" ;
+    rdfs:comment "Wire description." .
+
+eda:name a owl:DatatypeProperty ;
+    rdfs:domain eda:Wire ;
+    rdfs:range xsd:string ;
+    rdfs:label "name" .
+
+eda:length a owl:DatatypeProperty ;
+    rdfs:domain eda:Wire ;
+    rdfs:range xsd:float ;
+    rdfs:label "length" .
+
+eda:x1 a owl:DatatypeProperty ;
+    rdfs:domain eda:Wire ;
+    rdfs:range xsd:float ;
+    rdfs:label "x1" .
+
+eda:y1 a owl:DatatypeProperty ;
+    rdfs:domain eda:Wire ;
+    rdfs:range xsd:float ;
+    rdfs:label "y1" .
+
+eda:x2 a owl:DatatypeProperty ;
+    rdfs:domain eda:Wire ;
+    rdfs:range xsd:float ;
+    rdfs:label "x2" .
+
+eda:y2 a owl:DatatypeProperty ;
+    rdfs:domain eda:Wire ;
+    rdfs:range xsd:float ;
+    rdfs:label "y2" .
+
+eda:midpoint_x a owl:DatatypeProperty ;
+    rdfs:domain eda:Wire ;
+    rdfs:range xsd:float ;
+    rdfs:label "midpoint x" .
+
+eda:midpoint_y a owl:DatatypeProperty ;
+    rdfs:domain eda:Wire ;
+    rdfs:range xsd:float ;
+    rdfs:label "midpoint y" .
+
+eda:rudy a owl:DatatypeProperty ;
+    rdfs:domain eda:Wire ;
+    rdfs:range xsd:float ;
+    rdfs:label "rudy" .
+
+eda:resistance a owl:DatatypeProperty ;
+    rdfs:domain eda:Wire ;
+    rdfs:range xsd:float ;
+    rdfs:label "resistance" .
+
+eda:capacitance a owl:DatatypeProperty ;
+    rdfs:domain eda:Wire ;
+    rdfs:range xsd:float ;
+    rdfs:label "capacitance" .
+
+
+### Entity: Net
+eda:Net a owl:Class ;
+    rdfs:label "Net" ;
+    rdfs:comment "Net description." .
+
+eda:name a owl:DatatypeProperty ;
+    rdfs:domain eda:Net ;
+    rdfs:range xsd:string ;
+    rdfs:label "name" .
+
+eda:no_of_inputs a owl:DatatypeProperty ;
+    rdfs:domain eda:Net ;
+    rdfs:range xsd:int ;
+    rdfs:label "no of inputs" .
+
+eda:no_of_outputs a owl:DatatypeProperty ;
+    rdfs:domain eda:Net ;
+    rdfs:range xsd:int ;
+    rdfs:label "no of outputs" .
+
+eda:x_min a owl:DatatypeProperty ;
+    rdfs:domain eda:Net ;
+    rdfs:range xsd:float ;
+    rdfs:label "x min" .
+
+eda:y_min a owl:DatatypeProperty ;
+    rdfs:domain eda:Net ;
+    rdfs:range xsd:float ;
+    rdfs:label "y min" .
+
+eda:x_max a owl:DatatypeProperty ;
+    rdfs:domain eda:Net ;
+    rdfs:range xsd:float ;
+    rdfs:label "x max" .
+
+eda:y_max a owl:DatatypeProperty ;
+    rdfs:domain eda:Net ;
+    rdfs:range xsd:float ;
+    rdfs:label "y max" .
+
+eda:length a owl:DatatypeProperty ;
+    rdfs:domain eda:Net ;
+    rdfs:range xsd:float ;
+    rdfs:label "length" .
+
+eda:hpwl a owl:DatatypeProperty ;
+    rdfs:domain eda:Net ;
+    rdfs:range xsd:float ;
+    rdfs:label "hpwl" .
+
+eda:rudy a owl:DatatypeProperty ;
+    rdfs:domain eda:Net ;
+    rdfs:range xsd:float ;
+    rdfs:label "rudy" .
+
+eda:resistance a owl:DatatypeProperty ;
+    rdfs:domain eda:Net ;
+    rdfs:range xsd:float ;
+    rdfs:label "resistance" .
+
+eda:capacitance a owl:DatatypeProperty ;
+    rdfs:domain eda:Net ;
+    rdfs:range xsd:float ;
+    rdfs:label "capacitance" .
+
+eda:wires a owl:ObjectProperty ;
+    rdfs:domain eda:Net ;
+    rdfs:range eda:Wire ;
+    rdfs:label "interconnect segments" .
+
+
+### Entity: Pin
+eda:Pin a owl:Class ;
+    rdfs:label "Pin" ;
+    rdfs:comment "Represents detailed timing and electrical properties of a pin." .
+
+eda:pin_name a owl:DatatypeProperty ;
+    rdfs:domain eda:Pin ;
+    rdfs:range xsd:string ;
+    rdfs:label "pin name" .
+
+eda:type a owl:DatatypeProperty ;
+    rdfs:domain eda:Pin ;
+    rdfs:range xsd:string ;
+    rdfs:label "type" .
+
+eda:direction a owl:DatatypeProperty ;
+    rdfs:domain eda:Pin ;
+    rdfs:range xsd:string ;
+    rdfs:label "direction" .
+
+eda:is_in_clk a owl:DatatypeProperty ;
+    rdfs:domain eda:Pin ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "is in clk" .
+
+eda:is_startpoint a owl:DatatypeProperty ;
+    rdfs:domain eda:Pin ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "is startpoint" .
+
+eda:is_endpoint a owl:DatatypeProperty ;
+    rdfs:domain eda:Pin ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "is endpoint" .
+
+eda:cell_name a owl:DatatypeProperty ;
+    rdfs:domain eda:Pin ;
+    rdfs:range xsd:string ;
+    rdfs:label "cell name" .
+
+eda:net_name a owl:DatatypeProperty ;
+    rdfs:domain eda:Pin ;
+    rdfs:range xsd:string ;
+    rdfs:label "net name" .
+
+eda:setup_rise_slew a owl:DatatypeProperty ;
+    rdfs:domain eda:Pin ;
+    rdfs:range xsd:float ;
+    rdfs:label "setup rise slew" .
+
+eda:hold_rise_slew a owl:DatatypeProperty ;
+    rdfs:domain eda:Pin ;
+    rdfs:range xsd:float ;
+    rdfs:label "hold rise slew" .
+
+eda:setup_fall_slew a owl:DatatypeProperty ;
+    rdfs:domain eda:Pin ;
+    rdfs:range xsd:float ;
+    rdfs:label "setup fall slew" .
+
+eda:hold_fall_slew a owl:DatatypeProperty ;
+    rdfs:domain eda:Pin ;
+    rdfs:range xsd:float ;
+    rdfs:label "hold fall slew" .
+
+eda:setup_rise_slack a owl:DatatypeProperty ;
+    rdfs:domain eda:Pin ;
+    rdfs:range xsd:float ;
+    rdfs:label "setup rise slack" .
+
+eda:hold_rise_slack a owl:DatatypeProperty ;
+    rdfs:domain eda:Pin ;
+    rdfs:range xsd:float ;
+    rdfs:label "hold rise slack" .
+
+eda:setup_fall_slack a owl:DatatypeProperty ;
+    rdfs:domain eda:Pin ;
+    rdfs:range xsd:float ;
+    rdfs:label "setup fall slack" .
+
+eda:hold_fall_slack a owl:DatatypeProperty ;
+    rdfs:domain eda:Pin ;
+    rdfs:range xsd:float ;
+    rdfs:label "hold fall slack" .
+
+eda:setup_rise_arrival a owl:DatatypeProperty ;
+    rdfs:domain eda:Pin ;
+    rdfs:range xsd:float ;
+    rdfs:label "setup rise arrival" .
+
+eda:setup_fall_arrival a owl:DatatypeProperty ;
+    rdfs:domain eda:Pin ;
+    rdfs:range xsd:float ;
+    rdfs:label "setup fall arrival" .
+
+eda:hold_rise_arrival a owl:DatatypeProperty ;
+    rdfs:domain eda:Pin ;
+    rdfs:range xsd:float ;
+    rdfs:label "hold rise arrival" .
+
+eda:hold_fall_arrival a owl:DatatypeProperty ;
+    rdfs:domain eda:Pin ;
+    rdfs:range xsd:float ;
+    rdfs:label "hold fall arrival" .
+
+eda:load_capacitance a owl:DatatypeProperty ;
+    rdfs:domain eda:Pin ;
+    rdfs:range xsd:float ;
+    rdfs:label "load capacitance" .
+
+eda:in_drop a owl:DatatypeProperty ;
+    rdfs:domain eda:Pin ;
+    rdfs:range xsd:float ;
+    rdfs:label "in drop" .
+
+eda:switching_activity a owl:DatatypeProperty ;
+    rdfs:domain eda:Pin ;
+    rdfs:range xsd:float ;
+    rdfs:label "switching activity" .
+
+
+### Entity: TimingPathPin
+eda:TimingPathPin a owl:Class ;
+    rdfs:label "TimingPathPin" ;
+    rdfs:comment "TimingPathPin description." .
+
+eda:name a owl:DatatypeProperty ;
+    rdfs:domain eda:TimingPathPin ;
+    rdfs:range xsd:string ;
+    rdfs:label "name" .
+
+eda:Instance a owl:DatatypeProperty ;
+    rdfs:domain eda:TimingPathPin ;
+    rdfs:range xsd:string ;
+    rdfs:label "gate" .
+
+eda:pin a owl:DatatypeProperty ;
+    rdfs:domain eda:TimingPathPin ;
+    rdfs:range xsd:string ;
+    rdfs:label "pin" .
+
+eda:cell_delay a owl:DatatypeProperty ;
+    rdfs:domain eda:TimingPathPin ;
+    rdfs:range xsd:float ;
+    rdfs:label "cell delay" .
+
+eda:arrival_time a owl:DatatypeProperty ;
+    rdfs:domain eda:TimingPathPin ;
+    rdfs:range xsd:float ;
+    rdfs:label "arrival time" .
+
+eda:slew a owl:DatatypeProperty ;
+    rdfs:domain eda:TimingPathPin ;
+    rdfs:range xsd:float ;
+    rdfs:label "slew" .
+
+eda:is_rise_transition a owl:DatatypeProperty ;
+    rdfs:domain eda:TimingPathPin ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "is rise transition" .
+
+eda:is_fall_transition a owl:DatatypeProperty ;
+    rdfs:domain eda:TimingPathPin ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "is fall transition" .
+
+eda:node_depth a owl:DatatypeProperty ;
+    rdfs:domain eda:TimingPathPin ;
+    rdfs:range xsd:int ;
+    rdfs:label "node depth" .
+
+
+### Entity: TimingPath
+eda:TimingPath a owl:Class ;
+    rdfs:label "TimingPath" ;
+    rdfs:comment "TimingPath description." .
+
+eda:startpoint a owl:DatatypeProperty ;
+    rdfs:domain eda:TimingPath ;
+    rdfs:range xsd:string ;
+    rdfs:label "startpoint" .
+
+eda:endpoint a owl:DatatypeProperty ;
+    rdfs:domain eda:TimingPath ;
+    rdfs:range xsd:string ;
+    rdfs:label "endpoint" .
+
+eda:path_type a owl:DatatypeProperty ;
+    rdfs:domain eda:TimingPath ;
+    rdfs:range xsd:string ;
+    rdfs:label "path type" .
+
+eda:arrival_time a owl:DatatypeProperty ;
+    rdfs:domain eda:TimingPath ;
+    rdfs:range xsd:float ;
+    rdfs:label "arrival time" .
+
+eda:required_time a owl:DatatypeProperty ;
+    rdfs:domain eda:TimingPath ;
+    rdfs:range xsd:float ;
+    rdfs:label "required time" .
+
+eda:slack a owl:DatatypeProperty ;
+    rdfs:domain eda:TimingPath ;
+    rdfs:range xsd:float ;
+    rdfs:label "slack" .
+
+eda:no_of_gates a owl:DatatypeProperty ;
+    rdfs:domain eda:TimingPath ;
+    rdfs:range xsd:int ;
+    rdfs:label "no of gates" .
+
+eda:is_critical_path a owl:DatatypeProperty ;
+    rdfs:domain eda:TimingPath ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "is critical path" .
+
+eda:timing_path_pins a owl:ObjectProperty ;
+    rdfs:domain eda:TimingPath ;
+    rdfs:range eda:TimingPathPin ;
+    rdfs:label "timing nodes" .
+
+
+### Entity: CellMetrics
+eda:CellMetrics a owl:Class ;
+    rdfs:label "CellMetrics" ;
+    rdfs:comment "CellMetrics description." .
+
+eda:no_of_combinational_cells a owl:DatatypeProperty ;
+    rdfs:domain eda:CellMetrics ;
+    rdfs:range xsd:int ;
+    rdfs:label "no of combinational cells" .
+
+eda:no_of_sequential_cells a owl:DatatypeProperty ;
+    rdfs:domain eda:CellMetrics ;
+    rdfs:range xsd:int ;
+    rdfs:label "no of sequential cells" .
+
+eda:no_of_buffers a owl:DatatypeProperty ;
+    rdfs:domain eda:CellMetrics ;
+    rdfs:range xsd:int ;
+    rdfs:label "no of buffers" .
+
+eda:no_of_inverters a owl:DatatypeProperty ;
+    rdfs:domain eda:CellMetrics ;
+    rdfs:range xsd:int ;
+    rdfs:label "no of inverters" .
+
+eda:no_of_fillers a owl:DatatypeProperty ;
+    rdfs:domain eda:CellMetrics ;
+    rdfs:range xsd:int ;
+    rdfs:label "no of fillers" .
+
+eda:no_of_tap_cells a owl:DatatypeProperty ;
+    rdfs:domain eda:CellMetrics ;
+    rdfs:range xsd:int ;
+    rdfs:label "no of tap cells" .
+
+eda:no_of_diodes a owl:DatatypeProperty ;
+    rdfs:domain eda:CellMetrics ;
+    rdfs:range xsd:int ;
+    rdfs:label "no of diodes" .
+
+eda:no_of_macros a owl:DatatypeProperty ;
+    rdfs:domain eda:CellMetrics ;
+    rdfs:range xsd:int ;
+    rdfs:label "no of macros" .
+
+eda:no_of_total_cells a owl:DatatypeProperty ;
+    rdfs:domain eda:CellMetrics ;
+    rdfs:range xsd:int ;
+    rdfs:label "no of total cells" .
+
+
+### Entity: AreaMetrics
+eda:AreaMetrics a owl:Class ;
+    rdfs:label "AreaMetrics" ;
+    rdfs:comment "AreaMetrics description." .
+
+eda:combinational_cell_area a owl:DatatypeProperty ;
+    rdfs:domain eda:AreaMetrics ;
+    rdfs:range xsd:float ;
+    rdfs:label "combinational cell area" .
+
+eda:sequential_cell_area a owl:DatatypeProperty ;
+    rdfs:domain eda:AreaMetrics ;
+    rdfs:range xsd:float ;
+    rdfs:label "sequential cell area" .
+
+eda:buffer_area a owl:DatatypeProperty ;
+    rdfs:domain eda:AreaMetrics ;
+    rdfs:range xsd:float ;
+    rdfs:label "buffer area" .
+
+eda:inverter_area a owl:DatatypeProperty ;
+    rdfs:domain eda:AreaMetrics ;
+    rdfs:range xsd:float ;
+    rdfs:label "inverter area" .
+
+eda:filler_area a owl:DatatypeProperty ;
+    rdfs:domain eda:AreaMetrics ;
+    rdfs:range xsd:float ;
+    rdfs:label "filler area" .
+
+eda:tap_cell_area a owl:DatatypeProperty ;
+    rdfs:domain eda:AreaMetrics ;
+    rdfs:range xsd:float ;
+    rdfs:label "tap cell area" .
+
+eda:diode_area a owl:DatatypeProperty ;
+    rdfs:domain eda:AreaMetrics ;
+    rdfs:range xsd:float ;
+    rdfs:label "diode area" .
+
+eda:macro_area a owl:DatatypeProperty ;
+    rdfs:domain eda:AreaMetrics ;
+    rdfs:range xsd:float ;
+    rdfs:label "macro area" .
+
+eda:cell_area a owl:DatatypeProperty ;
+    rdfs:domain eda:AreaMetrics ;
+    rdfs:range xsd:float ;
+    rdfs:label "cell area" .
+
+eda:total_area a owl:DatatypeProperty ;
+    rdfs:domain eda:AreaMetrics ;
+    rdfs:range xsd:float ;
+    rdfs:label "total area" .
+
+
+### Entity: PowerMetrics
+eda:PowerMetrics a owl:Class ;
+    rdfs:label "PowerMetrics" ;
+    rdfs:comment "PowerMetrics description." .
+
+eda:combinational_power a owl:DatatypeProperty ;
+    rdfs:domain eda:PowerMetrics ;
+    rdfs:range xsd:float ;
+    rdfs:label "combinational power" .
+
+eda:sequential_power a owl:DatatypeProperty ;
+    rdfs:domain eda:PowerMetrics ;
+    rdfs:range xsd:float ;
+    rdfs:label "sequential power" .
+
+eda:macro_power a owl:DatatypeProperty ;
+    rdfs:domain eda:PowerMetrics ;
+    rdfs:range xsd:float ;
+    rdfs:label "macro power" .
+
+eda:internal_power a owl:DatatypeProperty ;
+    rdfs:domain eda:PowerMetrics ;
+    rdfs:range xsd:float ;
+    rdfs:label "internal power" .
+
+eda:switching_power a owl:DatatypeProperty ;
+    rdfs:domain eda:PowerMetrics ;
+    rdfs:range xsd:float ;
+    rdfs:label "switching power" .
+
+eda:leakage_power a owl:DatatypeProperty ;
+    rdfs:domain eda:PowerMetrics ;
+    rdfs:range xsd:float ;
+    rdfs:label "leakage power" .
+
+eda:total_power a owl:DatatypeProperty ;
+    rdfs:domain eda:PowerMetrics ;
+    rdfs:range xsd:float ;
+    rdfs:label "total power" .
+
+
+### Entity: TimingMetrics
+eda:TimingMetrics a owl:Class ;
+    rdfs:label "TimingMetrics" ;
+    rdfs:comment "TimingMetrics description." .
+
+eda:startpoint a owl:DatatypeProperty ;
+    rdfs:domain eda:TimingMetrics ;
+    rdfs:range xsd:string ;
+    rdfs:label "startpoint" .
+
+eda:endpoint a owl:DatatypeProperty ;
+    rdfs:domain eda:TimingMetrics ;
+    rdfs:range xsd:string ;
+    rdfs:label "endpoint" .
+
+eda:worst_arrival_time a owl:DatatypeProperty ;
+    rdfs:domain eda:TimingMetrics ;
+    rdfs:range xsd:float ;
+    rdfs:label "worst arrival time" .
+
+eda:worst_slack a owl:DatatypeProperty ;
+    rdfs:domain eda:TimingMetrics ;
+    rdfs:range xsd:float ;
+    rdfs:label "worst slack" .
+
+eda:total_negative_slack a owl:DatatypeProperty ;
+    rdfs:domain eda:TimingMetrics ;
+    rdfs:range xsd:float ;
+    rdfs:label "total negative slack" .
+
+eda:no_of_timing_paths a owl:DatatypeProperty ;
+    rdfs:domain eda:TimingMetrics ;
+    rdfs:range xsd:int ;
+    rdfs:label "no of timing paths" .
+
+eda:no_of_slack_violations a owl:DatatypeProperty ;
+    rdfs:domain eda:TimingMetrics ;
+    rdfs:range xsd:int ;
+    rdfs:label "no of slack violations" .
+
+
+### Entity: ClockTree
+eda:ClockTree a owl:Class ;
+    rdfs:label "ClockTree" ;
+    rdfs:comment "ClockTree description." .
+
+eda:clock_source a owl:DatatypeProperty ;
+    rdfs:domain eda:ClockTree ;
+    rdfs:range xsd:string ;
+    rdfs:label "clock source" .
+
+eda:no_of_buffers a owl:DatatypeProperty ;
+    rdfs:domain eda:ClockTree ;
+    rdfs:range xsd:int ;
+    rdfs:label "no of buffers" .
+
+eda:no_of_clock_sinks a owl:DatatypeProperty ;
+    rdfs:domain eda:ClockTree ;
+    rdfs:range xsd:int ;
+    rdfs:label "no of clock sinks" .
+
+eda:clock_tree_ports a owl:ObjectProperty ;
+    rdfs:domain eda:ClockTree ;
+    rdfs:range eda:Port ;
+    rdfs:label "ports" .
+
+eda:clock_tree_gates a owl:ObjectProperty ;
+    rdfs:domain eda:ClockTree ;
+    rdfs:range eda:Instance ;
+    rdfs:label "gates" .
+
+eda:clock_tree_nets a owl:ObjectProperty ;
+    rdfs:domain eda:ClockTree ;
+    rdfs:range eda:Net ;
+    rdfs:label "interconnects" .
+
+eda:clock_tree_pins a owl:ObjectProperty ;
+    rdfs:domain eda:ClockTree ;
+    rdfs:range eda:Pin ;
+    rdfs:label "pins" .
+
+### Entity: Netlist
+eda:Netlist a owl:Class ;
+    rdfs:label "Netlist" ;
+    rdfs:comment "Netlist description." .
+
+eda:width a owl:DatatypeProperty ;
+    rdfs:domain eda:Netlist ;
+    rdfs:range xsd:float ;
+    rdfs:label "width" .
+
+eda:height a owl:DatatypeProperty ;
+    rdfs:domain eda:Netlist ;
+    rdfs:range xsd:float ;
+    rdfs:label "height" .
+
+eda:no_of_inputs a owl:DatatypeProperty ;
+    rdfs:domain eda:Netlist ;
+    rdfs:range xsd:int ;
+    rdfs:label "no of inputs" .
+
+eda:no_of_outputs a owl:DatatypeProperty ;
+    rdfs:domain eda:Netlist ;
+    rdfs:range xsd:int ;
+    rdfs:label "no of outputs" .
+
+eda:no_of_cells a owl:DatatypeProperty ;
+    rdfs:domain eda:Netlist ;
+    rdfs:range xsd:int ;
+    rdfs:label "no of cells" .
+
+eda:no_of_nets a owl:DatatypeProperty ;
+    rdfs:domain eda:Netlist ;
+    rdfs:range xsd:int ;
+    rdfs:label "no of nets" .
+
+eda:utilization a owl:DatatypeProperty ;
+    rdfs:domain eda:Netlist ;
+    rdfs:range xsd:float ;
+    rdfs:label "utilization" .
+
+eda:hasTimingPath a owl:ObjectProperty ;
+    rdfs:domain eda:Netlist ;
+    rdfs:range eda:TimingPath ;
+    rdfs:label "timing paths" .
+
+eda:clock_trees a owl:ObjectProperty ;
+    rdfs:domain eda:Netlist ;
+    rdfs:range eda:ClockTree ;
+    rdfs:label "clock trees" .
+
+eda:netlist_ports a owl:ObjectProperty ;
+    rdfs:domain eda:Netlist ;
+    rdfs:range eda:Port ;
+    rdfs:label "io ports" .
+
+eda:netlist_gates a owl:ObjectProperty ;
+    rdfs:domain eda:Netlist ;
+    rdfs:range eda:Instance ;
+    rdfs:label "gates" .
+
+eda:netlist_nets a owl:ObjectProperty ;
+    rdfs:domain eda:Netlist ;
+    rdfs:range eda:Net ;
+    rdfs:label "interconnects" .
+
+eda:netlist_pins a owl:ObjectProperty ;
+    rdfs:domain eda:Netlist ;
+    rdfs:range eda:Pin ;
+    rdfs:label "pins" .
+
+
+### Entity: Stage
+eda:Stage a owl:Class ;
+    rdfs:label "Stage" ;
+    rdfs:comment "A distinct phase or step within an EDA flow execution." .
+
+eda:name a owl:DatatypeProperty ;
+    rdfs:domain eda:Stage ;
+    rdfs:range xsd:string ;
+    rdfs:label "stage name" .
+
+eda:has_netlist a owl:ObjectProperty ;
+    rdfs:domain eda:Stage ;
+    rdfs:range eda:Netlist ;
+    rdfs:label "netlist" .
+
+eda:cell_metrics a owl:ObjectProperty ;
+    rdfs:domain eda:Stage ;
+    rdfs:range eda:CellMetrics ;
+    rdfs:label "cell metrics" .
+
+eda:area_metrics a owl:ObjectProperty ;
+    rdfs:domain eda:Stage ;
+    rdfs:range eda:AreaMetrics ;
+    rdfs:label "area metrics" .
+
+eda:power_metrics a owl:ObjectProperty ;
+    rdfs:domain eda:Stage ;
+    rdfs:range eda:PowerMetrics ;
+    rdfs:label "power metrics" .
+
+eda:timing_metrics a owl:ObjectProperty ;
+    rdfs:domain eda:Stage ;
+    rdfs:range eda:TimingMetrics ;
+    rdfs:label "critical path metrics" .
+
+
+### Entity: Flow
+eda:Flow a owl:Class ;
+    rdfs:label "Flow" ;
+    rdfs:comment "Represents an EDA process flow execution instance with stages." .
+
+eda:has_stage a owl:ObjectProperty ;
+    rdfs:domain eda:Flow ;
+    rdfs:range eda:Stage ;
+    rdfs:label "has Stage" .
+
+eda:timestamp a owl:DatatypeProperty ;
+    rdfs:domain eda:Flow ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "timestamp" .
+
+eda:runtime a owl:DatatypeProperty ;
+    rdfs:domain eda:Flow ;
+    rdfs:range xsd:float ;
+    rdfs:label "runtime" .
+
+eda:tool_name a owl:DatatypeProperty ;
+    rdfs:domain eda:Flow ;
+    rdfs:range xsd:string ;
+    rdfs:label "tool name" .

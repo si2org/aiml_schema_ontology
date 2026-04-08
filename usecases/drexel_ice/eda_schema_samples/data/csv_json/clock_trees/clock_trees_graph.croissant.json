@@ -1,0 +1,169 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "sc": "https://schema.org/",
+    "cr": "http://mlcommons.org/croissant/",
+    "dct": "http://purl.org/dc/terms/",
+    "conformsTo": "dct:conformsTo",
+    "recordSet": "cr:recordSet",
+    "field": "cr:field",
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "source": "cr:source",
+    "extract": "cr:extract",
+    "fileObject": "cr:fileObject",
+    "column": "cr:column"
+  },
+  "@type": "sc:Dataset",
+  "name": "clock_trees_graph_dataset",
+  "description": "Dataset containing clock_trees_graph metrics across different phases",
+  "datePublished": "2025-08-03",
+  "version": "1.0.0",
+  "license": "MIT",
+  "citation": "Clock_trees_graph Dataset",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "url": "https://example.com/clock_trees_graph_dataset",
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "clock_trees_graph.csv",
+      "name": "clock_trees_graph.csv",
+      "contentUrl": "./eda_schema_samples/data/csv_json/clock_trees/graph_table.csv",
+      "encodingFormat": "text/csv",
+      "md5": "4d8fa3adc9b53b954e0d5654c383a1de",
+      "sha256": "5ef44a21a9e87dc8c1b013b5e324a52d66b3c99a9c2d5144a07e87b90bc740b6"
+    }
+  ],
+  "recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "@id": "clock_trees_graph_records",
+      "name": "clock_trees_graph_records",
+      "description": "Clock_trees_graph records",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "clock_trees_graph_records/circuit",
+          "name": "circuit",
+          "description": "Circuit",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "clock_trees_graph.csv"
+            },
+            "extract": {
+              "column": "circuit"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "clock_trees_graph_records/netlist_id",
+          "name": "netlist_id",
+          "description": "Netlist id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "clock_trees_graph.csv"
+            },
+            "extract": {
+              "column": "netlist_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "clock_trees_graph_records/phase",
+          "name": "phase",
+          "description": "Phase",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "clock_trees_graph.csv"
+            },
+            "extract": {
+              "column": "phase"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "clock_trees_graph_records/clock_source",
+          "name": "clock_source",
+          "description": "Clock source",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "clock_trees_graph.csv"
+            },
+            "extract": {
+              "column": "clock_source"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "clock_trees_graph_records/source",
+          "name": "source",
+          "description": "Source",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "clock_trees_graph.csv"
+            },
+            "extract": {
+              "column": "source"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "clock_trees_graph_records/target",
+          "name": "target",
+          "description": "Target",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "clock_trees_graph.csv"
+            },
+            "extract": {
+              "column": "target"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "clock_trees_graph_records/source_type",
+          "name": "source_type",
+          "description": "Source type",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "clock_trees_graph.csv"
+            },
+            "extract": {
+              "column": "source_type"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "clock_trees_graph_records/target_type",
+          "name": "target_type",
+          "description": "Target type",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "clock_trees_graph.csv"
+            },
+            "extract": {
+              "column": "target_type"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

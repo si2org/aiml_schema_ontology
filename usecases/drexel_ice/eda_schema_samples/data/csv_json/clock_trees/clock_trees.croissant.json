@@ -1,0 +1,139 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "sc": "https://schema.org/",
+    "cr": "http://mlcommons.org/croissant/",
+    "dct": "http://purl.org/dc/terms/",
+    "conformsTo": "dct:conformsTo",
+    "recordSet": "cr:recordSet",
+    "field": "cr:field",
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "source": "cr:source",
+    "extract": "cr:extract",
+    "fileObject": "cr:fileObject",
+    "column": "cr:column"
+  },
+  "@type": "sc:Dataset",
+  "name": "clock_trees_dataset",
+  "description": "Dataset containing clock_trees metrics across different phases",
+  "datePublished": "2025-08-03",
+  "version": "1.0.0",
+  "license": "MIT",
+  "citation": "Clock_trees Dataset",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "url": "https://example.com/clock_trees_dataset",
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "clock_trees.csv",
+      "name": "clock_trees.csv",
+      "contentUrl": "./eda_schema_samples/data/csv_json/clock_trees/table.csv",
+      "encodingFormat": "text/csv",
+      "md5": "92f913503e7630a750a5b2832bd0becd",
+      "sha256": "6c2e26296090e945835c51d4559a38d6cd2a88183e427ae6a8d3d2f653433810"
+    }
+  ],
+  "recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "@id": "clock_trees_records",
+      "name": "clock_trees_records",
+      "description": "Clock_trees records",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "clock_trees_records/circuit",
+          "name": "circuit",
+          "description": "Circuit",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "clock_trees.csv"
+            },
+            "extract": {
+              "column": "circuit"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "clock_trees_records/netlist_id",
+          "name": "netlist_id",
+          "description": "Netlist id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "clock_trees.csv"
+            },
+            "extract": {
+              "column": "netlist_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "clock_trees_records/phase",
+          "name": "phase",
+          "description": "Phase",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "clock_trees.csv"
+            },
+            "extract": {
+              "column": "phase"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "clock_trees_records/clock_source",
+          "name": "clock_source",
+          "description": "Clock source",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "clock_trees.csv"
+            },
+            "extract": {
+              "column": "clock_source"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "clock_trees_records/no_of_buffers",
+          "name": "no_of_buffers",
+          "description": "No of buffers",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "clock_trees.csv"
+            },
+            "extract": {
+              "column": "no_of_buffers"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "clock_trees_records/no_of_clock_sinks",
+          "name": "no_of_clock_sinks",
+          "description": "No of clock sinks",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "clock_trees.csv"
+            },
+            "extract": {
+              "column": "no_of_clock_sinks"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
