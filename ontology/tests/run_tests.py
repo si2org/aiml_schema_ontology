@@ -103,7 +103,7 @@ class OntologyTestRunner:
 
     def _run_file_integrity_tests(self):
         """Run file integrity tests"""
-        expected_files = ["eda-ontology.ttl"]
+        expected_files = ["eda_ontology.ttl"]
         if self.adapter_file:
             expected_files.append(self.adapter_file)
 

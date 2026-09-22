@@ -18,7 +18,7 @@
     rdfs:comment "Extends core EDA ontology to add primaryId property to Instance class without modifying the core." ;
     owl:versionInfo "1.0" ;
 #   owl:imports <http://example.org/eda>
-    owl:imports <./eda-ontology.ttl>
+    owl:imports <./eda_ontology.ttl>
 	.  # Import core ontology
 
 

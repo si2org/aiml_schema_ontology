@@ -63,6 +63,12 @@ make client
 python mcp_client.py
 ```
 
+### Setting up an MCP Server
+
+See [LLM_SETUP.md](LLM_SETUP.md) for an introductory tutorial on how to set up
+an MCP server on your personal computer.
+
+
 ## Architecture Overview
 
 
@@ -106,7 +112,7 @@ Performs comprehensive validation:
 
 ```bash
 # Run validation
-python ontology_validator.py --path onto --file eda-ontology.ttl
+python ontology_validator.py --path ../../ontology --file eda_ontology.ttl
 
 # Generate JSON report
 python ontology_validator.py --json > report.json
@@ -154,7 +160,7 @@ The `mcp.json` file configures the MCP server for integration with LLM clients:
     "mcpServers": {
         "EDA_ontology_mono": {
             "command": "micromamba",
-            "args": ["run", "-n", "work", "python", "server.py", "--file", "onto/eda-ontology.ttl"],
+            "args": ["run", "-n", "work", "python", "server.py", "--file", "../../ontology/eda_ontology.ttl"],
             "env": {
                 "MAMBA_EXE": "/opt/homebrew/bin/micromamba",
                 "MAMBA_ROOT_PREFIX": "/Users/ivan/micromamba"
@@ -187,8 +193,8 @@ The `mcp.json` file configures the MCP server for integration with LLM clients:
 ```python
 from mcp_client import MCPOntologyClient
 
-client = MCPOntologyClient("onto")
-client.initialize("eda-ontology.ttl")
+client = MCPOntologyClient("../../ontology")
+client.initialize("eda_ontology.ttl")
 
 # Get all classes
 result = client.query("""
@@ -202,7 +208,7 @@ print(f"Found {len(result.data)} classes")
 ```python
 from ontology_validator import validate_ontology
 
-is_valid, report_text, report = validate_ontology("onto", "eda-ontology.ttl")
+is_valid, report_text, report = validate_ontology("../../ontology", "eda_ontology.ttl")
 print(report_text)
 ```
 
