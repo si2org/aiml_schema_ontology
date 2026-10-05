@@ -99,7 +99,7 @@ class EDAOntologyValidator:
         self.metrics = OntologyMetrics()
         self.loaded_files: List[str] = []
 
-    def load_ontology(self, main_file: str = "eda-ontology.ttl", adapter_file: str = None) -> bool:
+    def load_ontology(self, main_file: str = "eda_ontology.ttl", adapter_file: str = None) -> bool:
         """Load the monolithic ontology and optional adapter"""
         main_path = os.path.join(self.base_path, main_file)
 
@@ -586,7 +586,7 @@ class EDAOntologyValidator:
         return props
 
 
-def validate_ontology(path: str = "onto", main_file: str = "eda-ontology.ttl",
+def validate_ontology(path: str = "onto", main_file: str = "eda_ontology.ttl",
                      adapter_file: str = None) -> Tuple[bool, str, ValidationReport]:
     """
     Convenience function to validate the monolithic ontology.
@@ -671,7 +671,7 @@ def main():
 
     parser = argparse.ArgumentParser(description="Validate Monolithic EDA Ontology")
     parser.add_argument("--path", default="onto", help="Path to ontology directory")
-    parser.add_argument("--file", default="eda-ontology.ttl", help="Main ontology file")
+    parser.add_argument("--file", default="eda_ontology.ttl", help="Main ontology file")
     parser.add_argument("--adapter", default=None, help="Adapter ontology file")
     parser.add_argument("--json", action="store_true", help="Output as JSON")
     args = parser.parse_args()

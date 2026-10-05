@@ -46,32 +46,32 @@ test:
 	@echo "========================================"
 	@echo "Running Monolithic EDA Ontology Tests"
 	@echo "========================================"
-	$(PYTHON_ENV_CMD) run_tests.py --path $(ONTOLOGY_DIR) --main $(MAIN_ONTOLOGY)
+	$(PYTHON_ENV_CMD) $(ONTOLOGY_DIR)/tests/run_tests.py --path $(ONTOLOGY_DIR) --main $(MAIN_ONTOLOGY)
 
 # Quick validation only
 test-quick:
 	@echo "Running quick validation..."
-	$(PYTHON_ENV_CMD) run_tests.py --path $(ONTOLOGY_DIR) --main $(MAIN_ONTOLOGY) --validate-only
+	$(PYTHON_ENV_CMD) $(ONTOLOGY_DIR)/tests/run_tests.py --path $(ONTOLOGY_DIR) --main $(MAIN_ONTOLOGY) --validate-only
 
 # Full test suite including pytest
 test-full:
 	@echo "Running full test suite..."
-	$(PYTHON_ENV_CMD) run_tests.py --path $(ONTOLOGY_DIR) --main $(MAIN_ONTOLOGY) --pytest
+	$(PYTHON_ENV_CMD) $(ONTOLOGY_DIR)/tests/run_tests.py --path $(ONTOLOGY_DIR) --main $(MAIN_ONTOLOGY) --pytest
 
 # Run ontology validation
 validate:
 	@echo "Running ontology validation..."
-	$(PYTHON_ENV_CMD) ontology_validator.py --path $(ONTOLOGY_DIR) --file $(MAIN_ONTOLOGY)
+	$(PYTHON_ENV_CMD) $(ONTOLOGY_DIR)/tests/ontology_validator.py --path $(ONTOLOGY_DIR) --file $(MAIN_ONTOLOGY)
 
 # Run SPARQL query tests
 query-test:
 	@echo "Running SPARQL query tests..."
-	$(PYTHON_ENV_CMD) run_tests.py --path $(ONTOLOGY_DIR) --main $(MAIN_ONTOLOGY) --query-only
+	$(PYTHON_ENV_CMD) $(ONTOLOGY_DIR)/tests/run_tests.py --path $(ONTOLOGY_DIR) --main $(MAIN_ONTOLOGY) --query-only
 
 # Run pytest suite
 pytest:
 	@echo "Running pytest suite..."
-	$(PYTHON_ENV_CMD) -m pytest test_eda_ontology.py -v --tb=short
+	$(PYTHON_ENV_CMD) -m pytest $(ONTOLOGY_DIR)/tests/test_eda_ontology.py -v --tb=short
 
 # Run MCP client demo
 client:
@@ -86,13 +86,13 @@ server:
 # Generate validation report as JSON
 report:
 	@echo "Generating validation report..."
-	$(PYTHON_ENV_CMD) ontology_validator.py --path $(ONTOLOGY_DIR) --file $(MAIN_ONTOLOGY) --json > validation_report.json
+	$(PYTHON_ENV_CMD) $(ONTOLOGY_DIR)/tests/ontology_validator.py --path $(ONTOLOGY_DIR) --file $(MAIN_ONTOLOGY) --json > validation_report.json
 	@echo "Report saved to validation_report.json"
 
 # Display SPARQL query catalog
 queries:
 	@echo "SPARQL Query Catalog:"
-	$(PYTHON_ENV_CMD) sparql_queries.py
+	$(PYTHON_ENV_CMD) $(ONTOLOGY_DIR)/tests/sparql_queries.py
 
 # Show ontology statistics
 stats:
@@ -117,9 +117,9 @@ clean:
 # Test with adapter
 test-adapter:
 	@echo "Running tests with adapter ontology..."
-	$(PYTHON_ENV_CMD) run_tests.py --path $(ONTOLOGY_DIR) --main $(MAIN_ONTOLOGY) --adapter $(ADAPTER_ONTOLOGY)
+	$(PYTHON_ENV_CMD) $(ONTOLOGY_DIR)/tests/run_tests.py --path $(ONTOLOGY_DIR) --main $(MAIN_ONTOLOGY) --adapter $(ADAPTER_ONTOLOGY)
 
 # Validate with adapter
 validate-adapter:
 	@echo "Validating with adapter ontology..."
-	$(PYTHON_ENV_CMD) ontology_validator.py --path $(ONTOLOGY_DIR) --file $(MAIN_ONTOLOGY) --adapter $(ADAPTER_ONTOLOGY)
+	$(PYTHON_ENV_CMD) $(ONTOLOGY_DIR)/tests/ontology_validator.py --path $(ONTOLOGY_DIR) --file $(MAIN_ONTOLOGY) --adapter $(ADAPTER_ONTOLOGY)
