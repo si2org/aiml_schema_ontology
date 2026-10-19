@@ -27,9 +27,21 @@ class DXLCroissant:
         self.temp_files = []
         self.date_published = date_published or date.today().isoformat()
     
+    # BibTeX citation for the Si2 AI/ML Schema Ontology repository (Croissant citeAs)
+    CITE_AS = (
+        "@misc{si2_aiml_schema_ontology,\n"
+        "  author       = {{Si2 AI/ML Schema Working Group}},\n"
+        "  title        = {{Si2 AI/ML Schema Ontology}},\n"
+        "  year         = {2026},\n"
+        "  howpublished = {\\url{https://github.com/si2org/aiml_schema_ontology}},\n"
+        "  note         = {GitHub repository}\n"
+        "}"
+    )
+
     # Define metadata template for reuse
     METADATA_TEMPLATE = {
         "@context": {
+            "@language": "en",
             "@vocab": "https://schema.org/",
             "sc": "https://schema.org/",
             "cr": "http://mlcommons.org/croissant/",
@@ -41,7 +53,32 @@ class DXLCroissant:
             "source": "cr:source",
             "extract": "cr:extract",
             "fileObject": "cr:fileObject",
-            "column": "cr:column"
+            "column": "cr:column",
+            # Remaining keys of the standard Croissant 1.0 @context
+            # (matches mlcroissant's make_context())
+            "citeAs": "cr:citeAs",
+            "rai": "http://mlcommons.org/croissant/RAI/",
+            "data": {"@id": "cr:data", "@type": "@json"},
+            "equivalentProperty": "cr:equivalentProperty",
+            "examples": {"@id": "cr:examples", "@type": "@json"},
+            "fileProperty": "cr:fileProperty",
+            "fileSet": "cr:fileSet",
+            "format": "cr:format",
+            "includes": "cr:includes",
+            "isLiveDataset": "cr:isLiveDataset",
+            "jsonPath": "cr:jsonPath",
+            "key": "cr:key",
+            "md5": "cr:md5",
+            "parentField": "cr:parentField",
+            "path": "cr:path",
+            "references": "cr:references",
+            "regex": "cr:regex",
+            "repeated": "cr:repeated",
+            "replace": "cr:replace",
+            "samplingRate": "cr:samplingRate",
+            "separator": "cr:separator",
+            "subField": "cr:subField",
+            "transform": "cr:transform"
         },
         "@type": "sc:Dataset",
         "name": "",  # Will be set for each dataset
@@ -50,6 +87,7 @@ class DXLCroissant:
         "version": "1.0.0",
         "license": "MIT",
         "citation": "",  # Will be set for each dataset
+        "citeAs": CITE_AS,
         "conformsTo": "http://mlcommons.org/croissant/1.0",
         "url": "",  # Will be set for each dataset
         "distribution": [],
@@ -329,7 +367,7 @@ class DXLCroissant:
         
         # Then add dataset metadata fields
         for key in ["name", "description", "datePublished", "version", "license", 
-                    "citation", "conformsTo", "url"]:
+                    "citation", "citeAs", "conformsTo", "url"]:
             if key in self.metadata:
                 ordered_metadata[key] = self.metadata[key]
         
@@ -369,7 +407,7 @@ class DXLCroissant:
         
         # Then add dataset metadata fields
         for key in ["name", "description", "datePublished", "version", "license", 
-                    "citation", "conformsTo", "url"]:
+                    "citation", "citeAs", "conformsTo", "url"]:
             if key in existing_metadata:
                 ordered_metadata[key] = existing_metadata[key]
         

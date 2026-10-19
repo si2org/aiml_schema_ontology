@@ -33,7 +33,7 @@ process_graph_directory() {
     echo "Processing graph files in $input_dir..."
     
     # Build the command using the virtual environment's Python
-    local cmd="./venv/bin/python ontology/DXLTables.py --input \"$input_dir\""
+    local cmd="python ontology/DXLTables.py --input \"$input_dir\""
     if [ -n "$output_dir" ]; then
         cmd="$cmd --output \"$output_dir\""
     fi
