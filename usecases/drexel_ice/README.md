@@ -51,10 +51,10 @@ pip install -r requirements-ml.txt
 4. Run the example scripts from the project root:
 ```bash
 # For neural network-based net length prediction
-python usecases/length_prediction.py
+python usecases/length_prediction/main.py
 
 # For graph neural network-based timing prediction
-python usecases/timing_prediction.py
+python usecases/timing_prediction/main.py
 ```
 
 ## Core Modules and Utilities
@@ -87,8 +87,8 @@ Shell wrapper scripts are provided to simplify the usage of these tools:
 
 The repository includes machine learning models that demonstrate applications of the EDA schema ontology:
 
-- `length_prediction.py`: Neural network for predicting net wire lengths after routing based on pre-routing features
-- `timing_prediction.py`: Graph Neural Network (GNN) models for predicting timing characteristics
+- `length_prediction/main.py`: Neural network for predicting net wire lengths after routing based on pre-routing features
+- `timing_prediction/main.py`: Graph Neural Network (GNN) models for predicting timing characteristics
 
 For detailed explanations of these models, see the [Machine Learning Use Cases](usage_examples.md#machine-learning-use-cases) section in the user guide.
 

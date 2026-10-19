@@ -197,7 +197,11 @@ def load_croissant_dataframe(dataset: Dataset, record_key: str) -> pd.DataFrame:
     """
     df = pd.DataFrame(dataset.records(record_key))
     df.columns = df.columns.str.replace(f"{record_key}/", "", regex=False)
-    return df.applymap(lambda x: x.decode() if isinstance(x, bytes) else x)
+    # applymap was changed to map in Pandas version 2.1.0
+    if hasattr(pd.DataFrame,"map"):
+        return df.map(lambda x: x.decode() if isinstance(x, bytes) else x)
+    else:
+        return df.applymap(lambda x: x.decode() if isinstance(x, bytes) else x)
 
 # === Graph Builders ===
 

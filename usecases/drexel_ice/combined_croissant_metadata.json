@@ -1,5 +1,6 @@
 {
   "@context": {
+    "@language": "en",
     "@vocab": "https://schema.org/",
     "sc": "https://schema.org/",
     "cr": "http://mlcommons.org/croissant/",
@@ -14,7 +15,36 @@
     "source": "cr:source",
     "extract": "cr:extract",
     "fileObject": "cr:fileObject",
-    "column": "cr:column"
+    "column": "cr:column",
+    "citeAs": "cr:citeAs",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "equivalentProperty": "cr:equivalentProperty",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "fileProperty": "cr:fileProperty",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "samplingRate": "cr:samplingRate",
+    "separator": "cr:separator",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
   },
   "@type": "sc:Dataset",
   "name": "wires_dataset",
@@ -23,6 +53,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "citation": "Wires Dataset",
+  "citeAs": "@misc{si2_aiml_schema_ontology,\n  author       = {{Si2 AI/ML Schema Working Group}},\n  title        = {{Si2 AI/ML Schema Ontology}},\n  year         = {2026},\n  howpublished = {\\url{https://github.com/si2org/aiml_schema_ontology}},\n  note         = {GitHub repository}\n}",
   "conformsTo": "http://mlcommons.org/croissant/1.0",
   "url": "https://example.com/wires_dataset",
   "distribution": [
@@ -32,7 +63,7 @@
       "name": "wires.csv",
       "contentUrl": "./eda_schema_samples/data/csv_json/wires/table.csv",
       "encodingFormat": "text/csv",
-      "md5": "735b68043115a484a75aa6da49730c35",
+      "md5": "a41e9cd893f9b394adeb980c33d640d4",
       "sha256": "3b4c5088d3c343f887702f91bc8b14d016dc87d7ad9a93ff9c8422db114bed2a"
     },
     {
@@ -113,7 +144,7 @@
       "name": "stages.csv",
       "contentUrl": "./eda_schema_samples/data/csv_json/stages/table.csv",
       "encodingFormat": "text/csv",
-      "md5": "7d55a9c145507403277b3becbfca41c4",
+      "md5": "03d6b33414011d0258e0c4c6d4232520",
       "sha256": "18d3fce2f1220db50e23b566988bcfd7b96ffa08812724b6d1507d63e6b8bd4b"
     },
     {
@@ -185,7 +216,7 @@
       "name": "timing_path_pins.csv",
       "contentUrl": "./eda_schema_samples/data/csv_json/timing_path_pins/table.csv",
       "encodingFormat": "text/csv",
-      "md5": "4086f27ff509d3dd13ebd9b4085912d9",
+      "md5": "4a447644b3180e3847d173f2cbd41e49",
       "sha256": "43fe5bd5bda7ece300276b424b87f35268c21fbec151d4cf5003bf3a5c6249c1"
     },
     {
