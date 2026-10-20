@@ -49,6 +49,16 @@ eda:edgeType a owl:DatatypeProperty ;
     rdfs:range xsd:bool ;
     rdfs:label "edge type" .
 
+eda:isRiseTransition a owl:DatatypeProperty ;
+    rdfs:domain eda:PathPoint ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "is rise transition" .
+
+eda:isFallTransition a owl:DatatypeProperty ;
+    rdfs:domain eda:PathPoint ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "is fall transition" .
+
 
 # ============================================================================
 # Rationale and Usage Notes
