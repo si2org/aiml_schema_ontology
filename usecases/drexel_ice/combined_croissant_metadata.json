@@ -3279,8 +3279,8 @@
         },
         {
           "@type": "cr:Field",
-          "@id": "timing_path_pin_records/cell_delay",
-          "name": "cell_delay",
+          "@id": "timing_path_pin_records/incrementalDelay",
+          "name": "incrementalDelay",
           "description": "CellDelay",
           "dataType": "sc:Float",
           "source": {
@@ -3294,8 +3294,8 @@
         },
         {
           "@type": "cr:Field",
-          "@id": "timing_path_pin_records/arrival_time",
-          "name": "arrival_time",
+          "@id": "timing_path_pin_records/cumulativeArrival",
+          "name": "cumulativeArrival",
           "description": "Arrival time",
           "dataType": "sc:Float",
           "source": {
@@ -3309,8 +3309,8 @@
         },
         {
           "@type": "cr:Field",
-          "@id": "timing_path_pin_records/slew",
-          "name": "slew",
+          "@id": "timing_path_pin_records/pathPointSlew",
+          "name": "pathPointSlew",
           "description": "Slew",
           "dataType": "sc:Float",
           "source": {
@@ -3324,8 +3324,8 @@
         },
         {
           "@type": "cr:Field",
-          "@id": "timing_path_pin_records/is_rise_transition",
-          "name": "is_rise_transition",
+          "@id": "timing_path_pin_records/isRiseTransition",
+          "name": "isRiseTransition",
           "description": "Is rise transition",
           "dataType": "sc:Boolean",
           "source": {
@@ -3339,8 +3339,8 @@
         },
         {
           "@type": "cr:Field",
-          "@id": "timing_path_pin_records/is_fall_transition",
-          "name": "is_fall_transition",
+          "@id": "timing_path_pin_records/isFallTransition",
+          "name": "isFallTransition",
           "description": "Is fall transition",
           "dataType": "sc:Boolean",
           "source": {

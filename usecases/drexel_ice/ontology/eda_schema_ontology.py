@@ -314,7 +314,7 @@ def get_timing_path_graphs(stage_name: str | None = None) -> list[nx.DiGraph]:
     graph_props = get_class_properties(g, EDA.TimingPath, OWL.DatatypeProperty)
     df_edges = load_croissant_dataframe(dataset, "timing_path_graph_records")
     df_nodes = load_croissant_dataframe(dataset, "timing_path_pin_records")
-    node_props = get_class_properties(g, EDA.TimingPathPin, OWL.DatatypeProperty)
+    node_props = get_class_properties(g, EDA.PathPoint, OWL.DatatypeProperty)
 
     if stage_name:
         for df in [df_graphs, df_edges, df_nodes]:
