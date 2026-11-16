@@ -1,0 +1,6 @@
+# Python dependencies for the MCP server, client and tests in usecases/MCP/.
+# Install with:  pip install -r usecases/MCP/requirements.txt   (or: make mcp-install)
+mcp>=1.9,<2        # MCP Python SDK v1 (FastMCP API). server.py does not yet support mcp 2.x,
+                   # which renamed FastMCP to MCPServer; see usecases/MCP/README.md
+rdflib>=7.0        # ontology loading and SPARQL
+pytest>=8.0        # test runner

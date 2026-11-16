@@ -12,10 +12,35 @@ usecases/MCP/
 ├── sparql_queries.py              # SPARQL query catalog
 ├── mcp.json                       # MCP server configuration
 ├── makefile                       # Build automation
+├── requirements.txt               # Python dependencies (mcp, rdflib, pytest)
+├── tests/test_mcp_server.py       # End-to-end server tests (stdio and streamable HTTP)
 └── README.md                      # This file
 ```
 
-## Quick Start
+## Quick Start from the repository root
+
+The top-level `Makefile` installs, tests and starts the server with absolute paths, so
+it works from any client:
+
+```bash
+make mcp-install           # create .venv with the ontology + MCP requirements
+make test-mcp              # start the server and exercise its tools, resources and prompts
+make mcp-server            # stdio server (normally launched by an MCP client)
+make mcp-server-http       # streamable HTTP at http://127.0.0.1:8000/mcp (MCP_HOST, MCP_PORT)
+make mcp-inspector         # interactive MCP Inspector web UI (needs Node.js)
+make mcp-config            # print the `claude mcp add ...` command and an mcp.json snippet
+```
+
+`server.py` options: `--file`, `--adapter`, `--sparql-endpoint`, and
+`--transport {stdio,streamable-http,sse}` with `--host` / `--port` for HTTP.
+
+**SDK version:** `server.py` uses the MCP Python SDK v1 `FastMCP` API, so
+`requirements.txt` pins `mcp<2`. SDK 2.x renamed `FastMCP` to `MCPServer` and changed
+other APIs ([migration guide](https://py.sdk.modelcontextprotocol.io/v2/migration/));
+porting the server is a separate task. `make test-mcp` fails if an incompatible SDK
+is installed.
+
+## Quick Start (this directory)
 
 ### Prerequisites
 

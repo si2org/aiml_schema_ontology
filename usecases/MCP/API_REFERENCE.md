@@ -251,7 +251,7 @@ Get the main EDA domains covered by the ontology with subclass counts.
 **Example Response:**
 ```
 EDA Ontology Domains:
-  EDAProcess: Root class for all EDA workflow activities (45 subclasses)
+  EDAProcess: Root class for computational EDA workflow activities (32 subclasses)
   DesignArtifact: Root class for all design data objects (32 subclasses)
   Tool: Root class for EDA software tools (8 subclasses)
   ...
