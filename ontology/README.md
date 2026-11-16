@@ -53,8 +53,9 @@ Use Protégé or SPARQL to inspect these highlighted areas from the collateral:
 - Captures 3D integration semantics
 
 ### 8. Fabrication
-- `eda:Lithography`, `eda:Etch`, `eda:Deposition`
-- Front-end/back-end process modules
+- `eda:SemiconductorManufacturingProcess` – physical fabrication steps (`eda:Patterning`, `eda:Etching`, `eda:FilmFormation`, `eda:Doping`, ...), front-end and back-end
+- `eda:ProcessTechnology` – a foundry's named process / technology node, linked to its corners (`eda:cornerOfTechnology`) and characterized libraries (`eda:characterizedForTechnology`)
+- Manufacturing steps are siblings of, and disjoint with, the computational `eda:EDAProcess` classes under `eda:Activity`. See [docs/process-terminology.md](./docs/process-terminology.md) for how the ontology uses the word "process".
 
 
 ---
@@ -68,11 +69,21 @@ Use Protégé or SPARQL to inspect these highlighted areas from the collateral:
 
 ## Tests
 
-The `tests/` subdirectory contains the ontology validator, SPARQL query catalog, and pytest suite that originally lived with the MCP bundle. From the repo root run:
+The `tests/` subdirectory contains the ontology validator, SPARQL query catalog, pytest suites, and an OWL-RL consistency check. Python dependencies are listed in `requirements.txt`. From the repo root run:
 
 ```bash
+make install   # create .venv and install ontology/requirements.txt
+make check     # syntax + validate + reason + all tests
+make help      # list all targets
+```
+
+Or call the scripts directly:
+
+```bash
+pip install -r ontology/requirements.txt
 python ontology/tests/run_tests.py --path ontology --main eda_ontology.ttl
-pytest ontology/tests/test_eda_ontology.py
+python ontology/tests/check_consistency.py ontology/eda_ontology.ttl ontology/eda-ontology-adapter.ttl
+pytest ontology/tests/test_eda_ontology.py ontology/tests/test_process_terminology.py
 ```
 
 By default the test runner imports the MCP client from `usecases/MCP`, so keep that directory intact even if you only need the validator.

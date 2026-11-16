@@ -45,6 +45,18 @@ The EDA ontology provides a semantic foundation for AI-driven EDA, addressing th
 
 ---
 
+## Quick start
+
+```bash
+make install   # create .venv with the ontology test dependencies
+make check     # parse, validate, OWL-RL consistency check, and run all ontology tests
+make help      # list all targets
+```
+
+The top-level `Makefile` covers the core ontology. Each use case has its own dependencies and instructions in its directory.
+
+---
+
 ## What lives where
 
 - `ontology/`

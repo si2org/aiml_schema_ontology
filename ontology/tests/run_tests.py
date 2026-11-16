@@ -103,7 +103,7 @@ class OntologyTestRunner:
 
     def _run_file_integrity_tests(self):
         """Run file integrity tests"""
-        expected_files = ["eda-ontology.ttl"]
+        expected_files = [self.main_file]
         if self.adapter_file:
             expected_files.append(self.adapter_file)
 
@@ -340,7 +340,8 @@ def run_pytest():
     import subprocess
     print("\nRunning pytest test suite...")
     result = subprocess.run(
-        ["python", "-m", "pytest", "test_eda_ontology.py", "-v", "--tb=short"],
+        [sys.executable, "-m", "pytest", "test_eda_ontology.py", "test_process_terminology.py",
+         "-v", "--tb=short"],
         capture_output=False
     )
     return result.returncode == 0
@@ -356,6 +357,9 @@ def main():
     parser.add_argument("--query-only", action="store_true", help="Run only query tests")
     parser.add_argument("--validate-only", action="store_true", help="Run only validation")
     args = parser.parse_args()
+    # Resolve the ontology path against the caller's directory before changing directory,
+    # so relative paths such as `--path ontology` (run from the repo root) work.
+    args.path = os.path.abspath(args.path)
 
     # Change to script directory
     script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -386,7 +390,8 @@ def main():
         if not pytest_success:
             return 1
 
-    return 0 if summary["failed"] == 0 else 1
+    # An initialization failure runs zero tests; treat that as a failure, not a pass.
+    return 0 if summary["failed"] == 0 and summary["total_tests"] > 0 else 1
 
 
 if __name__ == "__main__":
