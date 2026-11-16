@@ -13,7 +13,8 @@
 ### More consistency needed in abbreviations
 ### 
 ### Domain-Specific Extensions:
-### The semiconductor manufacturing process hierarchy could be better integrated with design processes
+### The semiconductor manufacturing process hierarchy is now a sibling of (not a subclass of)
+### the EDA process hierarchy, under eda:Activity; see docs/process-terminology.md
 ### More explicit connections between design artifacts and manufacturing steps
 ### 
 ### Practical Usage Concerns:
@@ -54,7 +55,7 @@
 <http://example.org/eda> a owl:Ontology ;
     dc:title "Integrated Electronic Design Automation Ontology" ;
     dc:description "A comprehensive ontology representing Electronic Design Automation concepts, processes, artifacts, and their relationships, merging the taxonomy_v0p5.json and eda-ontology.ttl schemas." ;
-    owl:versionInfo "2.0.0" ;
+    owl:versionInfo "2.1.0" ;
     dct:created "2025-04-17"^^xsd:date ;
     dct:creator [
         a foaf:Person ;
@@ -67,10 +68,18 @@
 # Fundamental class hierarchy defining the core conceptual framework of EDA
 ###### Top-Level Classes ######
 
-# Root class for all activities and transformations in the EDA workflow
+# Common parent of every time-extended activity: design computations and fabrication steps.
+# Hosts the ordering/part-of properties (precedes, hasSubProcess, isPartOf) shared by both.
+# See docs/process-terminology.md for the four meanings of "process" in this ontology.
+eda:Activity a owl:Class ;
+    rdfs:label "Activity" ;
+    rdfs:comment "Any process that unfolds in time: either a computational EDA process performed by software on design data, or a physical semiconductor manufacturing step." .
+
+# Root class for computational activities performed by EDA software on design data
 eda:EDAProcess a owl:Class ;
+    rdfs:subClassOf eda:Activity ;
     rdfs:label "EDA Process" ;
-    rdfs:comment "A process in the Electronic Design Automation workflow" .
+    rdfs:comment "A computational activity in the Electronic Design Automation workflow, performed by EDA software, that consumes and produces design data (e.g., synthesis, placement, routing, OPC). Physical fabrication steps are modeled separately under eda:SemiconductorManufacturingProcess." .
 
 # Root class for all data objects and files produced or consumed in EDA
 eda:DesignArtifact a owl:Class ;
@@ -119,6 +128,13 @@ eda:OPC a owl:Class ;
     rdfs:subClassOf eda:EDAProcess ;
     rdfs:label "Optical Proximity Correction" ;
     rdfs:comment "The process of modifying mask patterns to account for lithographic distortions" .
+
+# Design-to-manufacturing handoff: the last computational step that consumes final layout data.
+# Final layout files (GDSII/OASIS) are inputs to this step, not to fabrication steps such as Patterning.
+eda:MaskDataPreparation a owl:Class ;
+    rdfs:subClassOf eda:EDAProcess ;
+    rdfs:label "Mask Data Preparation" ;
+    rdfs:comment "The computational process (fracturing, job-deck generation) that converts final layout data (e.g., GDSII, OASIS) into mask-writer data. It is the handoff point from design to manufacturing; the resulting masks are then used by fabrication steps such as eda:Patterning." .
 
 # Advanced process simultaneously optimizing multiple physical design objectives
 eda:ConcurrentPhysicalOptimization a owl:Class ;
@@ -222,7 +238,7 @@ eda:LibCorner a owl:Class ;
 eda:ProcessCorner a owl:Class ;
     rdfs:subClassOf eda:Corner ;
     rdfs:label "Process Corner" ;
-    rdfs:comment "Manufacturing process variation corner (e.g., Slow, Typical, Fast)." .
+    rdfs:comment "A variation point (e.g., TT, SS, FF, SF, FS) of a process technology. The corner name is given with eda:name; the technology it belongs to with eda:cornerOfTechnology." .
 
 # Corner representing supply voltage variations
 eda:VoltageCorner a owl:Class ;
@@ -1421,10 +1437,20 @@ eda:Underfill a owl:Class ;
 ###### Semiconductor Manufacturing Process Classes ######
 
 # Root class for semiconductor manufacturing operations
+# A physical fabrication step. Sibling of (and disjoint with) eda:EDAProcess under eda:Activity:
+# manufacturing steps act on wafers, dies and packages, not on design data.
 eda:SemiconductorManufacturingProcess a owl:Class ;
-    rdfs:subClassOf eda:EDAProcess ;
+    rdfs:subClassOf eda:Activity ;
     rdfs:label "Semiconductor Manufacturing Process" ;
-    rdfs:comment "A process in semiconductor manufacturing covering both front-end and back-end operations." .
+    rdfs:comment "A physical fabrication or assembly step performed on wafers, dies or packages, covering both front-end and back-end operations. Not a computational EDA process; a named foundry process as a whole is modeled by eda:ProcessTechnology." ;
+    owl:disjointWith eda:EDAProcess .
+
+# A foundry's named fabrication process / technology node. This is the "process" that
+# characterization corners and libraries refer to (not an individual step such as doping).
+eda:ProcessTechnology a owl:Class ;
+    rdfs:label "Process Technology" ;
+    rdfs:comment "A foundry's named fabrication process or technology node (e.g., a 5 nm FinFET process), realized by a sequence of semiconductor manufacturing steps. Process corners, operating conditions and libraries are defined relative to a process technology." ;
+    owl:disjointWith eda:Activity .
 
 # Processes for creating and preparing wafers
 eda:SubstratePreparation a owl:Class ;
@@ -1536,21 +1562,21 @@ eda:consumes a owl:ObjectProperty ;
     rdfs:domain eda:EDAProcess ;
     rdfs:range eda:DesignArtifact ;
     rdfs:label "consumes" ;
-    rdfs:comment "Relates a process to the artifact it consumes" .
+    rdfs:comment "Relates a computational EDA process to the design artifact it consumes. Not used for manufacturing steps; see eda:usedInManufacturingStep." .
 
 # Property relating processes to artifacts they produce as output
 eda:produces a owl:ObjectProperty ;
     rdfs:domain eda:EDAProcess ;
     rdfs:range eda:DesignArtifact ;
     rdfs:label "produces" ;
-    rdfs:comment "Relates a process to the artifact it produces" .
+    rdfs:comment "Relates a computational EDA process to the design artifact it produces." .
 
-# Transitive property defining temporal ordering of processes
+# Transitive property defining temporal ordering of activities (EDA or manufacturing)
 eda:precedes a owl:ObjectProperty, owl:TransitiveProperty ;
-    rdfs:domain eda:EDAProcess ;
-    rdfs:range eda:EDAProcess ;
+    rdfs:domain eda:Activity ;
+    rdfs:range eda:Activity ;
     rdfs:label "precedes" ;
-    rdfs:comment "Indicates the sequential order of processes" .
+    rdfs:comment "Indicates the sequential order of activities, either EDA processes or manufacturing steps." .
 
 # Property relating processes to tools they utilize
 eda:usesTool a owl:ObjectProperty ;
@@ -1569,32 +1595,44 @@ eda:optimizes a owl:ObjectProperty ;
 # Subprocess properties defining hierarchical process relationships
 ### Subprocess properties
 
-# Transitive property relating processes to their subprocesses
+# Transitive property relating activities to their subactivities
 eda:hasSubProcess a owl:ObjectProperty, owl:TransitiveProperty ;
-    rdfs:domain eda:EDAProcess ;
-    rdfs:range eda:EDAProcess ;
+    rdfs:domain eda:Activity ;
+    rdfs:range eda:Activity ;
     rdfs:label "has subprocess" ;
-    rdfs:comment "Relates a process to its subprocesses" .
+    rdfs:comment "Relates an activity (EDA process or manufacturing step) to its subprocesses." .
 
-# Property relating subprocesses to their parent processes
+# Property relating subactivities to their parent activities
 eda:isPartOf a owl:ObjectProperty ;
-    rdfs:domain eda:EDAProcess ;
-    rdfs:range eda:EDAProcess ;
+    rdfs:domain eda:Activity ;
+    rdfs:range eda:Activity ;
     rdfs:label "is part of" ;
-    rdfs:comment "Relates a subprocess to its parent process" ;
+    rdfs:comment "Relates a subprocess to its parent activity (EDA process or manufacturing step)." ;
     owl:inverseOf eda:hasSubProcess .
 
 # Analysis view properties linking views to corners and modes
 ### Analysis view properties
 
-# Property linking analysis views to RC corners
+# Parent of all corner-selection properties. Deliberately NOT a subproperty of
+# eda:hasOperatingCondition: a Corner (analysis-side selection) is not an OperatingCondition
+# (library characterization point), and the range of hasOperatingCondition would otherwise
+# classify every corner as an OperatingCondition.
+eda:hasCorner a owl:ObjectProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( eda:AnalysisView eda:TimingScenario eda:OperatingCondition ) ] ;
+    rdfs:range eda:Corner ;
+    rdfs:label "has corner" ;
+    rdfs:comment "Relates an analysis context, or an operating condition, to a corner it selects or belongs to." .
+
+# Property linking analysis views / timing scenarios to RC corners
 eda:hasRCCorner a owl:ObjectProperty ;
-    rdfs:domain eda:AnalysisView ;
+    rdfs:subPropertyOf eda:hasCorner ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( eda:AnalysisView eda:TimingScenario ) ] ;
     rdfs:range eda:RCCorner ;
     rdfs:label "has RC Corner" .
 
 # Property linking analysis views to library corners
 eda:hasLibCorner a owl:ObjectProperty ;
+    rdfs:subPropertyOf eda:hasCorner ;
     rdfs:domain eda:AnalysisView ;
     rdfs:range eda:LibCorner ;
     rdfs:label "has Lib Corner" .
@@ -1606,23 +1644,26 @@ eda:hasMode a owl:ObjectProperty ;
     rdfs:label "has mode" ;
     rdfs:comment "Relates an analysis view to its functional/test mode." .
 
-# Property linking analysis views to process corners
+# Property linking analysis views and operating conditions to process corners.
+# Replaces the deprecated string properties eda:process (name part) and eda:processCorner;
+# the corner name (TT, SS, ...) is carried by eda:name on the eda:ProcessCorner individual.
 eda:hasProcessCorner a owl:ObjectProperty ;
-    rdfs:subPropertyOf eda:hasOperatingCondition ;
-    rdfs:domain eda:AnalysisView ;
+    rdfs:subPropertyOf eda:hasCorner ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( eda:AnalysisView eda:OperatingCondition ) ] ;
     rdfs:range eda:ProcessCorner ;
-    rdfs:label "has process corner" .
+    rdfs:label "has process corner" ;
+    rdfs:comment "Relates an analysis view or an operating condition to the process corner it uses or was characterized at." .
 
 # Property linking analysis views to voltage corners
 eda:hasVoltageCorner a owl:ObjectProperty ;
-    rdfs:subPropertyOf eda:hasOperatingCondition ;
+    rdfs:subPropertyOf eda:hasCorner ;
     rdfs:domain eda:AnalysisView ;
     rdfs:range eda:VoltageCorner ;
     rdfs:label "has voltage corner" .
 
 # Property linking analysis views to temperature corners
 eda:hasTemperatureCorner a owl:ObjectProperty ;
-    rdfs:subPropertyOf eda:hasOperatingCondition ;
+    rdfs:subPropertyOf eda:hasCorner ;
     rdfs:domain eda:AnalysisView ;
     rdfs:range eda:TemperatureCorner ;
     rdfs:label "has temperature corner" .
@@ -1820,18 +1861,53 @@ eda:hasAnalysisView a owl:ObjectProperty ;
     rdfs:label "has Analysis View" ;
     rdfs:comment "Links a result (Metric) or the design state to the specific Analysis View under which it was obtained/evaluated." .
 
-# Property linking libraries/analysis contexts to operating conditions
+# Property linking libraries/analysis contexts to operating conditions.
+# Single declaration: an earlier duplicate with domain eda:TimingScenario was merged here,
+# because two rdfs:domain statements intersect rather than union.
 eda:hasOperatingCondition a owl:ObjectProperty ;
     rdfs:label "has operating condition" ;
-    rdfs:comment "Relates a Library or analysis context (like AnalysisView) to the operating condition used." ;
+    rdfs:comment "Relates a Library or analysis context (AnalysisView, TimingScenario) to the operating condition used." ;
     rdfs:domain [
         a owl:Class ;
         owl:unionOf (
             eda:Library
             eda:AnalysisView
+            eda:TimingScenario
         )
     ] ;
     rdfs:range eda:OperatingCondition .
+
+# Process technology properties linking corners, operating conditions and libraries
+# to the foundry process they belong to, and the technology to its fabrication steps.
+### Process technology properties
+
+# Property linking a process technology to the manufacturing steps that realize it
+eda:realizedBy a owl:ObjectProperty ;
+    rdfs:domain eda:ProcessTechnology ;
+    rdfs:range eda:SemiconductorManufacturingProcess ;
+    rdfs:label "realized by" ;
+    rdfs:comment "Relates a process technology to a semiconductor manufacturing step that is part of its fabrication flow." .
+
+# Property linking a process corner to the technology whose variation it represents
+eda:cornerOfTechnology a owl:ObjectProperty ;
+    rdfs:domain eda:ProcessCorner ;
+    rdfs:range eda:ProcessTechnology ;
+    rdfs:label "corner of technology" ;
+    rdfs:comment "Relates a process corner to the process technology whose manufacturing variation it represents." .
+
+# Property linking operating conditions and libraries to their process technology
+eda:characterizedForTechnology a owl:ObjectProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( eda:OperatingCondition eda:Library ) ] ;
+    rdfs:range eda:ProcessTechnology ;
+    rdfs:label "characterized for technology" ;
+    rdfs:comment "Relates an operating condition or a library to the process technology for which it was characterized." .
+
+# Property linking technology artifacts (e.g., TechLEF, techfile) to the technology they describe
+eda:describesTechnology a owl:ObjectProperty ;
+    rdfs:domain eda:TechnologyArtifact ;
+    rdfs:range eda:ProcessTechnology ;
+    rdfs:label "describes technology" ;
+    rdfs:comment "Relates a technology artifact (e.g., technology LEF, techfile) to the process technology whose rules and layers it defines." .
 
 # Metric properties linking stages to their performance measurements
 ### Metric properties
@@ -3138,11 +3214,12 @@ eda:inputThresholdPctRise a owl:DatatypeProperty ;
     rdfs:range xsd:float ;
     rdfs:label "input threshold percent rise" .
 
-# Property defining nominal process condition
+# Property defining nominal process derating factor (Liberty `nom_process`)
 eda:nomProcess a owl:DatatypeProperty ;
     rdfs:domain eda:Library ;
-    rdfs:range xsd:string ;
-    rdfs:label "nominal process" .
+    rdfs:range xsd:double ;
+    rdfs:label "nominal process factor" ;
+    rdfs:comment "Liberty `nom_process`: the nominal process derating factor of the library (typically 1.0). Numeric; the process technology itself is given with eda:characterizedForTechnology." .
 
 # Property defining nominal temperature in degrees Celsius
 eda:nomTemperature a owl:DatatypeProperty ;
@@ -3209,11 +3286,21 @@ eda:defaultOperatingCondition a owl:DatatypeProperty ;
 # Operating condition properties defining PVT (Process, Voltage, Temperature) conditions
 ### Operating condition properties
 
-# Property defining process corner factor or name
+# Property defining the process derating factor of an operating condition (Liberty `process`)
+eda:processFactor a owl:DatatypeProperty ;
+    rdfs:domain eda:OperatingCondition ;
+    rdfs:range xsd:double ;
+    rdfs:label "process factor" ;
+    rdfs:comment "Liberty `process` attribute of operating_conditions: a numeric process derating multiplier (nominal = 1.0). The process corner name is not stored here; use eda:hasProcessCorner." .
+
+# DEPRECATED: conflated a numeric factor and a corner name in one string.
 eda:process a owl:DatatypeProperty ;
     rdfs:domain eda:OperatingCondition ;
     rdfs:range xsd:string ;
-    rdfs:label "process corner factor/name" .
+    rdfs:label "process corner factor/name (deprecated)" ;
+    rdfs:comment "Deprecated. Use eda:processFactor for the numeric Liberty process factor, and eda:hasProcessCorner (to an eda:ProcessCorner with an eda:name) for the corner name." ;
+    owl:deprecated true ;
+    dct:isReplacedBy eda:processFactor, eda:hasProcessCorner .
 
 # Property defining operating temperature in degrees Celsius
 eda:temperature a owl:DatatypeProperty ;
@@ -3391,11 +3478,13 @@ eda:index2Array a owl:DatatypeProperty ;
 # TechLEF properties defining technology LEF file characteristics
 ### TechLEF properties
 
-# Property defining technology node specification
+# Property defining technology node specification (on a process technology, or as
+# recorded in a technology LEF file)
 eda:techNode a owl:DatatypeProperty ;
-    rdfs:domain eda:TechLEF ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( eda:TechLEF eda:ProcessTechnology ) ] ;
     rdfs:range xsd:string ;
-    rdfs:label "technology node" .
+    rdfs:label "technology node" ;
+    rdfs:comment "The technology node designation (e.g., \"5nm\") of a process technology, or as recorded in a technology LEF file." .
 
 # Property defining LEF file format version
 eda:lefVersion a owl:DatatypeProperty ;
@@ -3698,13 +3787,9 @@ eda:usesVariationMode a owl:ObjectProperty ;
 
 eda:TimingScenario a owl:Class .
 
-eda:hasOperatingCondition a owl:ObjectProperty ;
-	rdfs:domain eda:TimingScenario ;
-	rdfs:range eda:OperatingCondition .
-
-eda:hasRCCorner a owl:ObjectProperty ;
-	rdfs:domain eda:TimingScenario ;
-	rdfs:range eda:RCCorner .
+# eda:hasOperatingCondition and eda:hasRCCorner are declared once, in the analysis-view
+# section, with eda:TimingScenario included in their domains. They were previously
+# re-declared here with a second rdfs:domain, which RDFS intersects with the first.
 
 eda:scenarioConstraints a owl:ObjectProperty ;
 	rdfs:domain eda:TimingScenario ;
@@ -3715,9 +3800,14 @@ eda:analyzedInScenario a owl:ObjectProperty ;
 	rdfs:range eda:TimingScenario .
 
 # PVT (explicit units)
+# DEPRECATED: redundant with eda:process; replaced by the object property eda:hasProcessCorner.
 eda:processCorner a owl:DatatypeProperty ;
 	rdfs:domain eda:OperatingCondition ;
-	rdfs:range xsd:string .
+	rdfs:range xsd:string ;
+	rdfs:label "process corner (deprecated)" ;
+	rdfs:comment "Deprecated. Use eda:hasProcessCorner to link the operating condition to an eda:ProcessCorner individual, whose eda:name carries the corner name (e.g., \"TT\")." ;
+	owl:deprecated true ;
+	dct:isReplacedBy eda:hasProcessCorner .
 
 
 ### Derate facts
@@ -4215,7 +4305,7 @@ eda:GDSIIFile a owl:Class ;
     rdfs:subClassOf eda:GDSII ;
     rdfs:label "GDSII File" ;
     rdfs:comment "Graphic Data System II file for final layout data used in mask generation." ;
-    eda:isInputTo eda:Patterning, eda:DesignRuleChecking, eda:OPC ;
+    eda:isInputTo eda:MaskDataPreparation, eda:DesignRuleChecking, eda:OPC ;
     eda:isOutputOf eda:PhysicalDesign ;
     eda:isSupportedBy eda:CadenceVirtuoso, eda:MentorCalibre, eda:KLayout ;
     eda:usedInManufacturingStep eda:Patterning ;
@@ -4264,7 +4354,7 @@ eda:OASISFile a owl:Class ;
     rdfs:subClassOf eda:GDSII ;
     rdfs:label "OASIS File" ;
     rdfs:comment "Open Artwork System Interchange Standard file, a compact layout format for mask preparation." ;
-    eda:isInputTo eda:Patterning, eda:DesignRuleChecking ;
+    eda:isInputTo eda:MaskDataPreparation, eda:DesignRuleChecking ;
     eda:isOutputOf eda:PhysicalDesign ;
     eda:isSupportedBy eda:MentorCalibre, eda:SynopsysICValidator, eda:KLayout ;
     eda:usedInManufacturingStep eda:Patterning .
@@ -4385,7 +4475,7 @@ eda:isInputTo a owl:ObjectProperty ;
     rdfs:domain eda:FileFormat ;
     rdfs:range eda:EDAProcess ;
     rdfs:label "is input to" ;
-    rdfs:comment "Relates a file format to the EDA process it serves as input for." ;
+    rdfs:comment "Relates a file format to the computational EDA process that reads it as input. Do not use with manufacturing steps (that would classify them as EDA processes); use eda:usedInManufacturingStep instead." ;
     owl:inverseOf eda:consumes .
 
 # Property relating file formats to processes that produce them
@@ -4416,7 +4506,7 @@ eda:usedInManufacturingStep a owl:ObjectProperty ;
     rdfs:domain eda:FileFormat ;
     rdfs:range eda:SemiconductorManufacturingProcess ;
     rdfs:label "used in manufacturing step" ;
-    rdfs:comment "Relates a file format to the semiconductor manufacturing process it supports." .
+    rdfs:comment "Informational link from a file format to a semiconductor manufacturing step whose masks or recipes are ultimately derived from data in that format. Unlike eda:isInputTo / eda:consumes, it does not state that the step reads the file, and it does not classify the step as an EDA process." .
 
 # Datatype properties defining file format characteristics
 ### Datatype Properties
@@ -4592,12 +4682,15 @@ eda:TimingSignoff rdfs:subClassOf [
 		owl:minCardinality "1"^^xsd:nonNegativeInteger
 ] .
 
-# Constraint: GDSII files are consumed by exactly one patterning process
+# Constraint: GDSII files are consumed by at least one mask data preparation process.
+# (Previously: "exactly one eda:Patterning". Patterning is a fabrication step and cannot
+# consume a file. Via the range of isInputTo, that axiom forced the Patterning individual
+# to also be an EDAProcess; with EDAProcess now disjoint from
+# SemiconductorManufacturingProcess it would make eda:GDSIIFile unsatisfiable.)
 eda:GDSIIFile rdfs:subClassOf [
 		a owl:Restriction ;
 		owl:onProperty eda:isInputTo ;
-		owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-		owl:onClass eda:Patterning
+		owl:someValuesFrom eda:MaskDataPreparation
 ] .
 
 # Axiom ensuring consistency between consumes and isInputTo properties
