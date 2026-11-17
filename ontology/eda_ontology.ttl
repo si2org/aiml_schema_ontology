@@ -42,10 +42,7 @@
 @prefix vann: <http://purl.org/vocab/vann/> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix time: <http://www.w3.org/2006/time#> .
-@prefix om: <http://www.ontology-of-units-of-measure.org/resource/om-2/> .
 @prefix schema: <https://schema.org/> .
-@prefix crsnt: <http://mlcommons.org/croissant/> .
-@prefix foaf: <http://xmlns.com/foaf/0.1/> .
 
 # Machine learning namespace for model cards and datasets
 @prefix ml: <http://example.org/ml#> .
