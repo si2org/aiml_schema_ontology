@@ -1,0 +1,5 @@
+# Python dependencies for the ontology tests and checks in ontology/tests/.
+# Install with:  pip install -r ontology/requirements.txt   (or: make install)
+rdflib>=7.0        # parsing, SPARQL, serialization
+owlrl>=7.0         # OWL-RL reasoning (test_process_terminology.py, make reason)
+pytest>=8.0        # test runner

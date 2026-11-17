@@ -56,15 +56,26 @@ parser = argparse.ArgumentParser(description="Monolithic EDA Ontology MCP Server
 parser.add_argument("--file", default="../../ontology/eda_ontology.ttl", help="Path to the ontology file")
 parser.add_argument("--adapter", default="../../ontology/eda-ontology-adapter.ttl", help="Path to the adapter ontology")
 parser.add_argument("--sparql-endpoint", default="", help="SPARQL endpoint URL (empty for Local File Mode)")
+parser.add_argument("--transport", choices=["stdio", "streamable-http", "sse"], default="stdio",
+                    help="MCP transport: stdio (default, launched by an MCP client) or an HTTP transport")
+parser.add_argument("--host", default="127.0.0.1", help="Bind address for HTTP transports")
+parser.add_argument("--port", type=int, default=8000, help="Port for HTTP transports")
 args = parser.parse_args()
 
 logger.info("Starting Monolithic EDA Ontology MCP Server v1.0.0")
+
+# Lifespan state shared with resource handlers. Tools receive it through
+# ctx.request_context.lifespan_context; resource functions get no Context, and FastMCP
+# has no public accessor for it (the former `mcp._lifespan_context` does not exist).
+_LIFESPAN_STATE: Dict[str, Any] = {}
 
 # Define MCP instance
 mcp = FastMCP(
     "EDA Ontology Explorer (Monolithic)",
     dependencies=["rdflib[sparql]", "requests"],
-    lifespan=lambda mcp: triplestore_lifespan(mcp, args.file, args.adapter, args.sparql_endpoint)
+    lifespan=lambda mcp: triplestore_lifespan(mcp, args.file, args.adapter, args.sparql_endpoint),
+    host=args.host,
+    port=args.port,
 )
 
 
@@ -120,16 +131,20 @@ async def triplestore_lifespan(
             except Exception as e:
                 logger.warning(f"Failed to load adapter ontology: {str(e)}")
 
+    state = {
+        "graph": graph,
+        "metrics": metrics,
+        "max_tokens": max_tokens,
+        "ontology_file": ontology_file,
+        "sparql_endpoint": sparql_endpoint
+    }
+    # Resources have no Context argument, so they read this module-level copy.
+    _LIFESPAN_STATE.update(state)
     try:
         logger.info("Triplestore initialized successfully")
-        yield {
-            "graph": graph,
-            "metrics": metrics,
-            "max_tokens": max_tokens,
-            "ontology_file": ontology_file,
-            "sparql_endpoint": sparql_endpoint
-        }
+        yield state
     finally:
+        _LIFESPAN_STATE.clear()
         logger.info("Shutting down triplestore connection")
 
 
@@ -141,7 +156,7 @@ async def triplestore_lifespan(
 def get_graph() -> str:
     """Retrieve the main graph serialized in Turtle format."""
     logger.debug("Fetching main graph")
-    graph = mcp._lifespan_context["graph"]
+    graph = _LIFESPAN_STATE["graph"]
     try:
         if HAS_SPARQLSTORE and isinstance(graph, SPARQLStore):
             results = graph.query("SELECT ?s ?p ?o WHERE { ?s ?p ?o } LIMIT 100")
@@ -158,12 +173,13 @@ def get_graph() -> str:
 @mcp.resource("schema://classes")
 def get_classes() -> str:
     """Retrieve all OWL classes from the ontology."""
-    graph = mcp._lifespan_context["graph"]
+    graph = _LIFESPAN_STATE["graph"]
     query = """
     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
     PREFIX owl: <http://www.w3.org/2002/07/owl#>
     SELECT DISTINCT ?class ?label ?comment WHERE {
         ?class a owl:Class .
+        FILTER(isIRI(?class))   # skip anonymous classes (owl:unionOf / restrictions)
         OPTIONAL { ?class rdfs:label ?label }
         OPTIONAL { ?class rdfs:comment ?comment }
     }
@@ -186,7 +202,7 @@ def get_classes() -> str:
 @mcp.resource("schema://properties")
 def get_properties() -> str:
     """Retrieve all properties from the ontology."""
-    graph = mcp._lifespan_context["graph"]
+    graph = _LIFESPAN_STATE["graph"]
     query = """
     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
     PREFIX owl: <http://www.w3.org/2002/07/owl#>
@@ -221,7 +237,7 @@ def get_properties() -> str:
 @mcp.resource("schema://hierarchy/{class_name}")
 def get_class_hierarchy(class_name: str) -> str:
     """Retrieve the class hierarchy for a given class."""
-    graph = mcp._lifespan_context["graph"]
+    graph = _LIFESPAN_STATE["graph"]
 
     # Handle both full URI and short name
     if not class_name.startswith("http"):
@@ -254,10 +270,10 @@ def get_class_hierarchy(class_name: str) -> str:
 @mcp.resource("explore://domains")
 def get_eda_domains() -> str:
     """Get the main EDA domains covered by the ontology."""
-    graph = mcp._lifespan_context["graph"]
+    graph = _LIFESPAN_STATE["graph"]
 
     domains = {
-        "EDAProcess": "Root class for all EDA workflow activities",
+        "EDAProcess": "Root class for computational EDA workflow activities",
         "DesignArtifact": "Root class for all design data objects",
         "Tool": "Root class for EDA software tools",
         "Metric": "Root class for quantifiable measures",
@@ -267,7 +283,7 @@ def get_eda_domains() -> str:
         "Timing": "Timing analysis and constraints",
         "Power": "Power analysis and optimization",
         "Library": "Cell libraries and characterization",
-        "Manufacturing": "Semiconductor manufacturing",
+        "SemiconductorManufacturingProcess": "Semiconductor manufacturing (fabrication) steps",
         "SystemDesign": "Multi-chiplet and advanced packaging"
     }
 
@@ -295,7 +311,7 @@ def get_eda_domains() -> str:
 @mcp.resource("metrics://status")
 def get_metrics() -> str:
     """Retrieve server metrics in JSON format."""
-    metrics = mcp._lifespan_context["metrics"]
+    metrics = _LIFESPAN_STATE["metrics"]
     return json.dumps(metrics, indent=2)
 
 
@@ -838,9 +854,12 @@ def tutorial(ctx: Context) -> list[base.Message]:
 # ============================================================================
 
 if __name__ == "__main__":
-    logger.info("Starting Monolithic EDA Ontology MCP Server")
+    logger.info(f"Starting Monolithic EDA Ontology MCP Server (transport={args.transport})")
+    if args.transport != "stdio":
+        path = mcp.settings.streamable_http_path if args.transport == "streamable-http" else mcp.settings.sse_path
+        logger.info(f"Listening on http://{args.host}:{args.port}{path}")
     try:
-        mcp.run()
+        mcp.run(transport=args.transport)
     except KeyboardInterrupt:
         logger.info("Server shutdown requested")
         sys.exit(0)
